@@ -8,6 +8,10 @@
 
 @property (nonatomic) long userID;
 
++ (long) getUserID:(NSString *)string;    //根据账户名获取用户id
++ (long) availableUserID;   //从服务器获取可用id，用于注册
+
 - (BOOL) isLogin;
+
 
 @end

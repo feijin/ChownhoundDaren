@@ -10,14 +10,23 @@
 
 @implementation ZJFUser
 
-@synthesize email,name,phoneNumber,area,bornDate,signature,headPhotoKey;
+@synthesize userID,email,name,phoneNumber,area,bornDate,signature,headPhotoKey;
 
-- (NSMutableDictionary *) allLocationItems{
-    return allLocationItems;
+- (id)initWithUserID:(long)id
+{
+    self = [super init];
+    
+    if (self) {
+        userID = id;
+    }
+    
+    return self;
 }
 
-- (NSMutableDictionary *) allFoodItems{
-    return allFoodItems;
+- (id)init
+{
+    NSAssert(false,@"this class is Singleton !");
+    return nil;
 }
 
 @end

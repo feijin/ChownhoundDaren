@@ -1,18 +1,23 @@
 //
 //  ZJFShareItemStore.h
-//  单实例，用来保存用户分享的全部记录
+//  管理用户“分享”的类
 
 #import <Foundation/Foundation.h>
 @class ZJFLocation;
+@class ZJFShareItem;
 
 @interface ZJFShareItemStore : NSObject
 {
-    NSMutableArray * allItems; //object: ZJFShareItem forkey:time;
+    NSMutableArray * allItems; 
 }
 
 + (ZJFShareItemStore *)shareStore;
 
-- (NSArray *) allItems;
-- (void) reciveItems:(long)userID withLocation:(ZJFLocation *)location;  //根据用户和所处位置获取服务器数据
+- (NSArray *) allItems;    //获取用户的最近记录，默认：20条
+- (ZJFShareItem *) deleteItem;    //删除用户删除的记录
+- (void)addItem:(ZJFShareItem *)item;   //添加用户分享记录
+
+- (void)receiveMoreItems;   //从服务器获取更多“分享”记录
+
 
 @end

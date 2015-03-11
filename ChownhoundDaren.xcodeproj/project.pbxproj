@@ -11,6 +11,8 @@
 		C2360E2C1AAD870B00B60E1A /* Document in Resources */ = {isa = PBXBuildFile; fileRef = C2360E2B1AAD870B00B60E1A /* Document */; };
 		C25F52AF1AAFEB3800A1A409 /* ZJFLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C25F52AE1AAFEB3800A1A409 /* ZJFLocation.m */; };
 		C26A63551AA8335500E3993E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26A63531AA8335500E3993E /* Main.storyboard */; };
+		C275BF451AB03580002A943C /* ZJFFindNearlyStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C275BF441AB03580002A943C /* ZJFFindNearlyStore.m */; };
+		C275BF4B1AB04048002A943C /* ZJFComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C275BF4A1AB04048002A943C /* ZJFComment.m */; };
 		C27D4A351AAACA8A00509488 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27D4A341AAACA8A00509488 /* AVOSCloud.framework */; };
 		C27D4A371AAACAD000509488 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27D4A361AAACAD000509488 /* SystemConfiguration.framework */; };
 		C27D4A391AAACADE00509488 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27D4A381AAACADE00509488 /* MobileCoreServices.framework */; };
@@ -29,6 +31,11 @@
 		C2BA6FCA1AAF12D400A1C0C4 /* ZJFUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FC91AAF12D400A1C0C4 /* ZJFUser.m */; };
 		C2BA6FD91AAF2D8C00A1C0C4 /* ZJFShareItemStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FD81AAF2D8C00A1C0C4 /* ZJFShareItemStore.m */; };
 		C2BA6FDC1AAF2FFF00A1C0C4 /* ZJFShareitem.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FDB1AAF2FFF00A1C0C4 /* ZJFShareitem.m */; };
+		C2BCECCC1AB0645B003B352C /* ZJFCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECCB1AB0645B003B352C /* ZJFCollection.m */; };
+		C2BCECCF1AB0685F003B352C /* ZJFImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECCE1AB0685F003B352C /* ZJFImageStore.m */; };
+		C2BCECD21AB06BB4003B352C /* ZJFCommentStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECD11AB06BB4003B352C /* ZJFCommentStore.m */; };
+		C2BCECD51AB0738B003B352C /* ZJFLocationStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECD41AB0738B003B352C /* ZJFLocationStore.m */; };
+		C2BCECD81AB07B42003B352C /* ZJFCollectionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECD71AB07B42003B352C /* ZJFCollectionStore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +54,10 @@
 		C25F52AD1AAFEB3800A1A409 /* ZJFLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFLocation.h; sourceTree = "<group>"; };
 		C25F52AE1AAFEB3800A1A409 /* ZJFLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFLocation.m; sourceTree = "<group>"; };
 		C26A63541AA8335500E3993E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C275BF431AB03580002A943C /* ZJFFindNearlyStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFFindNearlyStore.h; sourceTree = "<group>"; };
+		C275BF441AB03580002A943C /* ZJFFindNearlyStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFFindNearlyStore.m; sourceTree = "<group>"; };
+		C275BF491AB04048002A943C /* ZJFComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ZJFComment.h; sourceTree = "<group>"; };
+		C275BF4A1AB04048002A943C /* ZJFComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFComment.m; sourceTree = "<group>"; };
 		C27D4A341AAACA8A00509488 /* AVOSCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AVOSCloud.framework; sourceTree = "<group>"; };
 		C27D4A361AAACAD000509488 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C27D4A381AAACADE00509488 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -76,6 +87,16 @@
 		C2BA6FD81AAF2D8C00A1C0C4 /* ZJFShareItemStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFShareItemStore.m; sourceTree = "<group>"; };
 		C2BA6FDA1AAF2FFF00A1C0C4 /* ZJFShareitem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFShareitem.h; sourceTree = "<group>"; };
 		C2BA6FDB1AAF2FFF00A1C0C4 /* ZJFShareitem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFShareitem.m; sourceTree = "<group>"; };
+		C2BCECCA1AB0645B003B352C /* ZJFCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCollection.h; sourceTree = "<group>"; };
+		C2BCECCB1AB0645B003B352C /* ZJFCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCollection.m; sourceTree = "<group>"; };
+		C2BCECCD1AB0685F003B352C /* ZJFImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFImageStore.h; sourceTree = "<group>"; };
+		C2BCECCE1AB0685F003B352C /* ZJFImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFImageStore.m; sourceTree = "<group>"; };
+		C2BCECD01AB06BB4003B352C /* ZJFCommentStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCommentStore.h; sourceTree = "<group>"; };
+		C2BCECD11AB06BB4003B352C /* ZJFCommentStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCommentStore.m; sourceTree = "<group>"; };
+		C2BCECD31AB0738B003B352C /* ZJFLocationStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFLocationStore.h; sourceTree = "<group>"; };
+		C2BCECD41AB0738B003B352C /* ZJFLocationStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFLocationStore.m; sourceTree = "<group>"; };
+		C2BCECD61AB07B42003B352C /* ZJFCollectionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCollectionStore.h; sourceTree = "<group>"; };
+		C2BCECD71AB07B42003B352C /* ZJFCollectionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCollectionStore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +128,8 @@
 		C2360E281AAC7E2A00B60E1A /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				C2BA6FC21AAF125500A1C0C4 /* ZJFCurrentUser.h */,
+				C2BA6FC31AAF125500A1C0C4 /* ZJFCurrentUser.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -226,16 +249,28 @@
 		C2BA6FB31AAEE4D300A1C0C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C2BA6FC21AAF125500A1C0C4 /* ZJFCurrentUser.h */,
-				C2BA6FC31AAF125500A1C0C4 /* ZJFCurrentUser.m */,
 				C2BA6FC81AAF12D400A1C0C4 /* ZJFUser.h */,
 				C2BA6FC91AAF12D400A1C0C4 /* ZJFUser.m */,
 				C25F52AD1AAFEB3800A1A409 /* ZJFLocation.h */,
 				C25F52AE1AAFEB3800A1A409 /* ZJFLocation.m */,
+				C2BCECD31AB0738B003B352C /* ZJFLocationStore.h */,
+				C2BCECD41AB0738B003B352C /* ZJFLocationStore.m */,
+				C275BF491AB04048002A943C /* ZJFComment.h */,
+				C275BF4A1AB04048002A943C /* ZJFComment.m */,
+				C2BCECD01AB06BB4003B352C /* ZJFCommentStore.h */,
+				C2BCECD11AB06BB4003B352C /* ZJFCommentStore.m */,
 				C2BA6FDA1AAF2FFF00A1C0C4 /* ZJFShareitem.h */,
 				C2BA6FDB1AAF2FFF00A1C0C4 /* ZJFShareitem.m */,
 				C2BA6FD71AAF2D8C00A1C0C4 /* ZJFShareItemStore.h */,
 				C2BA6FD81AAF2D8C00A1C0C4 /* ZJFShareItemStore.m */,
+				C2BCECCA1AB0645B003B352C /* ZJFCollection.h */,
+				C2BCECCB1AB0645B003B352C /* ZJFCollection.m */,
+				C2BCECD61AB07B42003B352C /* ZJFCollectionStore.h */,
+				C2BCECD71AB07B42003B352C /* ZJFCollectionStore.m */,
+				C2BCECCD1AB0685F003B352C /* ZJFImageStore.h */,
+				C2BCECCE1AB0685F003B352C /* ZJFImageStore.m */,
+				C275BF431AB03580002A943C /* ZJFFindNearlyStore.h */,
+				C275BF441AB03580002A943C /* ZJFFindNearlyStore.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -342,13 +377,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C275BF4B1AB04048002A943C /* ZJFComment.m in Sources */,
 				C2BA6FC71AAF129000A1C0C4 /* ZJFConfig.m in Sources */,
+				C2BCECD81AB07B42003B352C /* ZJFCollectionStore.m in Sources */,
 				C2BA6FC41AAF125500A1C0C4 /* ZJFCurrentUser.m in Sources */,
+				C275BF451AB03580002A943C /* ZJFFindNearlyStore.m in Sources */,
+				C2BCECD21AB06BB4003B352C /* ZJFCommentStore.m in Sources */,
 				C2BA6FD91AAF2D8C00A1C0C4 /* ZJFShareItemStore.m in Sources */,
 				C2BA6FDC1AAF2FFF00A1C0C4 /* ZJFShareitem.m in Sources */,
 				C2A225B81AA1EB0B00DA66E9 /* AppDelegate.m in Sources */,
 				C2BA6FCA1AAF12D400A1C0C4 /* ZJFUser.m in Sources */,
+				C2BCECCC1AB0645B003B352C /* ZJFCollection.m in Sources */,
 				C25F52AF1AAFEB3800A1A409 /* ZJFLocation.m in Sources */,
+				C2BCECD51AB0738B003B352C /* ZJFLocationStore.m in Sources */,
+				C2BCECCF1AB0685F003B352C /* ZJFImageStore.m in Sources */,
 				C2A225B51AA1EB0B00DA66E9 /* main.m in Sources */,
 				C2B4AC401AAB5D9100373B03 /* NSString+Location.m in Sources */,
 			);

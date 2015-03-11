@@ -5,5 +5,6 @@
 
 @interface ZJFLocation : CLLocation
 
+@property (nonatomic,readonly,strong) NSDate *createDate;
 
 @end

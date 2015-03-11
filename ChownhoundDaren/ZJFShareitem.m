@@ -10,6 +10,6 @@
 
 @implementation ZJFShareItem
 
-@synthesize userID,description,createDate,restaurantName,price,priciseAddress,location;
+@synthesize description,createDate,location;
 
 @end

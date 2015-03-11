@@ -10,4 +10,17 @@
 
 @implementation ZJFLocation
 
+@synthesize createDate;
+
+- (instancetype)init
+{
+    self = [super init];
+    
+    if (self) {
+        createDate = [NSDate date];
+    }
+    
+    return self;
+}
+
 @end

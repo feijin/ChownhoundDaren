@@ -8,6 +8,16 @@
 
 @synthesize userID;
 
+- (id)init
+{
+    self = [super init];
+    
+    if(self)
+     userID = 0;
+    
+    return self;
+}
+
 - (BOOL) isLogin{
     if (userID > 0 ) {
         return TRUE;

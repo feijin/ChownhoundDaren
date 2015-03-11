@@ -4,3 +4,4 @@
 4. 视图控制对象之间传递数据。
 5. 创建无重复键：CFUUIDREF
 6. 推荐做法是NSString用copy,delegate用assign（且一定要用assign，不要问为什么，只管去用就是了，以后你会明白的），非objc数据类型，比如int，float等基本数据类型用assign（默认就是assign），而其它objc类型，比如NSArray，NSDate用retain。
+7. 用户上拉收藏的表格行，先更新数据模型，在显示出来。
