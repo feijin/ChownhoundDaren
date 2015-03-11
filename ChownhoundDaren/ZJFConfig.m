@@ -1,0 +1,13 @@
+//
+//  ZJFConfig.m
+//  ChownhoundDaren
+//
+//  Created by 飞 on 15/3/10.
+//  Copyright (c) 2015年 Chowhound Daren. All rights reserved.
+//
+
+#import "ZJFConfig.h"
+
+@implementation ZJFConfig
+
+@end

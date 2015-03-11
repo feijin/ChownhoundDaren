@@ -1,0 +1,6 @@
+1. 建立表格行类，一行为类。一个上传数据为类。CHDFoodStore.h
+2. CHDFoodItem.h,
+3. 登录之后在发送通知，登录状态改变。dismiss当前视图。
+4. 视图控制对象之间传递数据。
+5. 创建无重复键：CFUUIDREF
+6. 推荐做法是NSString用copy,delegate用assign（且一定要用assign，不要问为什么，只管去用就是了，以后你会明白的），非objc数据类型，比如int，float等基本数据类型用assign（默认就是assign），而其它objc类型，比如NSArray，NSDate用retain。
