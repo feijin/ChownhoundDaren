@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C2360E2A1AAC841800B60E1A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2360E291AAC841800B60E1A /* MapKit.framework */; };
 		C2360E2C1AAD870B00B60E1A /* Document in Resources */ = {isa = PBXBuildFile; fileRef = C2360E2B1AAD870B00B60E1A /* Document */; };
+		C25F52AF1AAFEB3800A1A409 /* ZJFLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C25F52AE1AAFEB3800A1A409 /* ZJFLocation.m */; };
 		C26A63551AA8335500E3993E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26A63531AA8335500E3993E /* Main.storyboard */; };
 		C27D4A351AAACA8A00509488 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27D4A341AAACA8A00509488 /* AVOSCloud.framework */; };
 		C27D4A371AAACAD000509488 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27D4A361AAACAD000509488 /* SystemConfiguration.framework */; };
@@ -26,7 +27,6 @@
 		C2BA6FC41AAF125500A1C0C4 /* ZJFCurrentUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FC31AAF125500A1C0C4 /* ZJFCurrentUser.m */; };
 		C2BA6FC71AAF129000A1C0C4 /* ZJFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FC61AAF129000A1C0C4 /* ZJFConfig.m */; };
 		C2BA6FCA1AAF12D400A1C0C4 /* ZJFUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FC91AAF12D400A1C0C4 /* ZJFUser.m */; };
-		C2BA6FD31AAF245000A1C0C4 /* ZJFLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FD21AAF245000A1C0C4 /* ZJFLocation.m */; };
 		C2BA6FD91AAF2D8C00A1C0C4 /* ZJFShareItemStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FD81AAF2D8C00A1C0C4 /* ZJFShareItemStore.m */; };
 		C2BA6FDC1AAF2FFF00A1C0C4 /* ZJFShareitem.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FDB1AAF2FFF00A1C0C4 /* ZJFShareitem.m */; };
 /* End PBXBuildFile section */
@@ -44,6 +44,8 @@
 /* Begin PBXFileReference section */
 		C2360E291AAC841800B60E1A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C2360E2B1AAD870B00B60E1A /* Document */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Document; sourceTree = "<group>"; };
+		C25F52AD1AAFEB3800A1A409 /* ZJFLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFLocation.h; sourceTree = "<group>"; };
+		C25F52AE1AAFEB3800A1A409 /* ZJFLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFLocation.m; sourceTree = "<group>"; };
 		C26A63541AA8335500E3993E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C27D4A341AAACA8A00509488 /* AVOSCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AVOSCloud.framework; sourceTree = "<group>"; };
 		C27D4A361AAACAD000509488 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -70,8 +72,6 @@
 		C2BA6FC61AAF129000A1C0C4 /* ZJFConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFConfig.m; sourceTree = "<group>"; };
 		C2BA6FC81AAF12D400A1C0C4 /* ZJFUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFUser.h; sourceTree = "<group>"; };
 		C2BA6FC91AAF12D400A1C0C4 /* ZJFUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFUser.m; sourceTree = "<group>"; };
-		C2BA6FD11AAF245000A1C0C4 /* ZJFLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZJFLocation.h; path = ../ZJFLocation.h; sourceTree = "<group>"; };
-		C2BA6FD21AAF245000A1C0C4 /* ZJFLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZJFLocation.m; path = ../ZJFLocation.m; sourceTree = "<group>"; };
 		C2BA6FD71AAF2D8C00A1C0C4 /* ZJFShareItemStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFShareItemStore.h; sourceTree = "<group>"; };
 		C2BA6FD81AAF2D8C00A1C0C4 /* ZJFShareItemStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFShareItemStore.m; sourceTree = "<group>"; };
 		C2BA6FDA1AAF2FFF00A1C0C4 /* ZJFShareitem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFShareitem.h; sourceTree = "<group>"; };
@@ -230,10 +230,10 @@
 				C2BA6FC31AAF125500A1C0C4 /* ZJFCurrentUser.m */,
 				C2BA6FC81AAF12D400A1C0C4 /* ZJFUser.h */,
 				C2BA6FC91AAF12D400A1C0C4 /* ZJFUser.m */,
+				C25F52AD1AAFEB3800A1A409 /* ZJFLocation.h */,
+				C25F52AE1AAFEB3800A1A409 /* ZJFLocation.m */,
 				C2BA6FDA1AAF2FFF00A1C0C4 /* ZJFShareitem.h */,
 				C2BA6FDB1AAF2FFF00A1C0C4 /* ZJFShareitem.m */,
-				C2BA6FD11AAF245000A1C0C4 /* ZJFLocation.h */,
-				C2BA6FD21AAF245000A1C0C4 /* ZJFLocation.m */,
 				C2BA6FD71AAF2D8C00A1C0C4 /* ZJFShareItemStore.h */,
 				C2BA6FD81AAF2D8C00A1C0C4 /* ZJFShareItemStore.m */,
 			);
@@ -345,10 +345,10 @@
 				C2BA6FC71AAF129000A1C0C4 /* ZJFConfig.m in Sources */,
 				C2BA6FC41AAF125500A1C0C4 /* ZJFCurrentUser.m in Sources */,
 				C2BA6FD91AAF2D8C00A1C0C4 /* ZJFShareItemStore.m in Sources */,
-				C2BA6FD31AAF245000A1C0C4 /* ZJFLocation.m in Sources */,
 				C2BA6FDC1AAF2FFF00A1C0C4 /* ZJFShareitem.m in Sources */,
 				C2A225B81AA1EB0B00DA66E9 /* AppDelegate.m in Sources */,
 				C2BA6FCA1AAF12D400A1C0C4 /* ZJFUser.m in Sources */,
+				C25F52AF1AAFEB3800A1A409 /* ZJFLocation.m in Sources */,
 				C2A225B51AA1EB0B00DA66E9 /* main.m in Sources */,
 				C2B4AC401AAB5D9100373B03 /* NSString+Location.m in Sources */,
 			);
