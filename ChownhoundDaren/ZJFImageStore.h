@@ -6,7 +6,7 @@
 
 @interface ZJFImageStore : NSObject
 {
-    NSMutableDictionary * imageKeys;
+    NSMutableDictionary * imageKeys;  // object:uiimage forkey:key;
 }
 
 - (void)saveToLocal;

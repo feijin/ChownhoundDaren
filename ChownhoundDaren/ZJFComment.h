@@ -6,7 +6,7 @@
 
 @interface ZJFComment : NSObject
 
-@property (nonatomic,readonly) long commentUserID;
+@property (nonatomic,readonly) NSString * commentUserID;
 @property (nonatomic,readonly,strong) NSString *comment;
 @property (nonatomic,readonly,strong) NSDate *commentDate;
 

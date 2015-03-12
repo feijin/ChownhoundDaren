@@ -9,7 +9,7 @@
 @interface ZJFUser : NSObject
 
 //邮件或者电话号码具有唯一性
-@property (nonatomic, readonly) long userID;
+//@property (nonatomic, readonly) long userID;
 @property (nonatomic, strong) NSString * email;
 @property (nonatomic, strong) NSString * name;  //中英文下划线
 @property (nonatomic, strong) NSString * phoneNumber;

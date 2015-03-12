@@ -10,4 +10,8 @@
 
 @interface ZJFConfig : NSObject
 
+extern  NSString *const AVOSCloudAppID;
+extern  NSString *const AVOSCloudAppKey;
+
+
 @end

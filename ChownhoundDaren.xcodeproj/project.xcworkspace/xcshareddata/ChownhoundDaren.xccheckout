@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>407C7A57-4AAC-407A-9C4E-6119E5F66D5D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ChownhoundDaren</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>17A7EF553CD942C43A050BDD7E776294B585CCCF</key>
+		<string>https://github.com/feijin/ChownhoundDaren.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ChownhoundDaren.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>17A7EF553CD942C43A050BDD7E776294B585CCCF</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/feijin/ChownhoundDaren.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>17A7EF553CD942C43A050BDD7E776294B585CCCF</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>17A7EF553CD942C43A050BDD7E776294B585CCCF</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ChownhoundDaren</string>
+		</dict>
+	</array>
+</dict>
+</plist>
