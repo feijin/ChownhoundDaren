@@ -10,6 +10,7 @@
 		C2360E2A1AAC841800B60E1A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2360E291AAC841800B60E1A /* MapKit.framework */; };
 		C2360E2C1AAD870B00B60E1A /* Document in Resources */ = {isa = PBXBuildFile; fileRef = C2360E2B1AAD870B00B60E1A /* Document */; };
 		C25F52AF1AAFEB3800A1A409 /* ZJFLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C25F52AE1AAFEB3800A1A409 /* ZJFLocation.m */; };
+		C268A4551AB2CA840055E28B /* NSString+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = C268A4541AB2CA840055E28B /* NSString+Location.m */; };
 		C26A63551AA8335500E3993E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26A63531AA8335500E3993E /* Main.storyboard */; };
 		C275BF451AB03580002A943C /* ZJFFindNearlyStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C275BF441AB03580002A943C /* ZJFFindNearlyStore.m */; };
 		C275BF4B1AB04048002A943C /* ZJFComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C275BF4A1AB04048002A943C /* ZJFComment.m */; };
@@ -25,7 +26,6 @@
 		C2A225C31AA1EB0B00DA66E9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A225C11AA1EB0B00DA66E9 /* LaunchScreen.xib */; };
 		C2A225CF1AA1EB0B00DA66E9 /* ChownhoundDarenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A225CE1AA1EB0B00DA66E9 /* ChownhoundDarenTests.m */; };
 		C2B4AC3B1AAB5B8D00373B03 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B4AC3A1AAB5B8D00373B03 /* CoreData.framework */; };
-		C2B4AC401AAB5D9100373B03 /* NSString+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B4AC3F1AAB5D9100373B03 /* NSString+Location.m */; };
 		C2BA6FC41AAF125500A1C0C4 /* ZJFCurrentUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FC31AAF125500A1C0C4 /* ZJFCurrentUser.m */; };
 		C2BA6FC71AAF129000A1C0C4 /* ZJFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FC61AAF129000A1C0C4 /* ZJFConfig.m */; };
 		C2BA6FCA1AAF12D400A1C0C4 /* ZJFUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FC91AAF12D400A1C0C4 /* ZJFUser.m */; };
@@ -70,6 +70,8 @@
 		C2360E2B1AAD870B00B60E1A /* Document */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Document; sourceTree = "<group>"; };
 		C25F52AD1AAFEB3800A1A409 /* ZJFLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFLocation.h; sourceTree = "<group>"; };
 		C25F52AE1AAFEB3800A1A409 /* ZJFLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFLocation.m; sourceTree = "<group>"; };
+		C268A4531AB2CA840055E28B /* NSString+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Location.h"; sourceTree = "<group>"; };
+		C268A4541AB2CA840055E28B /* NSString+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Location.m"; sourceTree = "<group>"; };
 		C26A63541AA8335500E3993E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C275BF431AB03580002A943C /* ZJFFindNearlyStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFFindNearlyStore.h; sourceTree = "<group>"; };
 		C275BF441AB03580002A943C /* ZJFFindNearlyStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFFindNearlyStore.m; sourceTree = "<group>"; };
@@ -92,8 +94,6 @@
 		C2A225CD1AA1EB0B00DA66E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2A225CE1AA1EB0B00DA66E9 /* ChownhoundDarenTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChownhoundDarenTests.m; sourceTree = "<group>"; };
 		C2B4AC3A1AAB5B8D00373B03 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		C2B4AC3E1AAB5D9100373B03 /* NSString+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Location.h"; sourceTree = "<group>"; };
-		C2B4AC3F1AAB5D9100373B03 /* NSString+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Location.m"; sourceTree = "<group>"; };
 		C2BA6FC21AAF125500A1C0C4 /* ZJFCurrentUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCurrentUser.h; sourceTree = "<group>"; };
 		C2BA6FC31AAF125500A1C0C4 /* ZJFCurrentUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCurrentUser.m; sourceTree = "<group>"; };
 		C2BA6FC51AAF129000A1C0C4 /* ZJFConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFConfig.h; sourceTree = "<group>"; };
@@ -319,8 +319,8 @@
 		C2B4AC3D1AAB5D7500373B03 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				C2B4AC3E1AAB5D9100373B03 /* NSString+Location.h */,
-				C2B4AC3F1AAB5D9100373B03 /* NSString+Location.m */,
+				C268A4531AB2CA840055E28B /* NSString+Location.h */,
+				C268A4541AB2CA840055E28B /* NSString+Location.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -473,6 +473,7 @@
 				C2BCECDE1AB126BF003B352C /* ZJFTabBarController.m in Sources */,
 				C2BA6FD91AAF2D8C00A1C0C4 /* ZJFShareItemStore.m in Sources */,
 				C2BA6FDC1AAF2FFF00A1C0C4 /* ZJFShareitem.m in Sources */,
+				C268A4551AB2CA840055E28B /* NSString+Location.m in Sources */,
 				C2BCED131AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.m in Sources */,
 				C2BCECF31AB13091003B352C /* ZJFProfileCollectionViewController.m in Sources */,
 				C2A225B81AA1EB0B00DA66E9 /* AppDelegate.m in Sources */,
@@ -488,7 +489,6 @@
 				C2BCECD51AB0738B003B352C /* ZJFLocationStore.m in Sources */,
 				C2BCECCF1AB0685F003B352C /* ZJFImageStore.m in Sources */,
 				C2A225B51AA1EB0B00DA66E9 /* main.m in Sources */,
-				C2B4AC401AAB5D9100373B03 /* NSString+Location.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

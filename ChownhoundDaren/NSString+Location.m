@@ -2,18 +2,18 @@
 //  NSString+Location.m
 //  ChownhoundDaren
 //
-//  Created by 飞 on 15/3/8.
-//  Copyright (c) 2015年 Chowhound Daren. All rights reserved.
+//  Created by 飞 on 15/3/13.
+//  Copyright (c) 2015年 Fly tech. All rights reserved.
 //
 
 #import "NSString+Location.h"
 
-@implementation NSString(Location)
+@implementation NSString (Location)
 
 + (NSString *)stringFromLocationX:(NSString *)latitude LocationY:(NSString *)longitude
 {
     NSString *locationString = [NSString stringWithFormat:@"%@_%@", latitude, longitude];
-    return locationString;;
+    return locationString;
 }
 
 - (NSString *)latitudeString

@@ -491,7 +491,7 @@
         <!--不含有指向原作者和评论的简要详细-->
         <scene sceneID="lg4-5p-ss6">
             <objects>
-                <viewController id="CfX-Ud-CyF" userLabel="不含有指向原作者和评论的简要详细" sceneMemberID="viewController">
+                <viewController id="CfX-Ud-CyF" userLabel="不含有指向原作者和评论的简要详细" customClass="UITableViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KdN-SO-h9h"/>
                         <viewControllerLayoutGuide type="bottom" id="cIn-k5-sL1"/>
@@ -499,6 +499,12 @@
                     <view key="view" contentMode="scaleToFill" id="X9G-MX-ONZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cmN-Sa-WSe">
+                                <rect key="frame" x="0.0" y="153" width="320" height="358"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="3ZC-Hj-iVv"/>
@@ -783,7 +789,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xyE-ol-m9b"/>
         <segue reference="1qy-bS-bvo"/>
+        <segue reference="eNa-iI-CeT"/>
     </inferredMetricsTieBreakers>
 </document>
