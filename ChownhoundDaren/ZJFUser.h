@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSString * headPhotoKey;  //圆形头像
 @property (nonatomic, strong) NSString * signature;    //签名
 @property (nonatomic, strong) NSDate * bornDate;
-@property (nonatomic, strong) ZJFShareItemStore *shareItemStore; //分享列表
-@property (nonatomic, strong) ZJFLocationStore *locationStore; //将位置记录单独存放，已方便日后利用位置信息
+//@property (nonatomic, strong) ZJFShareItemStore *shareItemStore; //分享列表
+//@property (nonatomic, strong) ZJFLocationStore *locationStore; //将位置记录单独存放，已方便日后利用位置信息
 
 @end

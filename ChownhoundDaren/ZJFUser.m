@@ -10,18 +10,7 @@
 
 @implementation ZJFUser
 
-@synthesize userID,email,name,phoneNumber,area,bornDate,signature,headPhotoKey;
-
-- (id)initWithUserID:(long)id
-{
-    self = [super init];
-    
-    if (self) {
-        userID = id;
-    }
-    
-    return self;
-}
+@synthesize email,name,phoneNumber,area,bornDate,signature,headPhotoKey;
 
 - (id)init
 {
