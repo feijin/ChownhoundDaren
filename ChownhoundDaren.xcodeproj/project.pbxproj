@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		C2360E2A1AAC841800B60E1A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2360E291AAC841800B60E1A /* MapKit.framework */; };
 		C2360E2C1AAD870B00B60E1A /* Document in Resources */ = {isa = PBXBuildFile; fileRef = C2360E2B1AAD870B00B60E1A /* Document */; };
+		C24331721AB489A200FA43F2 /* ZJFShareItemCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C24331711AB489A200FA43F2 /* ZJFShareItemCollectionViewController.m */; };
+		C24331761AB489BE00FA43F2 /* ZJFPickerPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C24331741AB489BE00FA43F2 /* ZJFPickerPhotoCollectionViewCell.m */; };
+		C24331771AB489BE00FA43F2 /* ZJFPickerPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C24331751AB489BE00FA43F2 /* ZJFPickerPhotoCollectionViewCell.xib */; };
 		C25F52AF1AAFEB3800A1A409 /* ZJFLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C25F52AE1AAFEB3800A1A409 /* ZJFLocation.m */; };
 		C268A4551AB2CA840055E28B /* NSString+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = C268A4541AB2CA840055E28B /* NSString+Location.m */; };
 		C26A63551AA8335500E3993E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26A63531AA8335500E3993E /* Main.storyboard */; };
@@ -68,6 +71,11 @@
 /* Begin PBXFileReference section */
 		C2360E291AAC841800B60E1A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C2360E2B1AAD870B00B60E1A /* Document */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Document; sourceTree = "<group>"; };
+		C24331701AB489A200FA43F2 /* ZJFShareItemCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFShareItemCollectionViewController.h; sourceTree = "<group>"; };
+		C24331711AB489A200FA43F2 /* ZJFShareItemCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFShareItemCollectionViewController.m; sourceTree = "<group>"; };
+		C24331731AB489BE00FA43F2 /* ZJFPickerPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFPickerPhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		C24331741AB489BE00FA43F2 /* ZJFPickerPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFPickerPhotoCollectionViewCell.m; sourceTree = "<group>"; };
+		C24331751AB489BE00FA43F2 /* ZJFPickerPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZJFPickerPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
 		C25F52AD1AAFEB3800A1A409 /* ZJFLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFLocation.h; sourceTree = "<group>"; };
 		C25F52AE1AAFEB3800A1A409 /* ZJFLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFLocation.m; sourceTree = "<group>"; };
 		C268A4531AB2CA840055E28B /* NSString+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Location.h"; sourceTree = "<group>"; };
@@ -276,6 +284,9 @@
 				C2BCED101AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.h */,
 				C2BCED111AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.m */,
 				C2BCED121AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.xib */,
+				C24331731AB489BE00FA43F2 /* ZJFPickerPhotoCollectionViewCell.h */,
+				C24331741AB489BE00FA43F2 /* ZJFPickerPhotoCollectionViewCell.m */,
+				C24331751AB489BE00FA43F2 /* ZJFPickerPhotoCollectionViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -287,6 +298,8 @@
 				C2BCECDD1AB126BF003B352C /* ZJFTabBarController.m */,
 				C2BCECDF1AB1281B003B352C /* ZJFHomeTableViewController.h */,
 				C2BCECE01AB1281B003B352C /* ZJFHomeTableViewController.m */,
+				C24331701AB489A200FA43F2 /* ZJFShareItemCollectionViewController.h */,
+				C24331711AB489A200FA43F2 /* ZJFShareItemCollectionViewController.m */,
 				C2BCECE21AB1296E003B352C /* ZJFDetailItemViewController.h */,
 				C2BCECE31AB1296E003B352C /* ZJFDetailItemViewController.m */,
 				C2BCECF11AB13091003B352C /* ZJFProfileCollectionViewController.h */,
@@ -441,6 +454,7 @@
 				C2A225C31AA1EB0B00DA66E9 /* LaunchScreen.xib in Resources */,
 				C2BCED0A1AB1B096003B352C /* ZJFHomeTableViewCell.xib in Resources */,
 				C2A225C01AA1EB0B00DA66E9 /* Images.xcassets in Resources */,
+				C24331771AB489BE00FA43F2 /* ZJFPickerPhotoCollectionViewCell.xib in Resources */,
 				C2360E2C1AAD870B00B60E1A /* Document in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,6 +487,7 @@
 				C2BCECDE1AB126BF003B352C /* ZJFTabBarController.m in Sources */,
 				C2BA6FD91AAF2D8C00A1C0C4 /* ZJFShareItemStore.m in Sources */,
 				C2BA6FDC1AAF2FFF00A1C0C4 /* ZJFShareitem.m in Sources */,
+				C24331761AB489BE00FA43F2 /* ZJFPickerPhotoCollectionViewCell.m in Sources */,
 				C268A4551AB2CA840055E28B /* NSString+Location.m in Sources */,
 				C2BCED131AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.m in Sources */,
 				C2BCECF31AB13091003B352C /* ZJFProfileCollectionViewController.m in Sources */,
@@ -481,6 +496,7 @@
 				C2BCECFF1AB1324C003B352C /* ZJFModifyProfileTableViewController.m in Sources */,
 				C2BA6FCA1AAF12D400A1C0C4 /* ZJFUser.m in Sources */,
 				C2BCECCC1AB0645B003B352C /* ZJFCollection.m in Sources */,
+				C24331721AB489A200FA43F2 /* ZJFShareItemCollectionViewController.m in Sources */,
 				C25F52AF1AAFEB3800A1A409 /* ZJFLocation.m in Sources */,
 				C2BCED021AB1328D003B352C /* ZJFSettingTableViewController.m in Sources */,
 				C2BCECEA1AB12CED003B352C /* ZJFMyProfileViewController.m in Sources */,

@@ -1,6 +1,6 @@
 //
 //  ZJFShareItemStore.h
-//  管理用户“分享”的类
+//  管理用户“分享”的类，单实例，本地和服务器上保存所有shareItem，根据id等筛选出相应数组，来实现不同用户的需求。
 
 #import <Foundation/Foundation.h>
 @class ZJFLocation;

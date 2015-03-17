@@ -1,6 +1,7 @@
 //
 //  ZJFCommentStore.h
-//  管理“一组评论”的类
+//  管理“一组评论”的类,不需要单实例
+
 #import <Foundation/Foundation.h>
 @class ZJFComment;
 

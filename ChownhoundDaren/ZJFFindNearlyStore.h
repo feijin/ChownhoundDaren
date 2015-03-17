@@ -1,6 +1,6 @@
 //
 //  ZJFFindNearlyStore.h
-//  根据用户和所处位置，寻找合适记录显示在首页中，不是单实例
+//  根据用户和所处位置，寻找合适记录显示在首页中，单实例
 
 #import <Foundation/Foundation.h>
 @class ZJFShareItem;
