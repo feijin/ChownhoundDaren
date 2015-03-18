@@ -25,13 +25,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChownhoundDaren/ZJFCreateItemCollectionViewController.m"
-            timestampString = "448292341.743623"
+            filePath = "ChownhoundDaren/ZJFDetailOfCreateImageViewController.h"
+            timestampString = "448380006.646061"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "-collectionView:didSelectItemAtIndexPath:"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "imageView"
+            landmarkType = "19">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChownhoundDaren/ZJFCreateItemCollectionViewController.m"
+            timestampString = "448380006.646061"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "-deleteImage:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -10,6 +10,20 @@
 
 @implementation ZJFImageStore
 
++ (ZJFImageStore *)shareStore{
+    static ZJFImageStore *imageStore = nil;
+    
+    if (!imageStore) {
+        imageStore = [[super allocWithZone:nil] init];
+    }
+    
+    return imageStore;
+}
+
++ (id)allocWithZone:(struct _NSZone *)zone{
+    return [self shareStore];
+}
+
 - (id)init{
     self = [super init];
     

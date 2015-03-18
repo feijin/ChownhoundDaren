@@ -21,8 +21,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [AVOSCloud setApplicationId:AVOSCloudAppID
-                      clientKey:AVOSCloudAppKey];
+     [AVOSCloud setApplicationId:AVOSCloudAppID
+                     clientKey:AVOSCloudAppKey];
    // [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     return YES;

@@ -8,11 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class ZJFImage;
+
+
 @interface ZJFCreateItemCollectionViewController : UICollectionViewController
-<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
+@property (nonatomic) NSMutableArray *capturedImages;
+@property (nonatomic) UIImage *selectedImage;
+@property (nonatomic) UIImagePickerController *imagePickerController;
 
-- (void)deleteImage:(UIImage *)image;
+- (void)showAlertSheet;
+- (void)deleteImage:(ZJFImage *)imageWithKey;
 
 
 

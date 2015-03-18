@@ -2,11 +2,13 @@
 //  ZJFDetailOfCreateImageViewController.m
 //  ChownhoundDaren
 //
-//  Created by 飞 on 15/3/17.
+//  Created by 飞 on 15/3/18.
 //  Copyright (c) 2015年 Fly tech. All rights reserved.
 //
 
 #import "ZJFDetailOfCreateImageViewController.h"
+#import "ZJFCreateItemCollectionViewController.h"
+#import "ZJFImage.h"
 
 @interface ZJFDetailOfCreateImageViewController ()
 
@@ -16,7 +18,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    self.imageView.image = self.imageWithKey.image;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,5 +36,21 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)deleteImage:(id)sender {
+    
+    //移除父视图中相应照片
+//    [self.captureImages removeObject:self.image];
+    [self.createItemCollectionViewController deleteImage:self.imageWithKey];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)hideNavigationBar:(id)sender {
+    if ([self.navigationController isNavigationBarHidden]) {
+        [self.navigationController setNavigationBarHidden:NO animated:UINavigationControllerHideShowBarDuration];
+    } else {
+        [self.navigationController setNavigationBarHidden:YES animated:UINavigationControllerHideShowBarDuration];
+    }
+}
 
 @end

@@ -767,6 +767,7 @@
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="imageView" destination="Kyq-aq-yWe" id="jd9-f9-Vd9"/>
+                                    <segue destination="vRc-Zl-bsD" kind="push" id="ek8-Ls-2ab"/>
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CreateOfSpecialCell" id="cdR-7C-OCC" customClass="ZJFCreateOfSpecialCollectionViewCell">
@@ -825,7 +826,43 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xOg-sL-acc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1253" y="3464"/>
+            <point key="canvasLocation" x="1245" y="3464"/>
+        </scene>
+        <!--Detail Of Create Image View Controller-->
+        <scene sceneID="VDY-69-ifE">
+            <objects>
+                <viewController id="vRc-Zl-bsD" customClass="ZJFDetailOfCreateImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4dA-HB-JkH"/>
+                        <viewControllerLayoutGuide type="bottom" id="eO8-0I-w0q"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFit" id="M2a-aS-0w8" customClass="UIControl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wkT-Oj-vUB">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <action selector="hideNavigationBar:" destination="vRc-Zl-bsD" eventType="touchDown" id="Eyu-de-OM9"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" id="qfX-Fp-ORP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="PMW-Jm-JOS">
+                            <connections>
+                                <action selector="deleteImage:" destination="vRc-Zl-bsD" id="ZDZ-35-9rN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="wkT-Oj-vUB" id="tR8-aQ-E34"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a45-1M-m17" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1245" y="4154"/>
         </scene>
         <!--Navigation我-->
         <scene sceneID="vFh-BP-PlN">
@@ -884,7 +921,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IrA-Kc-qkc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="747" y="3464"/>
+            <point key="canvasLocation" x="763" y="3464"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="fRf-CH-Yll">
@@ -904,7 +941,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sT5-XD-ZiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="747" y="2570"/>
+            <point key="canvasLocation" x="763" y="2564"/>
         </scene>
     </scenes>
     <resources>

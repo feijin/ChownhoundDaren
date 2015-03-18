@@ -11,5 +11,6 @@
 @interface ZJFCreateOfPhotoCollectionViewCell : UICollectionViewCell
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong) NSString *imageKey;
 
 @end

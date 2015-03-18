@@ -10,4 +10,6 @@
 
 @implementation ZJFCreateOfPhotoCollectionViewCell
 
+@synthesize imageKey;
+
 @end
