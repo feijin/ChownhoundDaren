@@ -6,4 +6,8 @@
 
 @implementation ZJFCurrentUser
 
++ (NSString *)currentUserId{
+    return @"jinfeizh@gmail.com";
+}
+
 @end

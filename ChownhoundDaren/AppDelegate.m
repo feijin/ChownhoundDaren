@@ -25,6 +25,10 @@
                      clientKey:AVOSCloudAppKey];
    // [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    
+    NSLog(@"%@\n",bundleIdentifier);
+    
     return YES;
 }
 

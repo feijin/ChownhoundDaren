@@ -10,7 +10,7 @@
 
 @implementation ZJFUser
 
-@synthesize email,name,phoneNumber,area,bornDate,signature,headPhotoKey;
+@synthesize email,name,phoneNumber,area,bornDate,signature;
 
 - (id)init
 {

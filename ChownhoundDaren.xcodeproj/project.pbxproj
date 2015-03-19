@@ -58,6 +58,7 @@
 		C2BCED141AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2BCED121AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.xib */; };
 		C2BCED171AB1C7E1003B352C /* ZJFDetailCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCED161AB1C7E1003B352C /* ZJFDetailCollectionViewController.m */; };
 		C2BCED1A1AB1CD31003B352C /* ZJFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCED191AB1CD31003B352C /* ZJFLoginViewController.m */; };
+		C2BD0E751ABB0CD900700648 /* ZJFCurrentLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BD0E741ABB0CD900700648 /* ZJFCurrentLocation.m */; };
 		C2E580BF1AB8877B009C358D /* ZJFDetailOfCreateImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E580BE1AB8877B009C358D /* ZJFDetailOfCreateImageViewController.m */; };
 		C2E581011AB9B196009C358D /* ZJFImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E581001AB9B196009C358D /* ZJFImage.m */; };
 /* End PBXBuildFile section */
@@ -162,6 +163,8 @@
 		C2BCED161AB1C7E1003B352C /* ZJFDetailCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFDetailCollectionViewController.m; sourceTree = "<group>"; };
 		C2BCED181AB1CD31003B352C /* ZJFLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFLoginViewController.h; sourceTree = "<group>"; };
 		C2BCED191AB1CD31003B352C /* ZJFLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFLoginViewController.m; sourceTree = "<group>"; };
+		C2BD0E731ABB0CD900700648 /* ZJFCurrentLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCurrentLocation.h; sourceTree = "<group>"; };
+		C2BD0E741ABB0CD900700648 /* ZJFCurrentLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCurrentLocation.m; sourceTree = "<group>"; };
 		C2E580BD1AB8877B009C358D /* ZJFDetailOfCreateImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFDetailOfCreateImageViewController.h; sourceTree = "<group>"; };
 		C2E580BE1AB8877B009C358D /* ZJFDetailOfCreateImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFDetailOfCreateImageViewController.m; sourceTree = "<group>"; };
 		C2E580FF1AB9B196009C358D /* ZJFImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFImage.h; sourceTree = "<group>"; };
@@ -199,6 +202,8 @@
 			children = (
 				C2BA6FC21AAF125500A1C0C4 /* ZJFCurrentUser.h */,
 				C2BA6FC31AAF125500A1C0C4 /* ZJFCurrentUser.m */,
+				C2BD0E731ABB0CD900700648 /* ZJFCurrentLocation.h */,
+				C2BD0E741ABB0CD900700648 /* ZJFCurrentLocation.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -216,6 +221,21 @@
 				C27D4A341AAACA8A00509488 /* AVOSCloud.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C2A130181ABAC25600462DD0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C2BA6FDA1AAF2FFF00A1C0C4 /* ZJFShareitem.h */,
+				C2BA6FDB1AAF2FFF00A1C0C4 /* ZJFShareitem.m */,
+				C2BA6FC81AAF12D400A1C0C4 /* ZJFUser.h */,
+				C2BA6FC91AAF12D400A1C0C4 /* ZJFUser.m */,
+				C25F52AD1AAFEB3800A1A409 /* ZJFLocation.h */,
+				C25F52AE1AAFEB3800A1A409 /* ZJFLocation.m */,
+				C2E580FF1AB9B196009C358D /* ZJFImage.h */,
+				C2E581001AB9B196009C358D /* ZJFImage.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		C2A225A61AA1EB0B00DA66E9 = {
@@ -240,6 +260,7 @@
 		C2A225B11AA1EB0B00DA66E9 /* ChownhoundDaren */ = {
 			isa = PBXGroup;
 			children = (
+				C2A130181ABAC25600462DD0 /* Model */,
 				C2B4AC3D1AAB5D7500373B03 /* Category */,
 				C2BA6FB31AAEE4D300A1C0C4 /* Models */,
 				C2360E281AAC7E2A00B60E1A /* Utility */,
@@ -361,28 +382,20 @@
 		C2BA6FB31AAEE4D300A1C0C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C2BA6FC81AAF12D400A1C0C4 /* ZJFUser.h */,
-				C2BA6FC91AAF12D400A1C0C4 /* ZJFUser.m */,
-				C25F52AD1AAFEB3800A1A409 /* ZJFLocation.h */,
-				C25F52AE1AAFEB3800A1A409 /* ZJFLocation.m */,
 				C2BCECD31AB0738B003B352C /* ZJFLocationStore.h */,
 				C2BCECD41AB0738B003B352C /* ZJFLocationStore.m */,
+				C2BCECCA1AB0645B003B352C /* ZJFCollection.h */,
+				C2BCECCB1AB0645B003B352C /* ZJFCollection.m */,
 				C275BF491AB04048002A943C /* ZJFComment.h */,
 				C275BF4A1AB04048002A943C /* ZJFComment.m */,
 				C2BCECD01AB06BB4003B352C /* ZJFCommentStore.h */,
 				C2BCECD11AB06BB4003B352C /* ZJFCommentStore.m */,
-				C2BA6FDA1AAF2FFF00A1C0C4 /* ZJFShareitem.h */,
-				C2BA6FDB1AAF2FFF00A1C0C4 /* ZJFShareitem.m */,
 				C2BA6FD71AAF2D8C00A1C0C4 /* ZJFShareItemStore.h */,
 				C2BA6FD81AAF2D8C00A1C0C4 /* ZJFShareItemStore.m */,
-				C2BCECCA1AB0645B003B352C /* ZJFCollection.h */,
-				C2BCECCB1AB0645B003B352C /* ZJFCollection.m */,
 				C2BCECD61AB07B42003B352C /* ZJFCollectionStore.h */,
 				C2BCECD71AB07B42003B352C /* ZJFCollectionStore.m */,
 				C2BCECCD1AB0685F003B352C /* ZJFImageStore.h */,
 				C2BCECCE1AB0685F003B352C /* ZJFImageStore.m */,
-				C2E580FF1AB9B196009C358D /* ZJFImage.h */,
-				C2E581001AB9B196009C358D /* ZJFImage.m */,
 				C275BF431AB03580002A943C /* ZJFFindNearlyStore.h */,
 				C275BF441AB03580002A943C /* ZJFFindNearlyStore.m */,
 			);
@@ -497,6 +510,7 @@
 				C275BF4B1AB04048002A943C /* ZJFComment.m in Sources */,
 				C2319E381AB8049500457A5B /* ZJFCreateOfHeaderCollectionReusableView.m in Sources */,
 				C2BCED091AB1B096003B352C /* ZJFHomeTableViewCell.m in Sources */,
+				C2BD0E751ABB0CD900700648 /* ZJFCurrentLocation.m in Sources */,
 				C2BA6FC71AAF129000A1C0C4 /* ZJFConfig.m in Sources */,
 				C2BCECED1AB12D27003B352C /* ZJFMyShareTableViewController.m in Sources */,
 				C2BCECD81AB07B42003B352C /* ZJFCollectionStore.m in Sources */,
@@ -608,6 +622,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				New_Setting = "";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -643,6 +658,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				New_Setting = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

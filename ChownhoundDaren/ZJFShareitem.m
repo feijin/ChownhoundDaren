@@ -7,9 +7,23 @@
 //
 
 #import "ZJFShareitem.h"
+#import "ZJFCurrentUser.h"
+#import "ZJFLocation.h"
 
 @implementation ZJFShareItem
 
 @synthesize description,createDate,location;
+
+- (id)init{
+    self = [super init];
+    
+    if (self) {
+        self.userID = [ZJFCurrentUser currentUserId];
+        praise = [[NSMutableArray alloc] init];
+        imageStore = [[NSMutableArray alloc] init];
+    }
+    
+    return self;
+}
 
 @end

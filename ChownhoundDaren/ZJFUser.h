@@ -14,7 +14,6 @@
 @property (nonatomic, strong) NSString * name;  //中英文下划线
 @property (nonatomic, strong) NSString * phoneNumber;
 @property (nonatomic, strong) NSString * area;
-@property (nonatomic, strong) NSString * headPhotoKey;  //圆形头像
 @property (nonatomic, strong) NSString * signature;    //签名
 @property (nonatomic, strong) NSDate * bornDate;
 //@property (nonatomic, strong) ZJFShareItemStore *shareItemStore; //分享列表

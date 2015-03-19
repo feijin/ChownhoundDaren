@@ -10,7 +10,7 @@
 
 @interface ZJFCreateOfFooterCollectionReusableView : UICollectionReusableView
 
+@property (weak, nonatomic) IBOutlet UITextField *labelInFooter;
 
-@property (strong, nonatomic) IBOutlet UITableViewCell *tableCell;
 
 @end

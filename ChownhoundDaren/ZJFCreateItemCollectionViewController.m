@@ -12,42 +12,44 @@
 #import "ZJFCreateOfPhotoCollectionViewCell.h"
 #import "ZJFCreateOfSpecialCollectionViewCell.h"
 #import "ZJFDetailOfCreateImageViewController.h"
-#import "ZJFImageStore.h"
 #import "ZJFImage.h"
+#import "ZJFShareitem.h"
+#import "ZJFLocation.h"
 
 @interface ZJFCreateItemCollectionViewController ()
+
 
 
 @end
 
 @implementation ZJFCreateItemCollectionViewController
 
+int const numberOFMaxPictures = 5;
+
 - (void)viewDidLoad{
-    [super viewDidLoad];
+    NSLog(@"222");
+    dictionary = [[NSMutableDictionary alloc] init];
+    item = [[ZJFShareItem alloc] init];
     
+    [super viewDidLoad];
     self.capturedImages = [[NSMutableArray alloc] init];
     
-   // [self.collectionView reloadData];
-    
-//    NSLog(@"count = %d\n", [self.capturedImages count]);
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    NSLog(@"111");
     [self.collectionView reloadData];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    int maxNumberOfPictures = [self.capturedImages count]; //设定上传照片数量，五张
+    NSLog(@"666");
     
-    if (maxNumberOfPictures >= 5) {
-        return 5;
-    } else {
-        return [self.capturedImages count] + 1;
-    }
+    return [self.capturedImages count] + 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-//    NSLog(@"[index row] = %d\n",[indexPath row]);
+    NSLog(@"333");
     
     if ([indexPath row] == ([self.capturedImages count])) {
         ZJFCreateOfSpecialCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CreateOfSpecialCell" forIndexPath:indexPath];
@@ -59,27 +61,31 @@
         ZJFImage *imageWithKey = [self.capturedImages objectAtIndex:[indexPath row]];
         
         [cell.imageView initWithImage:imageWithKey.image];
-
+        
         return cell;
-
+        
     }
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+//执行两次
+    
+   
     
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         ZJFCreateOfHeaderCollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CreateOfHeader" forIndexPath:indexPath];
         
+        [dictionary setObject:header forKey:@"header"];
         return header;
     } else {
         ZJFCreateOfFooterCollectionReusableView *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"CreateOfFooter" forIndexPath:indexPath];
         
+        [dictionary setObject:footer forKey:@"footer"];
         return footer;
     }
     
     
 }
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] objectAtIndex:0];
@@ -101,12 +107,13 @@
     int row = [self.capturedImages indexOfObject:imageWithKey];
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
-    
    
    [self.capturedImages removeObject:imageWithKey];
     
+    
     @try
     {
+
         [self.collectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
     }
     @catch (NSException *except)
@@ -114,9 +121,10 @@
         NSLog(@"  %@", except.description);
     }
     
-//    [self.collectionView reloadData];  //切记要reloadData!!!
     
 }
+
+
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if ([indexPath row] == [self.capturedImages count]) {
@@ -194,6 +202,22 @@
 }
 
 
+
+- (IBAction)sendToServe:(id)sender {
+    
+    
+    
+    ZJFCreateOfHeaderCollectionReusableView *footer = [dictionary objectForKey:@"header"];
+    
+ //   footer.labelInFooter.text = @"son of bitch!";
+    
+    NSString *string = footer.textViewInHeader.text;
+    
+    NSLog(@"%@\n",string);
+    
+    
+    
+}
 
 
 

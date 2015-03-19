@@ -10,7 +10,9 @@
 
 @interface ZJFCreateOfHeaderCollectionReusableView : UICollectionReusableView
 
-@property (strong, nonatomic) IBOutlet UITextView *textView;
+
+@property (weak, nonatomic) IBOutlet UITextView *textViewInHeader;
+
 
 
 @end
