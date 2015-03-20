@@ -32,7 +32,6 @@
 }
     
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    NSLog(@"111");
     
     CLLocation * location = [locations lastObject];
     

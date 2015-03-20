@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Acy-bM-3wC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Acy-bM-3wC">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -564,11 +564,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="ChowhoundDaren" id="6Vx-Ru-MO1">
-                        <barButtonItem key="rightBarButtonItem" title="定位" id="4nS-bm-lVY" userLabel="定位-调用高德api">
-                            <connections>
-                                <action selector="whereIsMe:" destination="0mv-J1-eVh" id="FXi-pb-aS9"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="定位" id="4nS-bm-lVY" userLabel="定位-调用高德api"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zlT-CK-SpK" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -14,7 +14,6 @@
 #import "ZJFCreateOfPhotoCollectionViewCell.h"
 #import "ZJFCreateOfSpecialCollectionViewCell.h"
 #import "ZJFDetailOfCreateImageViewController.h"
-#import "ZJFCurrentUser.h"
 #import "ZJFCurrentLocation.h"
 
 @interface ZJFCreateItemCollectionViewController ()
@@ -39,18 +38,15 @@ int const numberOFMaxPictures = 5;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    NSLog(@"222");
     [self.collectionView reloadData];
     self.collectionView.backgroundColor = [UIColor whiteColor];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    NSLog(@"333");
     return [capturedImages count] + 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"444");
     
     if ([indexPath row] == ([capturedImages count])) {
         ZJFCreateOfSpecialCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CreateOfSpecialCell" forIndexPath:indexPath];
@@ -142,16 +138,15 @@ int const numberOFMaxPictures = 5;
     UIAlertAction *chooseFromAlbumAction = [UIAlertAction actionWithTitle:@"从相册选择"
                                                                     style:UIAlertActionStyleDefault
                                                                   handler: ^void(UIAlertAction *action){
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        imagePickerController.delegate = self;
                                                                       
-                                                                      UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-                                                                      imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
-                                                                      imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-                                                                      imagePickerController.delegate = self;
+        imagePickerController = imagePickerController;
+        [[self.tabBarController tabBar] setHidden:YES];
                                                                       
-                                                                      imagePickerController = imagePickerController;
-                                                                       [[self.tabBarController tabBar] setHidden:YES];
-                                                                      
-                                                                      [self presentViewController:imagePickerController animated:YES completion:nil];
+        [self presentViewController:imagePickerController animated:YES completion:nil];
                                                                       
                                                                   }];
 
@@ -159,18 +154,17 @@ int const numberOFMaxPictures = 5;
     UIAlertAction *chooseFromCamera = [UIAlertAction actionWithTitle:@"拍照"
                                                                style:UIAlertActionStyleDefault
                                                              handler: ^void(UIAlertAction *action){
+         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+         imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+         imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+         imagePickerController.delegate = self;
                                                                  
-                                                                 UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-                                                                 imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
-                                                                 imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-                                                                 imagePickerController.delegate = self;
+         imagePickerController = imagePickerController;
+         [[self.tabBarController tabBar] setHidden:YES];
                                                                  
-                                                                 imagePickerController = imagePickerController;
-                                                                 [[self.tabBarController tabBar] setHidden:YES];
-                                                                 
-                                                                 [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
                                                         
-                                                                 [self presentViewController:imagePickerController animated:YES completion:nil];
+         [self presentViewController:imagePickerController animated:YES completion:nil];
                                                                  
                                                              }];
     UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"取消"
@@ -226,6 +220,8 @@ int const numberOFMaxPictures = 5;
     
     CLLocation *cllocation = [ZJFCurrentLocation shareStore].location;
     
+    AVObject *shareItem = [AVObject objectWithClassName:@"shareItem"];
+    
     AVObject *location = [AVObject objectWithClassName:@"location"];
     [location setObject:[NSNumber numberWithDouble:cllocation.coordinate.latitude] forKey:@"latitude"];
     [location setObject:[NSNumber numberWithDouble:cllocation.coordinate.longitude] forKey:@"longitude"];
@@ -234,20 +230,20 @@ int const numberOFMaxPictures = 5;
     [location setObject:[NSNumber numberWithDouble:cllocation.verticalAccuracy] forKey:@"verticalAccuracy"];
     [location setObject:cllocation.timestamp forKey:@"timestamp"];
     [location setObject:cllocation.description forKey:@"descriptionOfLocation"];
-    
-    [location saveInBackground];  //保存位置信息
-    
+    [shareItem setObject:location forKey:@"locationOfItem"];
     
     NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
     for (int i=0; i<[capturedImages count]; i++) {
         NSString *string = [@"image" stringByAppendingString:[NSString stringWithFormat:@"%d",(i+1)]];
+    //    NSLog(@"%@\n",string);
         NSData *data = UIImagePNGRepresentation([capturedImages objectAtIndex:i]);
         AVFile *file = [AVFile fileWithName:string data:data];
+        [file save];
         
+        [mutableArray addObject:file];
     }
     
-    
-    
+    [shareItem setObject:(NSArray *)mutableArray forKey:@"imageStore"];
     
     NSString *descriptionOfItem = [[self getHeaderView] textViewInHeader].text;     //描述信息
 //    NSLog(@"%@\n",descriptionOfItem);
@@ -255,16 +251,21 @@ int const numberOFMaxPictures = 5;
     NSString *locationNameOfItem = [[self getFooterView] textFieldInFooter].text; //给位置命名
 //    NSLog(@"%@\n",locationNameOfItem);
     
-    AVObject *shareItem = [AVObject objectWithClassName:@"shareItem"];
+   
     [shareItem setObject:descriptionOfItem forKey:@"descriptionOfItem"];
     [shareItem setObject:locationNameOfItem forKey:@"locationNameOfItem"];
-    [shareItem setObject:location forKey:@"locationOfItem"];
     
     
+    [shareItem setObject:@"15202150609" forKey:@"userID"];
     
     
-    
-    
+    [shareItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+        if (!error) {
+            NSLog(@"保存完成\n");
+        } else {
+            NSLog(@"%@\n",[error description]);
+        }
+    }];
     
 }
 
