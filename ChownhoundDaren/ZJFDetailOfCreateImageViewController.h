@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-@class ZJFImage;
 @class ZJFCreateItemCollectionViewController;
 
 
 @interface ZJFDetailOfCreateImageViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (nonatomic,strong) ZJFImage *imageWithKey;
+@property (nonatomic,strong) UIImage *imageWithKey;
 @property (nonatomic,assign) ZJFCreateItemCollectionViewController *createItemCollectionViewController;
 @property (nonatomic) NSMutableArray *capturedImages;
 

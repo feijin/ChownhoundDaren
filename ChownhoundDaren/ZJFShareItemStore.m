@@ -3,8 +3,6 @@
 //  
 
 #import "ZJFShareItemStore.h"
-#import "ZJFShareitem.h"
-#import "ZJFLocation.h"
 
 @implementation ZJFShareItemStore
 

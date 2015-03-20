@@ -7,12 +7,39 @@
 //
 
 #import "ZJFCurrentLocation.h"
-#import "ZJFLocation.h"
 
 @implementation ZJFCurrentLocation
 
-- (ZJFLocation *)getCurrentLocation{
-    return [locations lastObject];
++ (ZJFCurrentLocation *)shareStore{
+    static ZJFCurrentLocation *shareStore = nil;
+    
+    if (!shareStore) {
+        shareStore = [[super allocWithZone:nil] init];
+    }
+    
+    return shareStore;
+}
+
+- (id)init{
+    self = [super init];
+    if (self) {
+        _location = [[CLLocation alloc] init];
+        _locationManager = [[CLLocationManager alloc] init];
+    }
+    
+    return self;
+}
+
++ (id)allocWithZone:(struct _NSZone *)zone{
+    return [self shareStore];
+}
+
+- (CLLocation *)location{
+    return _location;
+}
+
+- (CLLocationManager *)locationManager{
+    return _locationManager;
 }
 
 @end

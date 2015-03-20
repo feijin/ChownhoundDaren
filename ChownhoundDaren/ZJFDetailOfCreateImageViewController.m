@@ -8,7 +8,6 @@
 
 #import "ZJFDetailOfCreateImageViewController.h"
 #import "ZJFCreateItemCollectionViewController.h"
-#import "ZJFImage.h"
 
 @interface ZJFDetailOfCreateImageViewController ()
 
@@ -19,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.imageView.image = self.imageWithKey.image;
+    self.imageView.image = self.imageWithKey;
 }
 
 - (void)didReceiveMemoryWarning {

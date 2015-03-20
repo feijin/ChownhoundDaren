@@ -758,7 +758,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="99" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kyq-aq-yWe">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kyq-aq-yWe">
                                             <rect key="frame" x="6" y="12" width="88" height="77"/>
                                         </imageView>
                                     </subviews>
@@ -790,10 +790,10 @@
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CreateOfHeader" id="6eM-Qw-bVE" customClass="ZJFCreateOfHeaderCollectionReusableView">
-                            <rect key="frame" x="0.0" y="64" width="320" height="112"/>
+                            <rect key="frame" x="0.0" y="64" width="320" height="120"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" text="aalajljfa" translatesAutoresizingMaskIntoConstraints="NO" id="mpm-y0-ZTT">
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" text="请输入商品描述" translatesAutoresizingMaskIntoConstraints="NO" id="mpm-y0-ZTT">
                                     <rect key="frame" x="11" y="15" width="295" height="89"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -821,7 +821,7 @@
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="tesssss" borderStyle="roundedRect" placeholder="描述您当前餐厅位置，如：肇周路耳光混沌店" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ffs-nu-4xk">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="描述您当前餐厅位置，如：肇周路耳光混沌店" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ffs-nu-4xk">
                                     <rect key="frame" x="43" y="64" width="233" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -829,7 +829,7 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <outlet property="labelInFooter" destination="Ffs-nu-4xk" id="dQ2-ob-gV5"/>
+                                <outlet property="textFieldInFooter" destination="Ffs-nu-4xk" id="wha-u0-HwQ"/>
                             </connections>
                         </collectionReusableView>
                         <connections>
@@ -839,6 +839,11 @@
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Item" id="Xac-XN-P71"/>
                     <navigationItem key="navigationItem" title="发布新内容" id="UNa-VT-d6r">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="2yX-Xi-ck3">
+                            <connections>
+                                <action selector="createCancel:" destination="XDC-2A-6zR" id="6K0-fs-EOw"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="发布" id="1mL-i7-rTH">
                             <connections>
                                 <action selector="sendToServe:" destination="XDC-2A-6zR" id="x8Z-ac-cxW"/>
@@ -976,7 +981,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="naE-cs-hCl"/>
         <segue reference="eNa-iI-CeT"/>
+        <segue reference="uJy-Hb-FYw"/>
     </inferredMetricsTieBreakers>
 </document>

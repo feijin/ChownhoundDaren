@@ -6,19 +6,24 @@
 //  Copyright (c) 2015年 Fly tech. All rights reserved.
 //
 
+#import <AVOSCloud/AVOSCloud.h>
+
 #import "ZJFCreateItemCollectionViewController.h"
 #import "ZJFCreateOfHeaderCollectionReusableView.h"
 #import "ZJFCreateOfFooterCollectionReusableView.h"
 #import "ZJFCreateOfPhotoCollectionViewCell.h"
 #import "ZJFCreateOfSpecialCollectionViewCell.h"
 #import "ZJFDetailOfCreateImageViewController.h"
-#import "ZJFImage.h"
-#import "ZJFShareitem.h"
-#import "ZJFLocation.h"
+#import "ZJFCurrentUser.h"
+#import "ZJFCurrentLocation.h"
 
 @interface ZJFCreateItemCollectionViewController ()
-
-
+{
+    NSMutableDictionary *dictionary;  //存放header 和 footer 的引用
+    CLLocationManager *locationManager;
+    NSMutableArray *capturedImages;
+ //   UIImagePickerController *imagePickerController;
+}
 
 @end
 
@@ -27,40 +32,36 @@
 int const numberOFMaxPictures = 5;
 
 - (void)viewDidLoad{
-    NSLog(@"222");
     dictionary = [[NSMutableDictionary alloc] init];
-    item = [[ZJFShareItem alloc] init];
-    
     [super viewDidLoad];
-    self.capturedImages = [[NSMutableArray alloc] init];
+    capturedImages = [[NSMutableArray alloc] init];
     
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    NSLog(@"111");
+    NSLog(@"222");
     [self.collectionView reloadData];
     self.collectionView.backgroundColor = [UIColor whiteColor];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    NSLog(@"666");
-    
-    return [self.capturedImages count] + 1;
+    NSLog(@"333");
+    return [capturedImages count] + 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"333");
+    NSLog(@"444");
     
-    if ([indexPath row] == ([self.capturedImages count])) {
+    if ([indexPath row] == ([capturedImages count])) {
         ZJFCreateOfSpecialCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CreateOfSpecialCell" forIndexPath:indexPath];
         
         return cell;
         
     } else {
         ZJFCreateOfPhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CreateOfPhoto" forIndexPath:indexPath];
-        ZJFImage *imageWithKey = [self.capturedImages objectAtIndex:[indexPath row]];
+        UIImage *imageWithKey = [capturedImages objectAtIndex:[indexPath row]];
         
-        [cell.imageView initWithImage:imageWithKey.image];
+        [cell.imageView initWithImage:imageWithKey];
         
         return cell;
         
@@ -90,11 +91,11 @@ int const numberOFMaxPictures = 5;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] objectAtIndex:0];
     
-    ZJFImage *imageWithKey = [self.capturedImages objectAtIndex:[indexPath row]];
+    UIImage *image = [capturedImages objectAtIndex:[indexPath row]];
     
     ZJFDetailOfCreateImageViewController *detailOfCreateImageViewController = [segue destinationViewController];
     
-    detailOfCreateImageViewController.imageWithKey = imageWithKey;
+    detailOfCreateImageViewController.imageWithKey = image;
 //    detailOfCreateImageViewController.captureImages = self.capturedImages;
     detailOfCreateImageViewController.createItemCollectionViewController = segue.sourceViewController;
     
@@ -102,13 +103,13 @@ int const numberOFMaxPictures = 5;
 }
 
 
-- (void)deleteImage:(ZJFImage *)imageWithKey{
+- (void)deleteImage:(UIImage *)image{
     
-    int row = [self.capturedImages indexOfObject:imageWithKey];
+    int row = [capturedImages indexOfObject:image];
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
    
-   [self.capturedImages removeObject:imageWithKey];
+   [capturedImages removeObject:image];
     
     
     @try
@@ -127,7 +128,7 @@ int const numberOFMaxPictures = 5;
 
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if ([indexPath row] == [self.capturedImages count]) {
+    if ([indexPath row] == [capturedImages count]) {
         [self showAlertSheet];
     }
 }
@@ -140,42 +141,40 @@ int const numberOFMaxPictures = 5;
     
     UIAlertAction *chooseFromAlbumAction = [UIAlertAction actionWithTitle:@"从相册选择"
                                                                     style:UIAlertActionStyleDefault
-                                                                  handler:^void(UIAlertAction *action){
-                                                            
-                                                                          
-                                                                          UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-                                                                          imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
-                                                                          imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                                                                          imagePickerController.delegate = self;
-                                                                          
-                                                                          /*
-                                                                           if (sourceType == UIImagePickerControllerSourceTypeCamera)
-                                                                           {
-                                                                           
-                                                                           The user wants to use the camera interface. Set up our custom overlay view for the camera.
-                                                                           
-                                                                           imagePickerController.showsCameraControls = NO;
-                                                                           
-                                                                           Load the overlay view from the OverlayView nib file. Self is the File's Owner for the nib file, so the overlayView outlet is set to the main view in the nib. Pass that view to the image picker controller to use as its overlay view, and set self's reference to the view to nil.
-                                                                           
-                                                                           [[NSBundle mainBundle] loadNibNamed:@"OverlayView" owner:self options:nil];
-                                                                           self.overlayView.frame = imagePickerController.cameraOverlayView.frame;
-                                                                           imagePickerController.cameraOverlayView = self.overlayView;
-                                                                           self.overlayView = nil;
-                                                                           }
-                                                                           */
-                                                                          
-                                                                          self.imagePickerController = imagePickerController;
-                                                                          [self presentViewController:self.imagePickerController animated:YES completion:nil];
-
+                                                                  handler: ^void(UIAlertAction *action){
+                                                                      
+                                                                      UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+                                                                      imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+                                                                      imagePickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                                                                      imagePickerController.delegate = self;
+                                                                      
+                                                                      imagePickerController = imagePickerController;
+                                                                       [[self.tabBarController tabBar] setHidden:YES];
+                                                                      
+                                                                      [self presentViewController:imagePickerController animated:YES completion:nil];
+                                                                      
                                                                   }];
+
     
     UIAlertAction *chooseFromCamera = [UIAlertAction actionWithTitle:@"拍照"
                                                                style:UIAlertActionStyleDefault
-                                                             handler:nil];
-    
-    UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel"
-                                                           style:UIAlertActionStyleDefault
+                                                             handler: ^void(UIAlertAction *action){
+                                                                 
+                                                                 UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+                                                                 imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+                                                                 imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+                                                                 imagePickerController.delegate = self;
+                                                                 
+                                                                 imagePickerController = imagePickerController;
+                                                                 [[self.tabBarController tabBar] setHidden:YES];
+                                                                 
+                                                                 [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+                                                        
+                                                                 [self presentViewController:imagePickerController animated:YES completion:nil];
+                                                                 
+                                                             }];
+    UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"取消"
+                                                           style:UIAlertActionStyleCancel
                                                          handler:nil];
     
     [alert addAction:chooseFromAlbumAction];
@@ -183,37 +182,87 @@ int const numberOFMaxPictures = 5;
     [alert addAction:cancelButton];
     
     [self presentViewController:alert animated:YES completion:nil];
+    
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    NSString *uniqueImageName = [[NSUUID UUID] UUIDString];
     
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    
-    ZJFImage *imageWithKey = [[ZJFImage alloc] initWithImage:image key:uniqueImageName];
-    
-    [self.capturedImages addObject:imageWithKey];
-    
-//[[ZJFImageStore shareStore] setImage:image forKey:uniqueImageName];
-    
+        
+    [capturedImages addObject:image];
+        
+    //[[ZJFImageStore shareStore] setImage:image forKey:uniqueImageName];
+        
     [self dismissViewControllerAnimated:YES completion:nil];
+    [[self.tabBarController tabBar] setHidden:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     
+        
+}
+
+- (NSArray *)array{
+    return capturedImages;
+}
+
+- (ZJFCreateOfHeaderCollectionReusableView *)getHeaderView{
+    return [dictionary objectForKey:@"header"];
+}
+
+- (ZJFCreateOfFooterCollectionReusableView *)getFooterView{
+    return [dictionary objectForKey:@"footer"];
+}
+
+- (IBAction)createCancel:(id)sender {
     
 }
 
-
-
 - (IBAction)sendToServe:(id)sender {
+    [[[ZJFCurrentLocation shareStore] locationManager] stopUpdatingLocation];
+    
+    //   CLLocation *xlocation = [ZJFCurrentLocation shareStore].location;
+    //   NSLog(@"fuck1: %f\n",xlocation.coordinate.latitude);
+    //   NSLog(@"fuck2: %f\n",xlocation.coordinate.longitude);
+    //  NSLog(@"fuck3:%@\n",xlocation.description);
+    
+    CLLocation *cllocation = [ZJFCurrentLocation shareStore].location;
+    
+    AVObject *location = [AVObject objectWithClassName:@"location"];
+    [location setObject:[NSNumber numberWithDouble:cllocation.coordinate.latitude] forKey:@"latitude"];
+    [location setObject:[NSNumber numberWithDouble:cllocation.coordinate.longitude] forKey:@"longitude"];
+    [location setObject:[NSNumber numberWithInteger:cllocation.floor] forKey:@"floor"];
+    [location setObject:[NSNumber numberWithDouble:cllocation.horizontalAccuracy] forKey:@"horizontalAccuracy"];
+    [location setObject:[NSNumber numberWithDouble:cllocation.verticalAccuracy] forKey:@"verticalAccuracy"];
+    [location setObject:cllocation.timestamp forKey:@"timestamp"];
+    [location setObject:cllocation.description forKey:@"descriptionOfLocation"];
+    
+    [location saveInBackground];  //保存位置信息
+    
+    
+    NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<[capturedImages count]; i++) {
+        NSString *string = [@"image" stringByAppendingString:[NSString stringWithFormat:@"%d",(i+1)]];
+        NSData *data = UIImagePNGRepresentation([capturedImages objectAtIndex:i]);
+        AVFile *file = [AVFile fileWithName:string data:data];
+        
+    }
     
     
     
-    ZJFCreateOfHeaderCollectionReusableView *footer = [dictionary objectForKey:@"header"];
     
- //   footer.labelInFooter.text = @"son of bitch!";
+    NSString *descriptionOfItem = [[self getHeaderView] textViewInHeader].text;     //描述信息
+//    NSLog(@"%@\n",descriptionOfItem);
     
-    NSString *string = footer.textViewInHeader.text;
+    NSString *locationNameOfItem = [[self getFooterView] textFieldInFooter].text; //给位置命名
+//    NSLog(@"%@\n",locationNameOfItem);
     
-    NSLog(@"%@\n",string);
+    AVObject *shareItem = [AVObject objectWithClassName:@"shareItem"];
+    [shareItem setObject:descriptionOfItem forKey:@"descriptionOfItem"];
+    [shareItem setObject:locationNameOfItem forKey:@"locationNameOfItem"];
+    [shareItem setObject:location forKey:@"locationOfItem"];
+    
+    
+    
+    
     
     
     

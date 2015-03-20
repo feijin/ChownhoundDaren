@@ -6,8 +6,20 @@
 
 @implementation ZJFCurrentUser
 
-+ (NSString *)currentUserId{
-    return @"jinfeizh@gmail.com";
+@synthesize userID;
+
++ (ZJFCurrentUser *)shareCurrentUser{
+    static ZJFCurrentUser *user = nil;
+    
+    if (!user) {
+        user = [[super allocWithZone:nil] init];
+    }
+    
+    return user;
+}
+
++ (id)allocWithZone:(struct _NSZone *)zone{
+    return [self shareCurrentUser];
 }
 
 @end

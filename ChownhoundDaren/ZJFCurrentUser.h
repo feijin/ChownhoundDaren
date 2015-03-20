@@ -6,8 +6,12 @@
 @class ZJFUser;
 
 @interface ZJFCurrentUser : NSObject
+{
+    NSString *userID;
+}
+
+@property (nonatomic,strong) NSString *userID;
 
 + (BOOL) isLogin;
-+ (NSString *)currentUserId;
 
 @end

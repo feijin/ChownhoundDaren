@@ -6,14 +6,18 @@
 //  Copyright (c) 2015年 Fly tech. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-@class ZJFLocation;
+#import <CoreLocation/CoreLocation.h>
 
-@interface ZJFCurrentLocation : NSObject
-{
-    NSMutableArray *locations;
+@interface ZJFCurrentLocation : NSObject{
+    
 }
 
-- (ZJFLocation *)getCurrentLocation;
+@property (nonatomic,strong) CLLocation *location;
+@property (nonatomic,strong) CLLocationManager *locationManager;
+
++ (ZJFCurrentLocation *)shareStore;
+- (CLLocation *)location;
+- (CLLocationManager *)locationManager;
+
 
 @end

@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-@class ZJFLocation;
+#import <CoreLocation/CoreLocation.h>
 
 @interface ZJFHomeTableViewController : UITableViewController
-<UITableViewDataSource,UITableViewDelegate>
+<UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>
 
 
-@property (nonatomic,strong) ZJFLocation *location;
+@property (nonatomic,strong) CLLocationManager *locationManager;
 
-- (IBAction)whereIsMe:(id)sender;  //确定当前位置;
+
 
 
 @end
