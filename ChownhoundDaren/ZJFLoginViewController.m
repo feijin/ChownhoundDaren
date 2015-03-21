@@ -10,28 +10,32 @@
 
 @interface ZJFLoginViewController ()
 
+@property (weak, nonatomic) IBOutlet UITextField *phoneNumberText;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+
+- (IBAction)login:(id)sender;
+
 @end
 
 @implementation ZJFLoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.passwordTextField.secureTextEntry = YES;
+    [self.navigationController setNavigationBarHidden:NO];
+}
+- (IBAction)cancelLogin:(id)sender {
+    //取消登录，返回到首页
+    [[self parentViewController].navigationController popToRootViewControllerAnimated:nil];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)forgotPassword:(id)sender {
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)login:(id)sender {
+    
+    
 }
-*/
+
 
 @end

@@ -15,6 +15,7 @@
 #import "ZJFCreateOfSpecialCollectionViewCell.h"
 #import "ZJFDetailOfCreateImageViewController.h"
 #import "ZJFCurrentLocation.h"
+#import "ZJFLoginViewController.h"
 
 @interface ZJFCreateItemCollectionViewController ()
 {
@@ -37,7 +38,32 @@ int const numberOFMaxPictures = 5;
     
 }
 
+
+- (void)testLogin{
+    [AVUser logOut];
+    AVUser *user = [AVUser currentUser];
+    
+    if (!user) {
+        @try {
+            UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UINavigationController *loginController = [storyBoard instantiateViewControllerWithIdentifier:@"userLogin"];
+
+            [self presentViewController:loginController animated:YES completion:nil];
+            
+            
+            NSLog(@"111\n");
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@\n",exception);
+            NSLog(@"222\n");
+        }
+        
+    }
+}
+
+
 - (void)viewWillAppear:(BOOL)animated{
+    [self testLogin];
     [self.collectionView reloadData];
     self.collectionView.backgroundColor = [UIColor whiteColor];
 }
@@ -225,6 +251,7 @@ int const numberOFMaxPictures = 5;
     AVObject *location = [AVObject objectWithClassName:@"location"];
     [location setObject:[NSNumber numberWithDouble:cllocation.coordinate.latitude] forKey:@"latitude"];
     [location setObject:[NSNumber numberWithDouble:cllocation.coordinate.longitude] forKey:@"longitude"];
+    [location setObject:[NSNumber numberWithDouble:cllocation.altitude] forKey:@"altitude"];
     [location setObject:[NSNumber numberWithInteger:cllocation.floor] forKey:@"floor"];
     [location setObject:[NSNumber numberWithDouble:cllocation.horizontalAccuracy] forKey:@"horizontalAccuracy"];
     [location setObject:[NSNumber numberWithDouble:cllocation.verticalAccuracy] forKey:@"verticalAccuracy"];

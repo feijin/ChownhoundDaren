@@ -57,6 +57,7 @@
 		C2BCED171AB1C7E1003B352C /* ZJFDetailCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCED161AB1C7E1003B352C /* ZJFDetailCollectionViewController.m */; };
 		C2BCED1A1AB1CD31003B352C /* ZJFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCED191AB1CD31003B352C /* ZJFLoginViewController.m */; };
 		C2BD0E751ABB0CD900700648 /* ZJFCurrentLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BD0E741ABB0CD900700648 /* ZJFCurrentLocation.m */; };
+		C2D848571ABD1B9E00762B0B /* ZJFRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D848561ABD1B9E00762B0B /* ZJFRegisterViewController.m */; };
 		C2E580BF1AB8877B009C358D /* ZJFDetailOfCreateImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E580BE1AB8877B009C358D /* ZJFDetailOfCreateImageViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -157,6 +158,8 @@
 		C2BCED191AB1CD31003B352C /* ZJFLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFLoginViewController.m; sourceTree = "<group>"; };
 		C2BD0E731ABB0CD900700648 /* ZJFCurrentLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCurrentLocation.h; sourceTree = "<group>"; };
 		C2BD0E741ABB0CD900700648 /* ZJFCurrentLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCurrentLocation.m; sourceTree = "<group>"; };
+		C2D848551ABD1B9E00762B0B /* ZJFRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFRegisterViewController.h; sourceTree = "<group>"; };
+		C2D848561ABD1B9E00762B0B /* ZJFRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFRegisterViewController.m; sourceTree = "<group>"; };
 		C2E580BD1AB8877B009C358D /* ZJFDetailOfCreateImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFDetailOfCreateImageViewController.h; sourceTree = "<group>"; };
 		C2E580BE1AB8877B009C358D /* ZJFDetailOfCreateImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFDetailOfCreateImageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -343,6 +346,8 @@
 				C2BCED161AB1C7E1003B352C /* ZJFDetailCollectionViewController.m */,
 				C2BCED181AB1CD31003B352C /* ZJFLoginViewController.h */,
 				C2BCED191AB1CD31003B352C /* ZJFLoginViewController.m */,
+				C2D848551ABD1B9E00762B0B /* ZJFRegisterViewController.h */,
+				C2D848561ABD1B9E00762B0B /* ZJFRegisterViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -507,6 +512,7 @@
 				C2BCECE41AB1296E003B352C /* ZJFDetailItemViewController.m in Sources */,
 				C2BCECE11AB1281B003B352C /* ZJFHomeTableViewController.m in Sources */,
 				C2319E3B1AB804A500457A5B /* ZJFCreateOfFooterCollectionReusableView.m in Sources */,
+				C2D848571ABD1B9E00762B0B /* ZJFRegisterViewController.m in Sources */,
 				C275BF451AB03580002A943C /* ZJFFindNearlyStore.m in Sources */,
 				C2BCECD21AB06BB4003B352C /* ZJFCommentStore.m in Sources */,
 				C2BCECF91AB1319C003B352C /* ZJFMyCollectionTableViewController.m in Sources */,

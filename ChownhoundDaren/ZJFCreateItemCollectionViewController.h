@@ -23,6 +23,7 @@
 
 - (ZJFCreateOfHeaderCollectionReusableView *)getHeaderView;
 - (ZJFCreateOfFooterCollectionReusableView *)getFooterView;
+- (void)testLogin;
 
 - (IBAction)createCancel:(id)sender;
 - (IBAction)sendToServe:(id)sender;
