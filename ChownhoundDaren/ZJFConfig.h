@@ -12,6 +12,8 @@
 
 extern  NSString *const AVOSCloudAppID;
 extern  NSString *const AVOSCloudAppKey;
+extern  NSString *const kAppKey;
+extern  NSString *const kRedirectURL;
 
 
 @end

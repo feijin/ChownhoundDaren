@@ -54,13 +54,9 @@
         NSLog(@"%@\n",[error description]);
     }
     
-    [AVOSCloud requestSmsCodeWithPhoneNumber:@"15202150609"
-                                     appName:@"某应用"
-                                   operation:@"具体操作名称"
-                                  timeToLive:10
-                                    callback:^(BOOL succeeded, NSError *error) {
-                                        // 执行结果
-                                    }];
+    [AVUser verifyMobilePhone:user.mobilePhoneNumber withBlock:^(BOOL succeeded, NSError *error) {
+        //验证结果
+    }];
 
     
 
