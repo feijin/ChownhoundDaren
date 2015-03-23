@@ -213,7 +213,7 @@ int const numberOFMaxPictures = 5;
          imagePickerController.delegate = self;
                                                                  
          imagePickerController = imagePickerController;
-         [[self.tabBarController tabBar] setHidden:YES];
+                                                                 [[self.tabBarController tabBar] setHidden:YES];
                                                                  
          [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
                                                         
@@ -264,6 +264,8 @@ int const numberOFMaxPictures = 5;
 }
 
 - (IBAction)sendToServe:(id)sender {
+    self.tabBarController.selectedIndex = 0; //发送完后，立刻返回首页
+    
     [[[ZJFCurrentLocation shareStore] locationManager] stopUpdatingLocation];
     
     //   CLLocation *xlocation = [ZJFCurrentLocation shareStore].location;
@@ -320,7 +322,6 @@ int const numberOFMaxPictures = 5;
             NSLog(@"%@\n",[error description]);
         }
     }];
-    
 }
 
 

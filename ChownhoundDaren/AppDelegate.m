@@ -49,18 +49,32 @@
             [ZJFCurrentUser shareCurrentUser].wbRefreshToken = authorizeRespinse.refreshToken;
             [ZJFCurrentUser shareCurrentUser].isLogin = true;
             
-            AVUser *user = [AVUser user];
-            user.username = [ZJFCurrentUser shareCurrentUser].wbUid;
-            user.password = @"ChownhoundDaren";
-            [user setObject:[NSNumber numberWithBool:YES] forKey:@"isWeiboUser"];
-            
-            [user signUpInBackgroundWithBlock:^(BOOL succeeded,NSError *error){
-                if (succeeded) {
-                    NSLog(@"sign up succeeded\n");
+            AVQuery *query = [AVUser query];
+            [query whereKey:@"username" equalTo:[ZJFCurrentUser shareCurrentUser].wbUid];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+                if (error == nil) {
+                    if ([objects count] == 0) {
+                        AVUser *user = [AVUser user];
+                        user.username = [ZJFCurrentUser shareCurrentUser].wbUid;
+                        user.password = @"ChownhoundDaren";
+                        [user setObject:[NSNumber numberWithBool:YES] forKey:@"isWeiboUser"];
+                        
+                        [user signUpInBackgroundWithBlock:^(BOOL succeeded,NSError *error){
+                            if (succeeded) {
+                                NSLog(@"sign up succeeded\n");
+                            } else{
+                                NSLog(@"sign up fail\n");
+                            }
+                        }];
+                    } else{
+                        NSLog(@"user has signed up\n");
+                    }
                 } else{
-                    NSLog(@"sign up fail\n");
+                    NSLog(@"query fail: %@\n",[error description]);
                 }
             }];
+            
+            
         }
         
         [self.loginViewController dismissViewControllerAnimated:YES completion:nil];
