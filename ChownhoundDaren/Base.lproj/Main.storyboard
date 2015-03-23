@@ -227,7 +227,7 @@
         <!--loginViewController-->
         <scene sceneID="OVI-Ix-h0d">
             <objects>
-                <viewController storyboardIdentifier="login" id="XZ4-iL-b4M" userLabel="loginViewController" customClass="ZJFLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginViewController" id="XZ4-iL-b4M" userLabel="loginViewController" customClass="ZJFLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dsI-Ea-ilu"/>
                         <viewControllerLayoutGuide type="bottom" id="UIB-PD-D3O"/>
@@ -236,48 +236,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="手机号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LRh-Rp-Gc1">
-                                <rect key="frame" x="16" y="101" width="63" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="密码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFu-CC-CVK">
-                                <rect key="frame" x="16" y="170" width="63" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wi8-R2-gxj">
-                                <rect key="frame" x="133" y="249" width="54" height="30"/>
-                                <state key="normal" title="登录">
+                                <rect key="frame" x="118" y="358" width="79" height="30"/>
+                                <state key="normal" title="取消登录">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="login:" destination="XZ4-iL-b4M" eventType="touchDown" id="bj7-tn-Fa6"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hL4-ct-0sT">
-                                <rect key="frame" x="100" y="101" width="126" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vo1-Tu-s1h">
-                                <rect key="frame" x="100" y="175" width="126" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKD-PY-6OF">
-                                <rect key="frame" x="244" y="175" width="74" height="30"/>
-                                <state key="normal" title="忘记密码">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="forgotPassword:" destination="XZ4-iL-b4M" eventType="touchDown" id="3QI-2N-XdP"/>
+                                    <action selector="cancelLogin:" destination="XZ4-iL-b4M" eventType="touchUpInside" id="a8d-Ia-cO2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A7H-SZ-Aui">
-                                <rect key="frame" x="103" y="350" width="115" height="30"/>
+                                <rect key="frame" x="100" y="231" width="115" height="30"/>
                                 <state key="normal" title="微博登录">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -288,118 +257,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="buG-RT-qLR">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="K0p-64-oFl">
-                            <connections>
-                                <action selector="cancelLogin:" destination="XZ4-iL-b4M" id="AjQ-cV-hhC"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="55y-Cl-zsr">
-                            <connections>
-                                <segue destination="ihL-1U-Hzb" kind="push" id="abA-ur-1Na"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="passwordTextField" destination="Vo1-Tu-s1h" id="rr0-cD-lw0"/>
-                        <outlet property="phoneNumberText" destination="hL4-ct-0sT" id="gt6-iD-t18"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="buG-RT-qLR"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ukz-0i-Rht" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3703" y="2748"/>
-        </scene>
-        <!--Register View Controller-->
-        <scene sceneID="4gr-83-SE2">
-            <objects>
-                <viewController id="ihL-1U-Hzb" customClass="ZJFRegisterViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="r0K-Mk-hpE"/>
-                        <viewControllerLayoutGuide type="bottom" id="TPo-dw-bZ7"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bJN-cz-8PN" customClass="UIControl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="手机号" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2B-2B-aBb">
-                                <rect key="frame" x="24" y="125" width="58" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="caj-rU-6Kg">
-                                <rect key="frame" x="90" y="125" width="110" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="send"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="输入6位数字验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lQU-qU-zI8">
-                                <rect key="frame" x="90" y="331" width="110" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lNI-AR-QVe">
-                                <rect key="frame" x="90" y="226" width="110" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eu3-iK-bzD">
-                                <rect key="frame" x="216" y="331" width="78" height="30"/>
-                                <state key="normal" title="重新发送">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sendVerifyAgain:" destination="ihL-1U-Hzb" eventType="touchUpInside" id="hrw-Jo-kdr"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="输入密码" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aq7-jv-Zhl">
-                                <rect key="frame" x="7" y="229" width="75" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5zB-Fg-9ZJ">
-                                <rect key="frame" x="122" y="287" width="46" height="30"/>
-                                <state key="normal" title="注册">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="registerUser:" destination="ihL-1U-Hzb" eventType="touchDown" id="d5A-yp-xjM"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="输入昵称" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7R-f6-qIt">
-                                <rect key="frame" x="14" y="188" width="68" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wtk-Ny-qHe">
-                                <rect key="frame" x="90" y="184" width="110" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DON-fD-udC">
-                                <rect key="frame" x="122" y="387" width="46" height="30"/>
-                                <state key="normal" title="验证">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <action selector="resignFirstResponde:" destination="ihL-1U-Hzb" eventType="touchDown" id="uRp-d1-bxH"/>
-                        </connections>
-                    </view>
-                    <navigationItem key="navigationItem" id="OAT-ho-dya"/>
-                    <connections>
-                        <outlet property="nickNameText" destination="Wtk-Ny-qHe" id="aJx-7w-K7t"/>
-                        <outlet property="passwordText" destination="lNI-AR-QVe" id="YGi-Dt-UtE"/>
-                        <outlet property="phoneNumberText" destination="caj-rU-6Kg" id="J7A-4B-9qx"/>
-                        <outlet property="verifyNumber" destination="lQU-qU-zI8" id="oIP-w3-Cxg"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6C0-Eo-8aJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4167" y="2748"/>
+            <point key="canvasLocation" x="2757" y="2739"/>
         </scene>
         <!--修改信息-->
         <scene sceneID="SNN-Zo-x2m">
@@ -965,24 +827,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sT5-XD-ZiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="763" y="2564"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="jYQ-Wp-vLq">
-            <objects>
-                <navigationController storyboardIdentifier="userLogin" automaticallyAdjustsScrollViewInsets="NO" id="0r7-Wp-fNh" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LV0-kJ-PRp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="XZ4-iL-b4M" kind="relationship" relationship="rootViewController" id="Ii5-Yg-Elk"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wsb-De-weP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3187" y="2748"/>
         </scene>
     </scenes>
     <resources>

@@ -13,39 +13,22 @@
 
 @interface ZJFLoginViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *phoneNumberText;
-@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
-
-- (IBAction)login:(id)sender;
-
 @end
 
 @implementation ZJFLoginViewController
+@synthesize isCancelLogin;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.passwordTextField.secureTextEntry = YES;
-    [self.navigationController setNavigationBarHidden:NO];
-}
-
-- (void)viewDidAppear:(BOOL)animated{
-    NSLog(@"kai\n");
 }
 
 - (IBAction)cancelLogin:(id)sender {
+    self.isCancelLogin = true;
     //取消登录，返回到首页
-    [[self parentViewController].navigationController popToRootViewControllerAnimated:nil];
-    
+    [self dismissViewControllerAnimated:YES completion:nil];
     //[self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex: ([self.navigationController.viewControllers count] -2)] animated:YES];
 }
 
-- (IBAction)forgotPassword:(id)sender {
-}
-
-- (IBAction)login:(id)sender {
-    
-    
-}
 
 - (IBAction)loginWithWeibo:(id)sender {
     

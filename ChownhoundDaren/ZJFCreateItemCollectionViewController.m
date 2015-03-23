@@ -16,6 +16,7 @@
 #import "ZJFDetailOfCreateImageViewController.h"
 #import "ZJFCurrentLocation.h"
 #import "ZJFLoginViewController.h"
+#import "AppDelegate.h"
 
 @interface ZJFCreateItemCollectionViewController ()
 {
@@ -38,35 +39,60 @@ int const numberOFMaxPictures = 5;
     
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self.collectionView reloadData];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+    
+    if (self.loginViewController) {
+        //检测到登录取消了，返回到首页
+        if (self.loginViewController.isCancelLogin) {
+            self.loginViewController = nil; //释放资源
+            self.tabBarController.selectedIndex = 0;
+        }
+    } else{
+        [self testLogin];
+    }
+}
 
 - (void)testLogin{
+    
     [AVUser logOut];
     AVUser *user = [AVUser currentUser];
     
     if (!user) {
-        @try {
-            UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            UINavigationController *loginController = [storyBoard instantiateViewControllerWithIdentifier:@"userLogin"];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"111" message:@"www" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *confirmLogin = [UIAlertAction actionWithTitle:@"登录"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^void(UIAlertAction *action){
+                                                                 @try {
+                            UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                            ZJFLoginViewController *loginController = [storyBoard instantiateViewControllerWithIdentifier:@"loginViewController"];
+                                                                     self.loginViewController = loginController;
+                                                                     
+                            [self presentViewController:loginController animated:YES completion:nil];
+                                                                    
+                            NSLog(@"111\n");
+                            }
+                                                                 @catch (NSException *exception) {
+                                                                     NSLog(@"%@\n",exception);
+                                                                     NSLog(@"222\n");
+                                                                 }
 
-            [self presentViewController:loginController animated:YES completion:nil];
-            
-            
-            NSLog(@"111\n");
-        }
-        @catch (NSException *exception) {
-            NSLog(@"%@\n",exception);
-            NSLog(@"222\n");
-        }
+                                                             }];
+        UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:^void(UIAlertAction *action){
+            self.tabBarController.selectedIndex = 0;
+        }];
+        
+        [alert addAction:cancelButton];
+        [alert addAction:confirmLogin];
+        
+        [self presentViewController:alert animated:YES completion:nil];
         
     }
 }
 
 
-- (void)viewWillAppear:(BOOL)animated{
-    [self testLogin];
-    [self.collectionView reloadData];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
-}
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return [capturedImages count] + 1;

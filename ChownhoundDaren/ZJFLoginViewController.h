@@ -11,5 +11,7 @@
 
 @interface ZJFLoginViewController : UIViewController<WeiboSDKDelegate>
 
+@property (nonatomic) BOOL isCancelLogin;
+
 
 @end

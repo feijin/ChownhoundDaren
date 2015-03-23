@@ -11,11 +11,16 @@
 
 @class ZJFCreateOfHeaderCollectionReusableView;
 @class ZJFCreateOfFooterCollectionReusableView;
+@class ZJFLoginViewController;
 
 
 @interface ZJFCreateItemCollectionViewController : UICollectionViewController
 <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate,CLLocationManagerDelegate>
+{
+    
+}
 
+@property (nonatomic,strong) ZJFLoginViewController *loginViewController;
 
 - (void)showAlertSheet;
 - (void)deleteImage:(UIImage *)imageWithKey;
