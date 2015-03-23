@@ -17,6 +17,7 @@
 #import "ZJFCurrentLocation.h"
 #import "ZJFLoginViewController.h"
 #import "AppDelegate.h"
+#import "ZJFCurrentUser.h"
 
 @interface ZJFCreateItemCollectionViewController ()
 {
@@ -309,7 +310,7 @@ int const numberOFMaxPictures = 5;
     [shareItem setObject:locationNameOfItem forKey:@"locationNameOfItem"];
     
     
-    [shareItem setObject:@"15202150609" forKey:@"userID"];
+    [shareItem setObject:[ZJFCurrentUser shareCurrentUser].wbUid forKey:@"userID"];
     
     
     [shareItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
