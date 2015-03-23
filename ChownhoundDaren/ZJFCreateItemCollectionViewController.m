@@ -33,8 +33,8 @@
 int const numberOFMaxPictures = 5;
 
 - (void)viewDidLoad{
-    dictionary = [[NSMutableDictionary alloc] init];
     [super viewDidLoad];
+    dictionary = [[NSMutableDictionary alloc] init];
     capturedImages = [[NSMutableArray alloc] init];
     
 }

@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import <AVOSCloud/AVOSCloud.h>
+#import "ZJFCurrentUser.h"
+#import "ZJFLoginViewController.h"
 
 
 @interface AppDelegate ()
@@ -16,7 +18,7 @@
 
 @implementation AppDelegate
 
-@synthesize wbToken,wbCurrentUserID,wbExpirationDate,wbRefreshToken;
+@synthesize loginViewController;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -41,17 +43,27 @@
         if ([response isKindOfClass:WBAuthorizeResponse.class]) {
             WBAuthorizeResponse *authorizeRespinse = (WBAuthorizeResponse *)response;
             
-            self.wbCurrentUserID = authorizeRespinse.userID;
-            self.wbToken = authorizeRespinse.accessToken;
-            self.wbExpirationDate = authorizeRespinse.expirationDate;
-            self.wbRefreshToken = authorizeRespinse.refreshToken;
-            
+            [ZJFCurrentUser shareCurrentUser].wbUid = authorizeRespinse.userID;
+            [ZJFCurrentUser shareCurrentUser].wbToken = authorizeRespinse.accessToken;
+            [ZJFCurrentUser shareCurrentUser].wbExpirationDate = authorizeRespinse.expirationDate;
+            [ZJFCurrentUser shareCurrentUser].wbRefreshToken = authorizeRespinse.refreshToken;
+            [ZJFCurrentUser shareCurrentUser].isLogin = true;
             
             AVUser *user = [AVUser user];
-            [user setObject:self.wbCurrentUserID forKey:@"weiboID"];
+            user.username = [ZJFCurrentUser shareCurrentUser].wbUid;
+            user.password = @"ChownhoundDaren";
+            [user setObject:[NSNumber numberWithBool:YES] forKey:@"isWeiboUser"];
             
-            
+            [user signUpInBackgroundWithBlock:^(BOOL succeeded,NSError *error){
+                if (succeeded) {
+                    NSLog(@"sign up succeeded\n");
+                } else{
+                    NSLog(@"sign up fail\n");
+                }
+            }];
         }
+        
+        [self.loginViewController dismissViewControllerAnimated:YES completion:nil];
         
     } else{
         NSLog(@"授权失败\n");

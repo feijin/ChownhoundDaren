@@ -8,19 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "WeiboSDK.h"
+@class ZJFLoginViewController;
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,WeiboSDKDelegate>
 {
-    NSString *wbToken;
-    NSString *wbCurrentUserID;
+    
 }
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic,strong) NSString *wbToken;
-@property (nonatomic,strong) NSString *wbCurrentUserID;
-@property (nonatomic,strong) NSDate *wbExpirationDate;
-@property (nonatomic,strong) NSString *wbRefreshToken;
+@property (strong, nonatomic) ZJFLoginViewController *loginViewController;
+
 
 
 @end

@@ -31,6 +31,9 @@
 
 
 - (IBAction)loginWithWeibo:(id)sender {
+    AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    myDelegate.loginViewController = self;
+    
     
     if ([WeiboSDK isCanSSOInWeiboApp]) {
         WBAuthorizeRequest *request = [WBAuthorizeRequest request];

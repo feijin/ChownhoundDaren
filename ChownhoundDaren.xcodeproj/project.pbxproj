@@ -29,6 +29,7 @@
 		C2A225C01AA1EB0B00DA66E9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2A225BF1AA1EB0B00DA66E9 /* Images.xcassets */; };
 		C2A225C31AA1EB0B00DA66E9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A225C11AA1EB0B00DA66E9 /* LaunchScreen.xib */; };
 		C2A225CF1AA1EB0B00DA66E9 /* ChownhoundDarenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A225CE1AA1EB0B00DA66E9 /* ChownhoundDarenTests.m */; };
+		C2A762A81ABFEBDB00F059D6 /* ZJFCurrentUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A762A71ABFEBDB00F059D6 /* ZJFCurrentUser.m */; };
 		C2AFEEAB1ABE5B020077F893 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AFEEA01ABE5B020077F893 /* libWeiboSDK.a */; };
 		C2AFEEAC1ABE5B020077F893 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2AFEEA81ABE5B020077F893 /* WeiboSDK.bundle */; };
 		C2AFEEAE1ABEAD9D0077F893 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AFEEAD1ABEAD9D0077F893 /* ImageIO.framework */; };
@@ -107,6 +108,8 @@
 		C2A225C81AA1EB0B00DA66E9 /* ChownhoundDarenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChownhoundDarenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A225CD1AA1EB0B00DA66E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2A225CE1AA1EB0B00DA66E9 /* ChownhoundDarenTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChownhoundDarenTests.m; sourceTree = "<group>"; };
+		C2A762A61ABFEBDB00F059D6 /* ZJFCurrentUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCurrentUser.h; sourceTree = "<group>"; };
+		C2A762A71ABFEBDB00F059D6 /* ZJFCurrentUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCurrentUser.m; sourceTree = "<group>"; };
 		C2AFEEA01ABE5B020077F893 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
 		C2AFEEA11ABE5B020077F893 /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
 		C2AFEEA21ABE5B020077F893 /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
@@ -207,6 +210,8 @@
 			children = (
 				C2BD0E731ABB0CD900700648 /* ZJFCurrentLocation.h */,
 				C2BD0E741ABB0CD900700648 /* ZJFCurrentLocation.m */,
+				C2A762A61ABFEBDB00F059D6 /* ZJFCurrentUser.h */,
+				C2A762A71ABFEBDB00F059D6 /* ZJFCurrentUser.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -558,6 +563,7 @@
 				C2E580BF1AB8877B009C358D /* ZJFDetailOfCreateImageViewController.m in Sources */,
 				C2BCECCC1AB0645B003B352C /* ZJFCollection.m in Sources */,
 				C2BCED021AB1328D003B352C /* ZJFSettingTableViewController.m in Sources */,
+				C2A762A81ABFEBDB00F059D6 /* ZJFCurrentUser.m in Sources */,
 				C2BCECEA1AB12CED003B352C /* ZJFMyProfileViewController.m in Sources */,
 				C2BCED0E1AB1BFC6003B352C /* ZJFMyShareTableViewCell.m in Sources */,
 				C2BCED1A1AB1CD31003B352C /* ZJFLoginViewController.m in Sources */,

@@ -208,9 +208,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="hFH-m2-vlX" kind="push" id="naE-cs-hCl"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -578,9 +575,6 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <connections>
-                                            <segue destination="hFH-m2-vlX" kind="push" id="1qy-bS-bvo"/>
-                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -766,7 +760,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a45-1M-m17" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1240" y="4154"/>
+            <point key="canvasLocation" x="1240" y="4188"/>
         </scene>
         <!--Navigation我-->
         <scene sceneID="vFh-BP-PlN">
@@ -838,7 +832,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="naE-cs-hCl"/>
-    </inferredMetricsTieBreakers>
 </document>

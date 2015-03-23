@@ -9,13 +9,14 @@
 #import "ZJFCurrentUser.h"
 #import <AVOSCloud/AVOSCloud.h>
 
+
+
 @implementation ZJFCurrentUser
 
-@synthesize wbUid,isLogin,wbExpirationDate,wbRefreshToken,wbToken;
+@synthesize wbUid,wbExpirationDate,wbRefreshToken,wbToken,isLogin;
 
-+ (ZJFCurrentUser *)shareUser{
++ (ZJFCurrentUser *)shareCurrentUser{
     static ZJFCurrentUser *currentUser = nil;
-    
     if (!currentUser) {
         currentUser = [[super allocWithZone:nil] init];
     }
@@ -23,24 +24,20 @@
     return currentUser;
 }
 
-//初始化时检测当前用户是否已登录
++ (id)allocWithZone:(struct _NSZone *)zone{
+    return [self shareCurrentUser];
+}
+
 - (id)init{
     self = [super init];
+    
     if (self) {
-        if ([AVUser currentUser]) { 
+        if ([AVUser currentUser]) {
             isLogin = true;
         }
     }
     
     return self;
 }
-
-+ (id)allocWithZone:(struct _NSZone *)zone{
-    return [self shareUser];
-}
-
-
-
-
 
 @end

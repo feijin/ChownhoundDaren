@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class WeiboUser;
+#import "WeiboUser.h"
 
 @interface ZJFCurrentUser : NSObject
 {
@@ -15,12 +15,12 @@
 }
 
 @property (nonatomic,strong) NSString *wbUid;
-@property (nonatomic) BOOL isLogin;
 @property (nonatomic,strong) NSString *wbToken;
 @property (nonatomic,strong) NSDate *wbExpirationDate;
 @property (nonatomic,strong) NSString *wbRefreshToken;
+@property (nonatomic) BOOL isLogin;
 
-+ (ZJFCurrentUser *)shareUser;
++ (ZJFCurrentUser *)shareCurrentUser;
 
 
 @end
