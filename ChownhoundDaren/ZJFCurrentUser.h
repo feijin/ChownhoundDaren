@@ -10,10 +10,9 @@
 #import "WeiboUser.h"
 
 @interface ZJFCurrentUser : NSObject
-{
-    WeiboUser *wbUser;
-}
 
+
+@property (nonatomic,strong) WeiboUser *weiboUser;
 @property (nonatomic,strong) NSString *wbUid;
 @property (nonatomic,strong) NSString *wbToken;
 @property (nonatomic,strong) NSDate *wbExpirationDate;

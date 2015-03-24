@@ -13,7 +13,7 @@
 
 @implementation ZJFCurrentUser
 
-@synthesize wbUid,wbExpirationDate,wbRefreshToken,wbToken,isLogin;
+@synthesize weiboUser,wbUid,wbExpirationDate,wbRefreshToken,wbToken,isLogin;
 
 + (ZJFCurrentUser *)shareCurrentUser{
     static ZJFCurrentUser *currentUser = nil;
@@ -34,10 +34,16 @@
     if (self) {
         if ([AVUser currentUser]) {
             isLogin = true;
+            // 由于currentuser并不保存用户id，所以需要从服务器下载相应信息
+            AVUser *user = [AVUser currentUser];
+            wbUid = user.username;
+            
         }
     }
     
     return self;
 }
+
+
 
 @end

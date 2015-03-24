@@ -1,5 +1,5 @@
 //
-//  ZJFMyProfileTableViewController.h
+//  ZJFMyProfileTableViewCell.h
 //  ChownhoundDaren
 //
 //  Created by 飞 on 15/3/24.
@@ -8,5 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZJFMyProfileTableViewController : UITableViewController
+@interface ZJFMyProfileTableViewCell : UITableViewCell
+
+
 @end

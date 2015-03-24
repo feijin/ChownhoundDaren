@@ -45,7 +45,7 @@ int const numberOFMaxPictures = 5;
     [self.collectionView reloadData];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     
-    if (self.loginViewController) {
+    if (self.loginViewController) {  //检测之前是否登录过
         //检测到登录取消了，返回到首页
         if (self.loginViewController.isCancelLogin) {
             self.loginViewController = nil; //释放资源
@@ -58,11 +58,11 @@ int const numberOFMaxPictures = 5;
 
 - (void)testLogin{
     
-    [AVUser logOut];
+//    [AVUser logOut];
     AVUser *user = [AVUser currentUser];
     
     if (!user) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"111" message:@"www" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"尚未登录" message:@"点击确定登录" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *confirmLogin = [UIAlertAction actionWithTitle:@"登录"
                                                                style:UIAlertActionStyleDefault
                                                              handler:^void(UIAlertAction *action){
@@ -72,8 +72,6 @@ int const numberOFMaxPictures = 5;
                                                                      self.loginViewController = loginController;
                                                                      
                             [self presentViewController:loginController animated:YES completion:nil];
-                                                                    
-                            NSLog(@"111\n");
                             }
                                                                  @catch (NSException *exception) {
                                                                      NSLog(@"%@\n",exception);
@@ -266,7 +264,7 @@ int const numberOFMaxPictures = 5;
 - (IBAction)sendToServe:(id)sender {
     self.tabBarController.selectedIndex = 0; //发送完后，立刻返回首页
     
-    [[[ZJFCurrentLocation shareStore] locationManager] stopUpdatingLocation];
+    //  [[[ZJFCurrentLocation shareStore] locationManager] stopUpdatingLocation];
     
     //   CLLocation *xlocation = [ZJFCurrentLocation shareStore].location;
     //   NSLog(@"fuck1: %f\n",xlocation.coordinate.latitude);
@@ -289,16 +287,18 @@ int const numberOFMaxPictures = 5;
     [shareItem setObject:location forKey:@"locationOfItem"];
     
     NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
-    for (int i=0; i<[capturedImages count]; i++) {
-        NSString *string = [@"image" stringByAppendingString:[NSString stringWithFormat:@"%d",(i+1)]];
-    //    NSLog(@"%@\n",string);
-        NSData *data = UIImagePNGRepresentation([capturedImages objectAtIndex:i]);
-        AVFile *file = [AVFile fileWithName:string data:data];
-        [file save];
+    if ([capturedImages count]) {
+        for (int i=0; i<[capturedImages count]; i++) {
+            NSString *string = [@"image" stringByAppendingString:[NSString stringWithFormat:@"%d",(i+1)]];
+            //    NSLog(@"%@\n",string);
+            NSData *data = UIImagePNGRepresentation([capturedImages objectAtIndex:i]);
+            AVFile *file = [AVFile fileWithName:string data:data];
+            [file save];
+            
+            [mutableArray addObject:file];
+        }
         
-        [mutableArray addObject:file];
     }
-    
     [shareItem setObject:(NSArray *)mutableArray forKey:@"imageStore"];
     
     NSString *descriptionOfItem = [[self getHeaderView] textViewInHeader].text;     //描述信息
@@ -318,6 +318,10 @@ int const numberOFMaxPictures = 5;
     [shareItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
         if (!error) {
             NSLog(@"保存完成\n");
+            [capturedImages removeAllObjects];
+            [[self getHeaderView] textViewInHeader].text = nil;
+            [[self getFooterView] textFieldInFooter].text = nil;
+            
         } else {
             NSLog(@"%@\n",[error description]);
         }
