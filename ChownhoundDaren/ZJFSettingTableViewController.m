@@ -10,6 +10,8 @@
 
 @interface ZJFSettingTableViewController ()
 
+@property (weak, nonatomic) IBOutlet UIImageView *headerImage;
+
 @end
 
 @implementation ZJFSettingTableViewController

@@ -30,6 +30,8 @@
 		C2A225C31AA1EB0B00DA66E9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A225C11AA1EB0B00DA66E9 /* LaunchScreen.xib */; };
 		C2A225CF1AA1EB0B00DA66E9 /* ChownhoundDarenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A225CE1AA1EB0B00DA66E9 /* ChownhoundDarenTests.m */; };
 		C2A762A81ABFEBDB00F059D6 /* ZJFCurrentUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A762A71ABFEBDB00F059D6 /* ZJFCurrentUser.m */; };
+		C2A7B4B11AC0F8DC00323336 /* ZJFMyProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A7B4B01AC0F8DC00323336 /* ZJFMyProfileTableViewController.m */; };
+		C2A7B4B41AC0F95C00323336 /* ZJFMyProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A7B4B31AC0F95C00323336 /* ZJFMyProfileHeaderView.m */; };
 		C2AFEEAB1ABE5B020077F893 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AFEEA01ABE5B020077F893 /* libWeiboSDK.a */; };
 		C2AFEEAC1ABE5B020077F893 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2AFEEA81ABE5B020077F893 /* WeiboSDK.bundle */; };
 		C2AFEEAE1ABEAD9D0077F893 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AFEEAD1ABEAD9D0077F893 /* ImageIO.framework */; };
@@ -45,7 +47,6 @@
 		C2BCECDE1AB126BF003B352C /* ZJFTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECDD1AB126BF003B352C /* ZJFTabBarController.m */; };
 		C2BCECE11AB1281B003B352C /* ZJFHomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECE01AB1281B003B352C /* ZJFHomeTableViewController.m */; };
 		C2BCECE41AB1296E003B352C /* ZJFDetailItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECE31AB1296E003B352C /* ZJFDetailItemViewController.m */; };
-		C2BCECEA1AB12CED003B352C /* ZJFMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECE91AB12CED003B352C /* ZJFMyProfileViewController.m */; };
 		C2BCECED1AB12D27003B352C /* ZJFMyShareTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECEC1AB12D27003B352C /* ZJFMyShareTableViewController.m */; };
 		C2BCECF31AB13091003B352C /* ZJFProfileCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECF21AB13091003B352C /* ZJFProfileCollectionViewController.m */; };
 		C2BCECF91AB1319C003B352C /* ZJFMyCollectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECF81AB1319C003B352C /* ZJFMyCollectionTableViewController.m */; };
@@ -110,6 +111,10 @@
 		C2A225CE1AA1EB0B00DA66E9 /* ChownhoundDarenTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChownhoundDarenTests.m; sourceTree = "<group>"; };
 		C2A762A61ABFEBDB00F059D6 /* ZJFCurrentUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCurrentUser.h; sourceTree = "<group>"; };
 		C2A762A71ABFEBDB00F059D6 /* ZJFCurrentUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCurrentUser.m; sourceTree = "<group>"; };
+		C2A7B4AF1AC0F8DC00323336 /* ZJFMyProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFMyProfileTableViewController.h; sourceTree = "<group>"; };
+		C2A7B4B01AC0F8DC00323336 /* ZJFMyProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFMyProfileTableViewController.m; sourceTree = "<group>"; };
+		C2A7B4B21AC0F95C00323336 /* ZJFMyProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFMyProfileHeaderView.h; sourceTree = "<group>"; };
+		C2A7B4B31AC0F95C00323336 /* ZJFMyProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFMyProfileHeaderView.m; sourceTree = "<group>"; };
 		C2AFEEA01ABE5B020077F893 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
 		C2AFEEA11ABE5B020077F893 /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
 		C2AFEEA21ABE5B020077F893 /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
@@ -145,8 +150,6 @@
 		C2BCECE01AB1281B003B352C /* ZJFHomeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFHomeTableViewController.m; sourceTree = "<group>"; };
 		C2BCECE21AB1296E003B352C /* ZJFDetailItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFDetailItemViewController.h; sourceTree = "<group>"; };
 		C2BCECE31AB1296E003B352C /* ZJFDetailItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFDetailItemViewController.m; sourceTree = "<group>"; };
-		C2BCECE81AB12CED003B352C /* ZJFMyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFMyProfileViewController.h; sourceTree = "<group>"; };
-		C2BCECE91AB12CED003B352C /* ZJFMyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFMyProfileViewController.m; sourceTree = "<group>"; };
 		C2BCECEB1AB12D27003B352C /* ZJFMyShareTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFMyShareTableViewController.h; sourceTree = "<group>"; };
 		C2BCECEC1AB12D27003B352C /* ZJFMyShareTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFMyShareTableViewController.m; sourceTree = "<group>"; };
 		C2BCECF11AB13091003B352C /* ZJFProfileCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFProfileCollectionViewController.h; sourceTree = "<group>"; };
@@ -367,8 +370,10 @@
 				C2BCECE31AB1296E003B352C /* ZJFDetailItemViewController.m */,
 				C2BCECF11AB13091003B352C /* ZJFProfileCollectionViewController.h */,
 				C2BCECF21AB13091003B352C /* ZJFProfileCollectionViewController.m */,
-				C2BCECE81AB12CED003B352C /* ZJFMyProfileViewController.h */,
-				C2BCECE91AB12CED003B352C /* ZJFMyProfileViewController.m */,
+				C2A7B4AF1AC0F8DC00323336 /* ZJFMyProfileTableViewController.h */,
+				C2A7B4B01AC0F8DC00323336 /* ZJFMyProfileTableViewController.m */,
+				C2A7B4B21AC0F95C00323336 /* ZJFMyProfileHeaderView.h */,
+				C2A7B4B31AC0F95C00323336 /* ZJFMyProfileHeaderView.m */,
 				C2BCECEB1AB12D27003B352C /* ZJFMyShareTableViewController.h */,
 				C2BCECEC1AB12D27003B352C /* ZJFMyShareTableViewController.m */,
 				C2BCED001AB1328D003B352C /* ZJFSettingTableViewController.h */,
@@ -546,6 +551,7 @@
 				C2BCECE41AB1296E003B352C /* ZJFDetailItemViewController.m in Sources */,
 				C2BCECE11AB1281B003B352C /* ZJFHomeTableViewController.m in Sources */,
 				C2319E3B1AB804A500457A5B /* ZJFCreateOfFooterCollectionReusableView.m in Sources */,
+				C2A7B4B41AC0F95C00323336 /* ZJFMyProfileHeaderView.m in Sources */,
 				C275BF451AB03580002A943C /* ZJFFindNearlyStore.m in Sources */,
 				C2BCECD21AB06BB4003B352C /* ZJFCommentStore.m in Sources */,
 				C2BCECF91AB1319C003B352C /* ZJFMyCollectionTableViewController.m in Sources */,
@@ -564,11 +570,11 @@
 				C2BCECCC1AB0645B003B352C /* ZJFCollection.m in Sources */,
 				C2BCED021AB1328D003B352C /* ZJFSettingTableViewController.m in Sources */,
 				C2A762A81ABFEBDB00F059D6 /* ZJFCurrentUser.m in Sources */,
-				C2BCECEA1AB12CED003B352C /* ZJFMyProfileViewController.m in Sources */,
 				C2BCED0E1AB1BFC6003B352C /* ZJFMyShareTableViewCell.m in Sources */,
 				C2BCED1A1AB1CD31003B352C /* ZJFLoginViewController.m in Sources */,
 				C2BCECD51AB0738B003B352C /* ZJFLocationStore.m in Sources */,
 				C2BCECCF1AB0685F003B352C /* ZJFImageStore.m in Sources */,
+				C2A7B4B11AC0F8DC00323336 /* ZJFMyProfileTableViewController.m in Sources */,
 				C2A225B51AA1EB0B00DA66E9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

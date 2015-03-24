@@ -55,8 +55,13 @@
                 if (error == nil) {
                     if ([objects count] == 0) {
                         AVUser *user = [AVUser user];
-                        user.username = [ZJFCurrentUser shareCurrentUser].wbUid;
-                        user.password = @"ChownhoundDaren";
+                        
+                        //设置username为uuid产生字符串，为临时用户名，用户以后可以更改为绑定自己的用户名
+                        NSString *tempName = [[NSUUID UUID] UUIDString];
+                        user.username = tempName;
+                        user.password = @"ChownhoundDaren"; //这两项是必填信息,所以生成临时密码，也可以更改
+                        
+                        [user setObject:[ZJFCurrentUser shareCurrentUser].wbUid forKey:@"wbUid"];
                         [user setObject:[NSNumber numberWithBool:YES] forKey:@"isWeiboUser"];
                         
                         [user signUpInBackgroundWithBlock:^(BOOL succeeded,NSError *error){
