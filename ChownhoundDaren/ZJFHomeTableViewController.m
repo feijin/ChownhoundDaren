@@ -8,6 +8,7 @@
 
 #import "ZJFHomeTableViewController.h"
 #import "ZJFCurrentLocation.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @interface ZJFHomeTableViewController ()
 
@@ -29,7 +30,7 @@
     
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     
-    CLLocation * location = [locations lastObject]; 
+    CLLocation * location = [locations lastObject];
     
     [ZJFCurrentLocation shareStore].location = location;
 
@@ -39,6 +40,10 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
         NSLog(@"error: %@\n",[error description]);
+}
+- (IBAction)loginOut:(id)sender {
+    [AVUser logOut];
+    AVUser *currentUser = [AVUser currentUser];
 }
 
 @end

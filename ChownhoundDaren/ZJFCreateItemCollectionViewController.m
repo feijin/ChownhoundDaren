@@ -258,7 +258,7 @@ int const numberOFMaxPictures = 5;
 }
 
 - (IBAction)createCancel:(id)sender {
-    
+    [self tabBarController].selectedIndex = 0;
 }
 
 - (IBAction)sendToServe:(id)sender {
@@ -312,7 +312,7 @@ int const numberOFMaxPictures = 5;
     [shareItem setObject:locationNameOfItem forKey:@"locationNameOfItem"];
     
     
-    [shareItem setObject:[ZJFCurrentUser shareCurrentUser].wbUid forKey:@"userID"];
+    [shareItem setObject:[AVUser currentUser].username forKey:@"username"];
     
     
     [shareItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){

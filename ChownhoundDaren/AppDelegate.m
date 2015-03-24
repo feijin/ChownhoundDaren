@@ -35,6 +35,7 @@
         NSLog(@"注册失败\n");
     }
     
+    
     return YES;
 }
 
@@ -72,11 +73,12 @@
                                 [user setObject:[ZJFCurrentUser shareCurrentUser].weiboUser.gender forKey:@"gender"];
                                 [user setObject:[ZJFCurrentUser shareCurrentUser].weiboUser.name forKey:@"nickName"];
                                 [user setObject:[NSNumber numberWithBool:true] forKey:@"isWeiboUser"];
+                                [user setObject:[ZJFCurrentUser shareCurrentUser].weiboUser.userDescription forKey:@"userDescription"];
                                 [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
                                     if (succeeded) {
                                         NSLog(@"signUp succeeded!\n");
+                                        NSLog(@"nickname: %@\n", [[AVUser currentUser] objectForKey:@"nickName"]);
                                     } else {
-                                        NSLog(@"signUp fail: %@\n",[error description]);
                                     }
                                 }];
                             } else if([array count]==1) {
