@@ -13,7 +13,7 @@
 
 @implementation ZJFCurrentUser
 
-@synthesize weiboUser,wbUid,wbExpirationDate,wbRefreshToken,wbToken,isLogin;
+@synthesize weiboUser,wbUid,wbExpirationDate,wbRefreshToken,wbToken,gender,userDescription,city,nickName;
 
 + (ZJFCurrentUser *)shareCurrentUser{
     static ZJFCurrentUser *currentUser = nil;
@@ -32,13 +32,23 @@
     self = [super init];
     
     if (self) {
-        if ([AVUser currentUser]) {
-            isLogin = true;
-            
+        if ([AVUser currentUser] != nil) {
+            nickName = [[AVUser currentUser] objectForKey:@"nickName"];
+            gender = [[AVUser currentUser] objectForKey:@"gender"];
+            city = [[AVUser currentUser] objectForKey:@"city"];
+            userDescription = [[AVUser currentUser] objectForKey:@"userDescription"];
         }
     }
     
     return self;
+}
+
+- (BOOL)isLogin{
+    if ([AVUser currentUser]) {
+        return YES;
+    }else{
+        return NO;
+    }
 }
 
 

@@ -43,7 +43,7 @@
 }
 - (IBAction)loginOut:(id)sender {
     [AVUser logOut];
-    AVUser *currentUser = [AVUser currentUser];
+    AVUser *currentUser = nil;
 }
 
 @end

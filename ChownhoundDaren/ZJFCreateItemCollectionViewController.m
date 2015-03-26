@@ -284,6 +284,7 @@ int const numberOFMaxPictures = 5;
     [location setObject:[NSNumber numberWithDouble:cllocation.verticalAccuracy] forKey:@"verticalAccuracy"];
     [location setObject:cllocation.timestamp forKey:@"timestamp"];
     [location setObject:cllocation.description forKey:@"descriptionOfLocation"];
+    
     [shareItem setObject:location forKey:@"locationOfItem"];
     
     NSMutableArray *mutableArray = [[NSMutableArray alloc] init];

@@ -9,6 +9,7 @@
 #import "ZJFMyProfileTableViewController.h"
 #import "ZJFMyProfileTableViewCell.h"
 #import <AVOSCloud/AVOSCloud.h>
+#import "ZJFCurrentUser.h"
 
 @interface ZJFMyProfileTableViewController()
 
@@ -20,12 +21,15 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    
+//    [[self tableView] reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+
     [[self tableView] reloadData];
+    
+//    NSLog(@"%@\n",[[ZJFCurrentUser shareCurrentUser] getNickname]);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -45,14 +49,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([indexPath section]==0) {
         ZJFMyProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProfileFirstCell"];
-        cell.nickNameLabel.text = [[AVUser currentUser] objectForKey:@"nickName"];
+        NSLog(@"nickname: %@\n",[[ZJFCurrentUser shareCurrentUser] nickName]);
+        cell.nickNameLabel.text = [[ZJFCurrentUser shareCurrentUser] nickName];
         
-        NSString *gender = [[AVUser currentUser] objectForKey:@"gender"];
+        NSString *gender = [[ZJFCurrentUser shareCurrentUser] gender];
         UIImage *image = [UIImage imageNamed:gender];
         cell.imageViewOfGender.image = image;
         
-        if ([[AVUser currentUser] objectForKey:@"userDescription"]) {
-            cell.signature.text = [[AVUser currentUser] objectForKey:@"userDescription"];
+        if ([[ZJFCurrentUser shareCurrentUser] userDescription]) {
+            cell.signature.text = [[ZJFCurrentUser shareCurrentUser] userDescription];
+        } else{
+            cell.signature.text = @"为自己说点什么...";
         }
         
         return cell;
@@ -90,5 +97,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 10.f;
 }
+
+
 
 @end

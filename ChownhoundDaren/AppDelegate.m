@@ -52,13 +52,13 @@
             [ZJFCurrentUser shareCurrentUser].wbToken = authorizeRespinse.accessToken;
             [ZJFCurrentUser shareCurrentUser].wbExpirationDate = authorizeRespinse.expirationDate;
             [ZJFCurrentUser shareCurrentUser].wbRefreshToken = authorizeRespinse.refreshToken;
-            [ZJFCurrentUser shareCurrentUser].isLogin = true;
             
             //根据userid获取用户详细信息，如用户名，性别等
             [WBHttpRequest requestForUserProfile:[ZJFCurrentUser shareCurrentUser].wbUid withAccessToken:[ZJFCurrentUser shareCurrentUser].wbToken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *request, id result, NSError *error){
                 if (!error) {
                     NSLog(@"request for user profile succeeded!\n");
                     [ZJFCurrentUser shareCurrentUser].weiboUser = result;
+                    WeiboUser *userResult = (WeiboUser *)result;
                     
                     //向云端查询此微博用户此前是否登录注册过
                     AVQuery *query = [AVUser query];
@@ -70,12 +70,15 @@
                                 AVUser *user = [AVUser user];
                                 user.username = [ZJFCurrentUser shareCurrentUser].wbUid;
                                 user.password = @"ChownhoundDaren";
-                                [user setObject:[ZJFCurrentUser shareCurrentUser].weiboUser.gender forKey:@"gender"];
-                                [user setObject:[ZJFCurrentUser shareCurrentUser].weiboUser.name forKey:@"nickName"];
+                                [user setObject:userResult.gender forKey:@"gender"];
+                                [user setObject:userResult.name forKey:@"nickName"];
                                 [user setObject:[NSNumber numberWithBool:true] forKey:@"isWeiboUser"];
-                                [user setObject:[ZJFCurrentUser shareCurrentUser].weiboUser.userDescription forKey:@"userDescription"];
                                 [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
                                     if (succeeded) {
+                                        [[ZJFCurrentUser shareCurrentUser] setGender:userResult.gender];
+                                        [[ZJFCurrentUser shareCurrentUser] setUserDescription:userResult.description];
+                                        [[ZJFCurrentUser shareCurrentUser] setNickName:userResult.name];
+                                        
                                         NSLog(@"signUp succeeded!\n");
                                         NSLog(@"nickname: %@\n", [[AVUser currentUser] objectForKey:@"nickName"]);
                                     } else {
