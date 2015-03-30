@@ -127,9 +127,5 @@
     [[[ZJFCurrentLocation shareStore] locationManager] stopUpdatingLocation];
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application{
-    [[[ZJFCurrentLocation shareStore] locationManager] startUpdatingLocation];
-}
-
 
 @end

@@ -275,17 +275,8 @@ int const numberOFMaxPictures = 5;
     
     AVObject *shareItem = [AVObject objectWithClassName:@"shareItem"];
     
-    AVObject *location = [AVObject objectWithClassName:@"location"];
-    [location setObject:[NSNumber numberWithDouble:cllocation.coordinate.latitude] forKey:@"latitude"];
-    [location setObject:[NSNumber numberWithDouble:cllocation.coordinate.longitude] forKey:@"longitude"];
-    [location setObject:[NSNumber numberWithDouble:cllocation.altitude] forKey:@"altitude"];
-    [location setObject:[NSNumber numberWithInteger:cllocation.floor] forKey:@"floor"];
-    [location setObject:[NSNumber numberWithDouble:cllocation.horizontalAccuracy] forKey:@"horizontalAccuracy"];
-    [location setObject:[NSNumber numberWithDouble:cllocation.verticalAccuracy] forKey:@"verticalAccuracy"];
-    [location setObject:cllocation.timestamp forKey:@"timestamp"];
-    [location setObject:cllocation.description forKey:@"descriptionOfLocation"];
-    
-    [shareItem setObject:location forKey:@"locationOfItem"];
+    [shareItem setObject:[NSNumber numberWithDouble:cllocation.coordinate.latitude] forKey:@"latitude"];
+    [shareItem setObject:[NSNumber numberWithDouble:cllocation.coordinate.longitude] forKey:@"longitude"];
     
     NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
     if ([capturedImages count]) {
@@ -293,6 +284,8 @@ int const numberOFMaxPictures = 5;
             NSString *string = [@"image" stringByAppendingString:[NSString stringWithFormat:@"%d",(i+1)]];
             //    NSLog(@"%@\n",string);
             NSData *data = UIImagePNGRepresentation([capturedImages objectAtIndex:i]);
+            
+            //这里应当给文件添加合适的扩展名！
             AVFile *file = [AVFile fileWithName:string data:data];
             [file save];
             

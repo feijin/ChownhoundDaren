@@ -8,6 +8,11 @@
 
 #import "ZJFHomeTableViewCell.h"
 
+@interface ZJFHomeTableViewCell ()
+
+@end
+
+
 @implementation ZJFHomeTableViewCell
 
 - (void)awakeFromNib {
