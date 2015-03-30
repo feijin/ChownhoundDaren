@@ -13,7 +13,6 @@
 #import "ZJFCreateOfFooterCollectionReusableView.h"
 #import "ZJFCreateOfPhotoCollectionViewCell.h"
 #import "ZJFCreateOfSpecialCollectionViewCell.h"
-#import "ZJFDetailOfCreateImageViewController.h"
 #import "ZJFCurrentLocation.h"
 #import "ZJFLoginViewController.h"
 #import "AppDelegate.h"
@@ -133,20 +132,6 @@ int const numberOFMaxPictures = 5;
     }
     
     
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] objectAtIndex:0];
-    
-    UIImage *image = [capturedImages objectAtIndex:[indexPath row]];
-    
-    ZJFDetailOfCreateImageViewController *detailOfCreateImageViewController = [segue destinationViewController];
-    
-    detailOfCreateImageViewController.imageWithKey = image;
-//    detailOfCreateImageViewController.captureImages = self.capturedImages;
-    detailOfCreateImageViewController.createItemCollectionViewController = segue.sourceViewController;
-    
-    detailOfCreateImageViewController.hidesBottomBarWhenPushed = YES;
 }
 
 

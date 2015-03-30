@@ -302,7 +302,7 @@
                                             <rect key="frame" x="171" y="152" width="67" height="61"/>
                                         </imageView>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="746" fixedFrame="YES" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gz1-ab-UXH">
-                                            <rect key="frame" x="24" y="40" width="259" height="91"/>
+                                            <rect key="frame" x="24" y="40" width="259" height="90"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <string key="text">我团的是17:00到22：00的劵，219元一位、去早了五分钟，就在旁边等座的位置休息了五分钟！17:00准时入场。最主要是吃生鱼片之类的！味道差了一点！毕竟放在外面时间长了些，哈根达斯的冰淇淋就四个口味，品种太少了，味道跟专卖店不一样。鲜榨果汁不错！西餐和中餐品种太少了，蟹肉不新鲜！服务员态度和蔼可亲！现场有演出！整个用餐的感觉舒适！愉悦！就是没有吃多少就饱了、19:00多离场的，回到家又饿了！下次还去。</string>
                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
@@ -314,7 +314,8 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <segue destination="BJx-7e-C3d" kind="push" id="rTi-AM-cCN"/>
+                                                <action selector="moreDescription:" destination="0mv-J1-eVh" eventType="touchUpInside" id="blB-FS-C8t"/>
+                                                <segue destination="BJx-7e-C3d" kind="push" identifier="DetailDescription" id="rTi-AM-cCN"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="地点" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ode-7X-H8B">
@@ -345,6 +346,7 @@
                                     <outlet property="image1" destination="Mno-2O-qKq" id="tEf-4g-1Tm"/>
                                     <outlet property="image2" destination="Q4a-sF-L9V" id="u8m-Er-D9V"/>
                                     <outlet property="image3" destination="Psi-Dh-Y6l" id="tfy-Un-VPM"/>
+                                    <outlet property="moreDescription" destination="imc-n5-9Li" id="qaF-ao-6me"/>
                                     <outlet property="nickNameLabel" destination="BQo-CH-gcM" id="jJO-ld-1Wa"/>
                                     <outlet property="placeName" destination="ode-7X-H8B" id="gJV-Ds-I0a"/>
                                 </connections>
@@ -439,12 +441,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zlT-CK-SpK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1772" y="2039"/>
+            <point key="canvasLocation" x="1758" y="2039"/>
         </scene>
         <!--详情-->
         <scene sceneID="oJg-iz-b7k">
             <objects>
-                <viewController id="BJx-7e-C3d" sceneMemberID="viewController">
+                <viewController id="BJx-7e-C3d" customClass="ZJFMoreDescriptionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nGc-7q-MgN"/>
                         <viewControllerLayoutGuide type="bottom" id="iLw-0N-Jxv"/>
@@ -468,16 +470,25 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="就的撒垃圾发链接；了" translatesAutoresizingMaskIntoConstraints="NO" id="tIn-oy-kEP">
+                                <rect key="frame" x="40" y="143" width="240" height="312"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="详情" id="SAb-xO-mon">
                         <barButtonItem key="backBarButtonItem" title="首页" id="A3m-pu-o3y"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="descriptionTextView" destination="tIn-oy-kEP" id="JvW-gb-8nY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8hQ-XA-0P0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2201" y="2039"/>
+            <point key="canvasLocation" x="2191" y="2039"/>
         </scene>
         <!--昵称-->
         <scene sceneID="XLm-uY-l8V">

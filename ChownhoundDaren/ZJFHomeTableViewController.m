@@ -11,6 +11,7 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import "ZJFHomeTableViewCell.h"
 #import "ZJFCurrentUser.h"
+#import "ZJFMoreDescriptionViewController.h"
 
 static const double EARTH_ARC = 6367000;
 
@@ -19,6 +20,7 @@ static const double EARTH_ARC = 6367000;
     NSMutableArray *surroundObjects;   //保存获取的数据
     double latitude;
     double longitude;
+    int passItem;
 }
 
 @end
@@ -150,17 +152,24 @@ static const double EARTH_ARC = 6367000;
         
         NSString *description = itemDescription;
         
+        cell.moreDescription.hidden = YES; // 如果字符较少，不需要显示更多信息
+        
         if(length > numberOfMaxCharacters){
             //如果超过50个字符，截取47个字符
             description = [itemDescription substringToIndex:numberOfMaxCharacters];
             description = [description stringByAppendingString:@"..."];
+            cell.moreDescription.hidden = NO;
         }
+        
+ //       [cell.moreDescription addTarget:self action:@selector(prepareForSegue:sender:) forControlEvents:UIControlEventTouchUpInside];
         
         NSLog(@"description characters = %d\n", length);
         
         [cell.descriptionTextView setFont:[UIFont fontWithName:@"Helvetica" size:16]];
         cell.descriptionTextView.text = description;
         cell.placeName.text = [item objectForKey:@"placeName"];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;  //设置选中时没有效果
         
         return cell;
 
@@ -180,8 +189,40 @@ static const double EARTH_ARC = 6367000;
 
     }
     
+}
+
+
+- (IBAction)moreDescription:(id)sender {
+    ZJFHomeTableViewCell *cell = (ZJFHomeTableViewCell *)[[sender superview] superview]; //获取按钮所在的cell
+        
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+   NSLog(@"indexPath row = %d\n",[indexPath row]);
+    
+    passItem = [indexPath row];
+    NSLog(@"description : %@\n",[[surroundObjects objectAtIndex:[indexPath row]] objectForKey:@"itemDescription"]);
+    
+    ZJFMoreDescriptionViewController *moreDescriptionViewController = [[ZJFMoreDescriptionViewController alloc] init];
+    AVObject *item = [surroundObjects objectAtIndex:[indexPath row]];
+    
+  //  NSLog(@"%@\n",[item objectForKey:@"itemDescription"]);
+    
+    moreDescriptionViewController.item = item;
+    
+    NSLog(@"%@\n",item);
+    NSLog(@"%@\n",moreDescriptionViewController.item);
+    
+  //  NSLog(@"%@\n", [moreDescriptionViewController.item objectForKey:@"itemDescription"]);
     
     
+    UIStoryboardSegue *segue = [[UIStoryboardSegue alloc] initWithIdentifier:@"DetailDescription" source:self destination:moreDescriptionViewController];
+
+    [self prepareForSegue:segue sender:sender];
+    
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    ZJFMoreDescriptionViewController *moreDescriptionViewController = segue.destinationViewController;
+    moreDescriptionViewController.item = [surroundObjects objectAtIndex:passItem];
 }
 
 
