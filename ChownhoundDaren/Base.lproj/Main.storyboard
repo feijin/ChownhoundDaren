@@ -256,6 +256,32 @@
             </objects>
             <point key="canvasLocation" x="3736" y="3504"/>
         </scene>
+        <!--Detail Picture View Controller-->
+        <scene sceneID="J1m-6X-i7d">
+            <objects>
+                <viewController storyboardIdentifier="ShowImage" id="e39-fw-Rp8" customClass="ZJFDetailPictureViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lV7-14-Kux"/>
+                        <viewControllerLayoutGuide type="bottom" id="AwJ-J3-VQQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFit" id="5Tg-th-R65">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eP8-5P-s30">
+                                <rect key="frame" x="0.0" y="117" width="320" height="334"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="eP8-5P-s30" id="y72-FI-2sL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CFQ-x8-QA7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1758" y="1312"/>
+        </scene>
         <!--发现-->
         <scene sceneID="S5T-qa-pHf">
             <objects>
@@ -280,10 +306,10 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="2" translatesAutoresizingMaskIntoConstraints="NO" id="Q4a-sF-L9V">
-                                            <rect key="frame" x="100" y="138" width="63" height="89"/>
+                                        <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4a-sF-L9V">
+                                            <rect key="frame" x="96" y="152" width="63" height="60"/>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="747" fixedFrame="YES" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mno-2O-qKq">
+                                        <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="747" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mno-2O-qKq">
                                             <rect key="frame" x="29" y="152" width="63" height="60"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPE-Ri-OKS">
@@ -298,9 +324,6 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" fixedFrame="YES" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="Psi-Dh-Y6l">
-                                            <rect key="frame" x="171" y="152" width="67" height="61"/>
-                                        </imageView>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="746" fixedFrame="YES" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gz1-ab-UXH">
                                             <rect key="frame" x="24" y="40" width="259" height="90"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -336,6 +359,9 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Psi-Dh-Y6l">
+                                            <rect key="frame" x="167" y="152" width="63" height="60"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
@@ -441,7 +467,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zlT-CK-SpK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1758" y="2039"/>
+            <point key="canvasLocation" x="1758" y="2036"/>
         </scene>
         <!--详情-->
         <scene sceneID="oJg-iz-b7k">
@@ -451,7 +477,7 @@
                         <viewControllerLayoutGuide type="top" id="nGc-7q-MgN"/>
                         <viewControllerLayoutGuide type="bottom" id="iLw-0N-Jxv"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="JE7-IG-DSu">
+                    <view key="view" contentMode="scaleToFill" id="JE7-IG-DSu" customClass="UIScrollView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -470,7 +496,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="就的撒垃圾发链接；了" translatesAutoresizingMaskIntoConstraints="NO" id="tIn-oy-kEP">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" text="就的撒垃圾发链接；了" translatesAutoresizingMaskIntoConstraints="NO" id="tIn-oy-kEP">
                                 <rect key="frame" x="40" y="143" width="240" height="312"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -854,28 +880,8 @@
             </objects>
             <point key="canvasLocation" x="763" y="2564"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="VtP-5W-PS0">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="weD-Pj-jVp" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="I2H-I4-oKD"/>
-                        <viewControllerLayoutGuide type="bottom" id="TG5-RK-UIW"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Mg7-QH-X64">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jhl-ds-Osz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <resources>
-        <image name="1" width="700" height="700"/>
-        <image name="2" width="700" height="643"/>
         <image name="me" width="39" height="39"/>
         <image name="tianjia1" width="88" height="88"/>
     </resources>

@@ -12,12 +12,14 @@
 #import "ZJFHomeTableViewCell.h"
 #import "ZJFCurrentUser.h"
 #import "ZJFMoreDescriptionViewController.h"
+#import "ZJFDetailPictureViewController.h"
 
 static const double EARTH_ARC = 6367000;
+static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页面查看详情
 
 @interface ZJFHomeTableViewController ()
 {
-    NSMutableArray *surroundObjects;   //保存获取的数据
+    NSMutableArray *surroundObjects;  //保存获取的数据
     double latitude;
     double longitude;
     int passItem;
@@ -31,7 +33,7 @@ static const double EARTH_ARC = 6367000;
     //提供三种排序方式，由近到远，由远到近，乱序。。
     [super viewDidLoad];
     
-    _locationManager = [[ZJFCurrentLocation shareStore] locationManager];
+    _locationManager = [[ZJFCurrentLocation shareStore] locationManager];  //开始定位
     
     [_locationManager setDelegate:self];
     [_locationManager requestWhenInUseAuthorization];
@@ -45,7 +47,7 @@ static const double EARTH_ARC = 6367000;
     
     surroundObjects = [[NSMutableArray alloc] init];
     [surroundObjects addObject:item];
-    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -65,12 +67,14 @@ static const double EARTH_ARC = 6367000;
     
     [_locationManager stopUpdatingLocation];
     
-    static int hasRefresh = 0;
-    if (hasRefresh==0) {
+    static int hasRefresh = 0;  //表示是否刷新过，如果已刷新，则后面接收到的新位置，不再重复寻找周边信息。
+    
+    // 第一次得到的位置可能不太准确，为保持准确度，采取第2个接受的位置作为当前位置
+    if (hasRefresh==1) {
          NSLog(@"access location succeed!\n");
         [self findSurroundObject];
         [self viewWillAppear:YES];
-        hasRefresh = 1;
+        hasRefresh++;
     }
     
 }
@@ -93,16 +97,21 @@ static const double EARTH_ARC = 6367000;
     double buttomLatitude = latitude - gridOfLatitude;
     
     AVQuery *query = [AVQuery queryWithClassName:@"shareItem"];
+    [query orderByDescending:@"createdAt"];
     [query whereKey:@"latitude" greaterThan:[NSNumber numberWithDouble:buttomLatitude]];
     [query whereKey:@"latitude" lessThan:[NSNumber numberWithDouble:topLatitude]];
     [query whereKey:@"longitude" greaterThan:[NSNumber numberWithDouble:leftLongitude]];
     [query whereKey:@"longitude" lessThan:[NSNumber numberWithDouble:rightLongitude]];
     [query includeKey:@"imageStore"];
-    query.limit = 100;
+    query.limit = 30;
     
-    surroundObjects =  [query findObjects];
+    NSArray *array =  [query findObjects];
     
-    NSLog(@"find %d objects\n", [surroundObjects count]);
+    for (AVObject *avObject in array) {
+        [surroundObjects addObject:avObject];
+    }
+    
+    NSLog(@"find %lu objects\n", (unsigned long)[surroundObjects count]);
 }
 
 - (double)distanceBetween:(double)fromLatitude fromLongitude:(double)fromLongitude toLatitude:(double)toLatitude toLongitude:(double)toLongitude{
@@ -115,39 +124,54 @@ static const double EARTH_ARC = 6367000;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页面查看详情
-    
     AVObject *item = [surroundObjects objectAtIndex:[indexPath row]];
-    NSArray *imageStoreData = [item objectForKey:@"imageStore"];  //得到的数组中包含的是nsdata数据，所以后面需要转换成图片
+    NSMutableArray *imageStoreData =  [item objectForKey:@"imageStore"];  //得到的数组中包含的是nsdata数据，所以后面需要转换成图片
+    NSMutableArray *imageArray = [[NSMutableArray alloc] init]; //用于保存取得的图片数组
 
     //根据是否包含图片，选择相应的cell
     if ([imageStoreData count] != 0) {
         ZJFHomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCellWithPicture"];
         
-        NSMutableArray *imageStore = [[NSMutableArray alloc] init];   //用来保存转换成图片格式后的图片
-        
         for (int i=0;i<[imageStoreData count];i++) {
             UIImage *imageItem = [UIImage imageWithData:[[imageStoreData objectAtIndex:i] getData]];
-            [imageStore addObject:imageItem];
+            [imageArray addObject:imageItem];
         }
         
-        for (int i=0; i<[imageStore count]; i++) {
+        cell.imageStore = (NSArray *)imageArray;   //为每个cell存储相应图片数组
+        
+        for (int i=0; i<[imageArray count]; i++) {
             switch (i) {
-                case 0:
-                    cell.image1.image = [imageStore objectAtIndex:i];
+                case 0:{
+                    cell.image1.image = [imageArray objectAtIndex:i];
+                    cell.image1.tag = 1;
+                    
+                    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImage:)];
+                    [cell.image1 addGestureRecognizer:tap1];
                     break;
-                case 1:
-                    cell.image2.image = [imageStore objectAtIndex:i];
+                }
+                case 1:{
+                    cell.image2.image = [imageArray objectAtIndex:i];
+                    cell.image2.tag = 2;
+                    
+                    UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImage:)];
+                    [cell.image2 addGestureRecognizer:tap2];
                     break;
-                case 2:
-                    cell.image3.image = [imageStore objectAtIndex:i];
+                }
+                case 2:{
+                    cell.image3.image = [imageArray objectAtIndex:i];
+                    cell.image3.tag = 3;
+                    
+                    UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImage:)];
+                    [cell.image3 addGestureRecognizer:tap3];
                     break;
+                }
                 default:
                     break;
             }
         }
         
         NSString *itemDescription = [item objectForKey:@"itemDescription"];
+        
         int length = itemDescription.length;
         
         NSString *description = itemDescription;
@@ -156,16 +180,15 @@ static const double EARTH_ARC = 6367000;
         
         if(length > numberOfMaxCharacters){
             //如果超过50个字符，截取47个字符
-            description = [itemDescription substringToIndex:numberOfMaxCharacters];
+            description = [itemDescription substringToIndex:(numberOfMaxCharacters - 3)];
             description = [description stringByAppendingString:@"..."];
             cell.moreDescription.hidden = NO;
         }
         
- //       [cell.moreDescription addTarget:self action:@selector(prepareForSegue:sender:) forControlEvents:UIControlEventTouchUpInside];
         
-        NSLog(@"description characters = %d\n", length);
+ //       [cell.descriptionTextView setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+        NSLog(@"font name: %@\n", cell.descriptionTextView.font.fontName);
         
-        [cell.descriptionTextView setFont:[UIFont fontWithName:@"Helvetica" size:16]];
         cell.descriptionTextView.text = description;
         cell.placeName.text = [item objectForKey:@"placeName"];
         
@@ -180,8 +203,6 @@ static const double EARTH_ARC = 6367000;
         NSString *description = [item objectForKey:@"itemDescription"];
         int length = description.length;
         
-        NSLog(@"description characters = %d\n", length);
-        
         [cell.descriptionTextView setFont:[UIFont fontWithName:@"Helvetica" size:16]];
         cell.descriptionTextView.text = description;
         
@@ -189,6 +210,38 @@ static const double EARTH_ARC = 6367000;
 
     }
     
+}
+
+
+
+- (IBAction)showImage:(UITapGestureRecognizer *)tap {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ZJFDetailPictureViewController *detailPictureViewController = [storyboard instantiateViewControllerWithIdentifier:@"ShowImage"];
+    
+    //取得触发操作的图片
+    UIImageView *tapView = (UIImageView *)tap.view;
+    
+    ZJFHomeTableViewCell *cell = (ZJFHomeTableViewCell *)[[tapView superview] superview];
+    NSLog(@"image at = %lu\n", (unsigned long)[cell.imageStore indexOfObject:tapView.image]);
+    
+    if (tapView.tag == 1) {
+        //确定选择的照片在数组中顺序
+        
+        detailPictureViewController.imageId = 0;
+    } else if (tapView.tag == 2){
+        detailPictureViewController.imageId = 1;
+    }else if (tapView.tag == 3){
+        detailPictureViewController.imageId = 0;
+    }else {
+        detailPictureViewController.imageId = 0;
+    }
+    
+    NSLog(@"detail.imageID = %d\n",detailPictureViewController.imageId);
+    
+    detailPictureViewController.imageStore = cell.imageStore;
+    
+    [self presentViewController:detailPictureViewController animated:YES completion:nil];
 }
 
 
@@ -221,8 +274,8 @@ static const double EARTH_ARC = 6367000;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    ZJFMoreDescriptionViewController *moreDescriptionViewController = segue.destinationViewController;
-    moreDescriptionViewController.item = [surroundObjects objectAtIndex:passItem];
+        ZJFMoreDescriptionViewController *moreDescriptionViewController = segue.destinationViewController;
+        moreDescriptionViewController.item = [surroundObjects objectAtIndex:passItem];
 }
 
 

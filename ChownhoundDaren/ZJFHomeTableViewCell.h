@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *placeName;
 @property (weak, nonatomic) IBOutlet UIButton *moreDescription;
+@property (nonatomic,strong) NSArray *imageStore;
 
 
 @end

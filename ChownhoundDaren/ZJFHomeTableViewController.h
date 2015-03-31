@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface ZJFHomeTableViewController : UITableViewController
-<UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>
+<UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate,UIGestureRecognizerDelegate>
 
 
 @property (nonatomic,strong) CLLocationManager *locationManager;
