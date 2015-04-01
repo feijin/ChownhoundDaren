@@ -22,10 +22,6 @@
 
 
 - (void)viewDidLoad{
-    
-    NSLog(@"imageStore count = %d\n",[_imageStore count]);
-    NSLog(@"imageId= %d\n",_imageId);
-    
     if (_imageId == [_imageStore count]) {
         _imageId = [_imageStore count] - 1;
     }

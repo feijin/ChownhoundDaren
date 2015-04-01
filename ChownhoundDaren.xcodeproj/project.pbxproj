@@ -18,8 +18,6 @@
 		C268A4551AB2CA840055E28B /* NSString+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = C268A4541AB2CA840055E28B /* NSString+Location.m */; };
 		C268FE251ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C268FE241ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m */; };
 		C26A63551AA8335500E3993E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26A63531AA8335500E3993E /* Main.storyboard */; };
-		C275BF451AB03580002A943C /* ZJFFindNearlyStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C275BF441AB03580002A943C /* ZJFFindNearlyStore.m */; };
-		C275BF4B1AB04048002A943C /* ZJFComment.m in Sources */ = {isa = PBXBuildFile; fileRef = C275BF4A1AB04048002A943C /* ZJFComment.m */; };
 		C27D4A351AAACA8A00509488 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27D4A341AAACA8A00509488 /* AVOSCloud.framework */; };
 		C27D4A371AAACAD000509488 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27D4A361AAACAD000509488 /* SystemConfiguration.framework */; };
 		C27D4A391AAACADE00509488 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27D4A381AAACADE00509488 /* MobileCoreServices.framework */; };
@@ -41,12 +39,6 @@
 		C2B4AC3B1AAB5B8D00373B03 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B4AC3A1AAB5B8D00373B03 /* CoreData.framework */; };
 		C2B913671AB7CFAE00DBDB2A /* ZJFCreateItemCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B913661AB7CFAE00DBDB2A /* ZJFCreateItemCollectionViewController.m */; };
 		C2BA6FC71AAF129000A1C0C4 /* ZJFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FC61AAF129000A1C0C4 /* ZJFConfig.m */; };
-		C2BA6FD91AAF2D8C00A1C0C4 /* ZJFShareItemStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BA6FD81AAF2D8C00A1C0C4 /* ZJFShareItemStore.m */; };
-		C2BCECCC1AB0645B003B352C /* ZJFCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECCB1AB0645B003B352C /* ZJFCollection.m */; };
-		C2BCECCF1AB0685F003B352C /* ZJFImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECCE1AB0685F003B352C /* ZJFImageStore.m */; };
-		C2BCECD21AB06BB4003B352C /* ZJFCommentStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECD11AB06BB4003B352C /* ZJFCommentStore.m */; };
-		C2BCECD51AB0738B003B352C /* ZJFLocationStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECD41AB0738B003B352C /* ZJFLocationStore.m */; };
-		C2BCECD81AB07B42003B352C /* ZJFCollectionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECD71AB07B42003B352C /* ZJFCollectionStore.m */; };
 		C2BCECDE1AB126BF003B352C /* ZJFTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECDD1AB126BF003B352C /* ZJFTabBarController.m */; };
 		C2BCECE11AB1281B003B352C /* ZJFHomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECE01AB1281B003B352C /* ZJFHomeTableViewController.m */; };
 		C2BCECE41AB1296E003B352C /* ZJFDetailItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECE31AB1296E003B352C /* ZJFDetailItemViewController.m */; };
@@ -91,10 +83,6 @@
 		C268FE231ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFDetailPictureViewController.h; sourceTree = "<group>"; };
 		C268FE241ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFDetailPictureViewController.m; sourceTree = "<group>"; };
 		C26A63541AA8335500E3993E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C275BF431AB03580002A943C /* ZJFFindNearlyStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFFindNearlyStore.h; sourceTree = "<group>"; };
-		C275BF441AB03580002A943C /* ZJFFindNearlyStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFFindNearlyStore.m; sourceTree = "<group>"; };
-		C275BF491AB04048002A943C /* ZJFComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ZJFComment.h; sourceTree = "<group>"; };
-		C275BF4A1AB04048002A943C /* ZJFComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFComment.m; sourceTree = "<group>"; };
 		C27D4A341AAACA8A00509488 /* AVOSCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AVOSCloud.framework; sourceTree = "<group>"; };
 		C27D4A361AAACAD000509488 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C27D4A381AAACADE00509488 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -135,18 +123,6 @@
 		C2B913661AB7CFAE00DBDB2A /* ZJFCreateItemCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCreateItemCollectionViewController.m; sourceTree = "<group>"; };
 		C2BA6FC51AAF129000A1C0C4 /* ZJFConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFConfig.h; sourceTree = "<group>"; };
 		C2BA6FC61AAF129000A1C0C4 /* ZJFConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFConfig.m; sourceTree = "<group>"; };
-		C2BA6FD71AAF2D8C00A1C0C4 /* ZJFShareItemStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFShareItemStore.h; sourceTree = "<group>"; };
-		C2BA6FD81AAF2D8C00A1C0C4 /* ZJFShareItemStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFShareItemStore.m; sourceTree = "<group>"; };
-		C2BCECCA1AB0645B003B352C /* ZJFCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCollection.h; sourceTree = "<group>"; };
-		C2BCECCB1AB0645B003B352C /* ZJFCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCollection.m; sourceTree = "<group>"; };
-		C2BCECCD1AB0685F003B352C /* ZJFImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFImageStore.h; sourceTree = "<group>"; };
-		C2BCECCE1AB0685F003B352C /* ZJFImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFImageStore.m; sourceTree = "<group>"; };
-		C2BCECD01AB06BB4003B352C /* ZJFCommentStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCommentStore.h; sourceTree = "<group>"; };
-		C2BCECD11AB06BB4003B352C /* ZJFCommentStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCommentStore.m; sourceTree = "<group>"; };
-		C2BCECD31AB0738B003B352C /* ZJFLocationStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFLocationStore.h; sourceTree = "<group>"; };
-		C2BCECD41AB0738B003B352C /* ZJFLocationStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFLocationStore.m; sourceTree = "<group>"; };
-		C2BCECD61AB07B42003B352C /* ZJFCollectionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCollectionStore.h; sourceTree = "<group>"; };
-		C2BCECD71AB07B42003B352C /* ZJFCollectionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCollectionStore.m; sourceTree = "<group>"; };
 		C2BCECDC1AB126BF003B352C /* ZJFTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFTabBarController.h; sourceTree = "<group>"; };
 		C2BCECDD1AB126BF003B352C /* ZJFTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFTabBarController.m; sourceTree = "<group>"; };
 		C2BCECDF1AB1281B003B352C /* ZJFHomeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFHomeTableViewController.h; sourceTree = "<group>"; };
@@ -398,22 +374,6 @@
 		C2BA6FB31AAEE4D300A1C0C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C2BCECD31AB0738B003B352C /* ZJFLocationStore.h */,
-				C2BCECD41AB0738B003B352C /* ZJFLocationStore.m */,
-				C2BCECCA1AB0645B003B352C /* ZJFCollection.h */,
-				C2BCECCB1AB0645B003B352C /* ZJFCollection.m */,
-				C275BF491AB04048002A943C /* ZJFComment.h */,
-				C275BF4A1AB04048002A943C /* ZJFComment.m */,
-				C2BCECD01AB06BB4003B352C /* ZJFCommentStore.h */,
-				C2BCECD11AB06BB4003B352C /* ZJFCommentStore.m */,
-				C2BA6FD71AAF2D8C00A1C0C4 /* ZJFShareItemStore.h */,
-				C2BA6FD81AAF2D8C00A1C0C4 /* ZJFShareItemStore.m */,
-				C2BCECD61AB07B42003B352C /* ZJFCollectionStore.h */,
-				C2BCECD71AB07B42003B352C /* ZJFCollectionStore.m */,
-				C2BCECCD1AB0685F003B352C /* ZJFImageStore.h */,
-				C2BCECCE1AB0685F003B352C /* ZJFImageStore.m */,
-				C275BF431AB03580002A943C /* ZJFFindNearlyStore.h */,
-				C275BF441AB03580002A943C /* ZJFFindNearlyStore.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -528,21 +488,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C275BF4B1AB04048002A943C /* ZJFComment.m in Sources */,
 				C2319E381AB8049500457A5B /* ZJFCreateOfHeaderCollectionReusableView.m in Sources */,
 				C2BCED091AB1B096003B352C /* ZJFHomeTableViewCell.m in Sources */,
 				C2BD0E751ABB0CD900700648 /* ZJFCurrentLocation.m in Sources */,
 				C2BA6FC71AAF129000A1C0C4 /* ZJFConfig.m in Sources */,
 				C2BCECED1AB12D27003B352C /* ZJFMyShareTableViewController.m in Sources */,
-				C2BCECD81AB07B42003B352C /* ZJFCollectionStore.m in Sources */,
 				C2BCECE41AB1296E003B352C /* ZJFDetailItemViewController.m in Sources */,
 				C2BCECE11AB1281B003B352C /* ZJFHomeTableViewController.m in Sources */,
 				C2319E3B1AB804A500457A5B /* ZJFCreateOfFooterCollectionReusableView.m in Sources */,
-				C275BF451AB03580002A943C /* ZJFFindNearlyStore.m in Sources */,
-				C2BCECD21AB06BB4003B352C /* ZJFCommentStore.m in Sources */,
 				C2BCECF91AB1319C003B352C /* ZJFMyCollectionTableViewController.m in Sources */,
 				C2BCECDE1AB126BF003B352C /* ZJFTabBarController.m in Sources */,
-				C2BA6FD91AAF2D8C00A1C0C4 /* ZJFShareItemStore.m in Sources */,
 				C268A4551AB2CA840055E28B /* NSString+Location.m in Sources */,
 				C2BCECF31AB13091003B352C /* ZJFProfileCollectionViewController.m in Sources */,
 				C2319E3E1AB846D300457A5B /* ZJFCreateOfSpecialCollectionViewCell.m in Sources */,
@@ -551,15 +506,12 @@
 				C2319E351AB8047500457A5B /* ZJFCreateOfPhotoCollectionViewCell.m in Sources */,
 				C2B913671AB7CFAE00DBDB2A /* ZJFCreateItemCollectionViewController.m in Sources */,
 				C2BCED171AB1C7E1003B352C /* ZJFDetailCollectionViewController.m in Sources */,
-				C2BCECCC1AB0645B003B352C /* ZJFCollection.m in Sources */,
 				C268FE251ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m in Sources */,
 				C2BCED021AB1328D003B352C /* ZJFSettingTableViewController.m in Sources */,
 				C2090EAD1AC9B5BF00F0767A /* ZJFMoreDescriptionViewController.m in Sources */,
 				C2A762A81ABFEBDB00F059D6 /* ZJFCurrentUser.m in Sources */,
 				C2312A3E1AC18D3300863534 /* ZJFMyProfileTableViewCell.m in Sources */,
 				C2BCED1A1AB1CD31003B352C /* ZJFLoginViewController.m in Sources */,
-				C2BCECD51AB0738B003B352C /* ZJFLocationStore.m in Sources */,
-				C2BCECCF1AB0685F003B352C /* ZJFImageStore.m in Sources */,
 				C2A7B4B11AC0F8DC00323336 /* ZJFMyProfileTableViewController.m in Sources */,
 				C2A225B51AA1EB0B00DA66E9 /* main.m in Sources */,
 			);

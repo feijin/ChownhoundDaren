@@ -65,17 +65,19 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
     longitude = location.coordinate.longitude;
     latitude = location.coordinate.latitude;
     
-    [_locationManager stopUpdatingLocation];
-    
     static int hasRefresh = 0;  //表示是否刷新过，如果已刷新，则后面接收到的新位置，不再重复寻找周边信息。
     
     // 第一次得到的位置可能不太准确，为保持准确度，采取第2个接受的位置作为当前位置
     if (hasRefresh==1) {
+        [_locationManager stopUpdatingLocation];
+        
          NSLog(@"access location succeed!\n");
         [self findSurroundObject];
         [self viewWillAppear:YES];
-        hasRefresh++;
     }
+    
+    hasRefresh++;
+
     
 }
     
@@ -125,18 +127,31 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     AVObject *item = [surroundObjects objectAtIndex:[indexPath row]];
-    NSMutableArray *imageStoreData =  [item objectForKey:@"imageStore"];  //得到的数组中包含的是nsdata数据，所以后面需要转换成图片
+    
+    NSArray *imageStoreData =  [item objectForKey:@"imageStore"];  //得到的数组中包含的是nsdata数据，所以后面需要转换成图片
     NSMutableArray *imageArray = [[NSMutableArray alloc] init]; //用于保存取得的图片数组
 
-    //根据是否包含图片，选择相应的cell
     if ([imageStoreData count] != 0) {
-        ZJFHomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCellWithPicture"];
+        //根据是否包含图片，选择相应的cell
         
         for (int i=0;i<[imageStoreData count];i++) {
-            UIImage *imageItem = [UIImage imageWithData:[[imageStoreData objectAtIndex:i] getData]];
-            [imageArray addObject:imageItem];
+            NSLog(@"imageStoreData = %lu\n",(unsigned long)[imageStoreData count]);
+            AVFile *file = [imageStoreData objectAtIndex:i];
+            
+            [file getThumbnail:YES width:63 height:60 withBlock:^(UIImage *image, NSError *error){
+                if (!error) {
+                    [imageArray addObject:image];
+                } else {
+                    NSLog(@"error: %@\n",[error description]);
+                }
+            }];
+            
+            NSLog(@"imageArray count = %d\n",[imageArray count]);
         }
         
+        NSLog(@" count = %d\n",[imageArray count]);
+        
+        ZJFHomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCellWithPicture"];
         cell.imageStore = (NSArray *)imageArray;   //为每个cell存储相应图片数组
         
         for (int i=0; i<[imageArray count]; i++) {
@@ -180,14 +195,14 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
         
         if(length > numberOfMaxCharacters){
             //如果超过50个字符，截取47个字符
-            description = [itemDescription substringToIndex:(numberOfMaxCharacters - 3)];
+            description = [itemDescription substringToIndex:(numberOfMaxCharacters-3)];
             description = [description stringByAppendingString:@"..."];
             cell.moreDescription.hidden = NO;
         }
         
         
- //       [cell.descriptionTextView setFont:[UIFont fontWithName:@"Helvetica" size:16]];
-        NSLog(@"font name: %@\n", cell.descriptionTextView.font.fontName);
+        [cell.descriptionTextView setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+//        NSLog(@"font name: %@\n", cell.descriptionTextView.font.fontName);
         
         cell.descriptionTextView.text = description;
         cell.placeName.text = [item objectForKey:@"placeName"];
@@ -252,7 +267,7 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
    NSLog(@"indexPath row = %d\n",[indexPath row]);
     
     passItem = [indexPath row];
-    NSLog(@"description : %@\n",[[surroundObjects objectAtIndex:[indexPath row]] objectForKey:@"itemDescription"]);
+ //NSLog(@"description : %@\n",[[surroundObjects objectAtIndex:[indexPath row]] objectForKey:@"itemDescription"]);
     
     ZJFMoreDescriptionViewController *moreDescriptionViewController = [[ZJFMoreDescriptionViewController alloc] init];
     AVObject *item = [surroundObjects objectAtIndex:[indexPath row]];
@@ -260,9 +275,6 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
   //  NSLog(@"%@\n",[item objectForKey:@"itemDescription"]);
     
     moreDescriptionViewController.item = item;
-    
-    NSLog(@"%@\n",item);
-    NSLog(@"%@\n",moreDescriptionViewController.item);
     
   //  NSLog(@"%@\n", [moreDescriptionViewController.item objectForKey:@"itemDescription"]);
     
