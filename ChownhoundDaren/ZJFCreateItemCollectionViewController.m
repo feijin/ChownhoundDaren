@@ -286,7 +286,6 @@ int const numberOFMaxPictures = 5;
     NSString *locationNameOfItem = [[self getFooterView] textFieldInFooter].text; //给位置命名
 //    NSLog(@"%@\n",locationNameOfItem);
     
-   
     [shareItem setObject:descriptionOfItem forKey:@"descriptionOfItem"];
     [shareItem setObject:locationNameOfItem forKey:@"locationNameOfItem"];
     

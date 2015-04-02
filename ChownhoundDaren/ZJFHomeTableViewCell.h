@@ -11,7 +11,6 @@
 @interface ZJFHomeTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
-@property (weak, nonatomic) IBOutlet UIImageView *headerImage;
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *image1;

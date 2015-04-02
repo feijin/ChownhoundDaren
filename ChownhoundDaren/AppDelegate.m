@@ -13,6 +13,8 @@
 #import "WeiboUser.h"
 #import "WBHttpRequest+WeiboUser.h"
 #import "ZJFCurrentLocation.h"
+#import "ZJFShareItem.h"
+#import "ZJFSNearlyItemStore.h"
 
 
 @interface AppDelegate ()
@@ -30,9 +32,9 @@
    // [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     [WeiboSDK enableDebugMode:YES];
     if ([WeiboSDK registerApp: @"2364950450"]) {
-        NSLog(@"注册成功\n");
+        NSLog(@"微博注册成功\n");
     } else {
-        NSLog(@"注册失败\n");
+        NSLog(@"微博注册失败\n");
     }
     
     
@@ -124,7 +126,13 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
-    [[[ZJFCurrentLocation shareStore] locationManager] stopUpdatingLocation];
+    BOOL success = [[ZJFSNearlyItemStore shareStore] saveChanges];
+    
+    if (success) {
+        NSLog(@"Saved all of the items\n");
+    } else {
+        NSLog(@"Could not save any of the items\n");
+    }
 }
 
 
