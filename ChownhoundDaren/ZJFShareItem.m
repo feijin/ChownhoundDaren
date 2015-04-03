@@ -10,14 +10,14 @@
 
 @implementation ZJFShareItem
 
-@synthesize nickName,itemDescription,latitude,longitude,placeName,createDate,userId;
+@synthesize nickName,itemDescription,latitude,longitude,placeName,createDate,userId,objectId;
 
 - (id)init{
     self = [super init];
     
     if (self) {
         imageKeys = [[NSMutableArray alloc] init];
-        thumbnailData = [[NSMutableArray alloc] init];
+        thumbnailData = [[NSMutableDictionary alloc] init];
         prasice = [[NSMutableArray alloc] init];
     }
     
@@ -28,7 +28,7 @@
     return imageKeys;
 }
 
-- (NSArray *)thumbnailData{
+- (NSDictionary *)thumbnailData{
     return thumbnailData;
 }
 
@@ -43,9 +43,11 @@
 - (void)addImage:(UIImage *)image withObjectId:(NSString *)string{
     UIImage *thumbnailImage = [self getThumbnail:image];
     
+ //   NSLog(@"thumbnial: width %f, height %f\n",thumbnailImage.size.width,thumbnailImage.size.height);
+    
     NSData *data = UIImageJPEGRepresentation(thumbnailImage, 0.5);
     
-    [thumbnailData addObject:data];
+    [thumbnailData setObject:data forKey:string];
     [imageKeys addObject:string];
     
 }
@@ -63,7 +65,17 @@
     return newImage;
 }
 
+- (UIImage *)getThumbnailWithObjectId:(NSString *)s{
+    NSData *data = [thumbnailData objectForKey:s];
+    
+    //此处scale非常重要，如果设为1.0，则返回的图片尺寸翻倍，模糊！！
+    UIImage *image = [UIImage imageWithData:data scale:2.0];
+    
+    return image;
+}
+
 - (void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:objectId forKey:@"objectId"];
     [aCoder encodeObject:nickName forKey:@"nickName"];
     [aCoder encodeObject:itemDescription forKey:@"itemDescription"];
     [aCoder encodeObject:placeName forKey:@"placeName"];
@@ -81,6 +93,7 @@
     self = [super init];
     
     if (self) {
+        [self setObjectId:[aDecoder decodeObjectForKey:@"objectId"]];
         [self setNickName:[aDecoder decodeObjectForKey:@"nickName"]];
         [self setItemDescription:[aDecoder decodeObjectForKey:@"itemDescription"]];
         [self setPlaceName:[aDecoder decodeObjectForKey:@"placeName"]];

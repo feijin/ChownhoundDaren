@@ -7,11 +7,14 @@
 //
 
 #import "ZJFDetailPictureViewController.h"
+#import "ZJFImageStore.h"
 
 
 @interface ZJFDetailPictureViewController ()
 <UIGestureRecognizerDelegate>
-
+{
+    NSDictionary *imageStore;
+}
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @end
@@ -20,15 +23,15 @@
 
 @implementation ZJFDetailPictureViewController
 
+@synthesize imageKeys,imageKey;
 
 - (void)viewDidLoad{
-    if (_imageId == [_imageStore count]) {
-        _imageId = [_imageStore count] - 1;
-    }
-    self.imageView.image = [_imageStore objectAtIndex:_imageId];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenImage:)];
     [self.view addGestureRecognizer:tap];
+    
+    imageStore = [[ZJFImageStore shareStore] imageForKeys:imageKeys];
+    self.imageView.image = [imageStore objectForKey:imageKey];
     
 }
 

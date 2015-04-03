@@ -20,7 +20,8 @@
 - (NSString *)itemArchivePath; //获取文件全路径
 - (BOOL)saveChanges;
 - (void)addItem:(ZJFShareItem *)item;
-- (void)findSurroundObjectWithLatitude:(double)latitude Longitude:(double)longitude;
-
+- (void)removeItem:(ZJFShareItem *)p;
+- (void)findSurroundObjectForRefresh;
+- (BOOL)isObjectInStore:(NSString *)objectId;
 
 @end

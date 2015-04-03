@@ -12,7 +12,10 @@
 {
     
     __weak IBOutlet UITextView *descriptionTextView;
+    __weak IBOutlet UILabel *nickNameLabel;
+    __weak IBOutlet UILabel *createDateLabel;
 }
+
 @end
 
 @implementation ZJFMoreDescriptionViewController
@@ -23,9 +26,10 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    NSLog(@"%@\n", item);
+    nickNameLabel.text = item.nickName;
+    createDateLabel.text = item.createDate;
+    descriptionTextView.text = item.itemDescription;
     
-    descriptionTextView.text = [item objectForKey:@"itemDescription"];
 }
 
 @end

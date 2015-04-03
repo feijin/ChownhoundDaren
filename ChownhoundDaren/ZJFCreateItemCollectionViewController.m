@@ -17,6 +17,7 @@
 #import "ZJFLoginViewController.h"
 #import "AppDelegate.h"
 #import "ZJFCurrentUser.h"
+#import "ZJFSNearlyItemStore.h"
 
 @interface ZJFCreateItemCollectionViewController ()
 {
@@ -286,7 +287,7 @@ int const numberOFMaxPictures = 5;
     NSString *locationNameOfItem = [[self getFooterView] textFieldInFooter].text; //给位置命名
 //    NSLog(@"%@\n",locationNameOfItem);
     
-    [shareItem setObject:descriptionOfItem forKey:@"descriptionOfItem"];
+    [shareItem setObject:descriptionOfItem forKey:@"itemDescription"];
     [shareItem setObject:locationNameOfItem forKey:@"locationNameOfItem"];
     
     
@@ -296,6 +297,10 @@ int const numberOFMaxPictures = 5;
     [shareItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
         if (!error) {
             NSLog(@"保存完成\n");
+            
+            //保存完成后，刷新数据,将新数据读取到本地
+            [[ZJFSNearlyItemStore shareStore] findSurroundObjectForRefresh];
+            
             [capturedImages removeAllObjects];
             [[self getHeaderView] textViewInHeader].text = nil;
             [[self getFooterView] textFieldInFooter].text = nil;

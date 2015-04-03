@@ -10,7 +10,7 @@
 
 @interface ZJFDetailPictureViewController : UIViewController
 
-@property (nonatomic,strong) NSArray *imageStore;
-@property (nonatomic) int imageId;
+@property (nonatomic,strong) NSArray *imageKeys;
+@property (nonatomic,strong) NSString *imageKey;
 
 @end

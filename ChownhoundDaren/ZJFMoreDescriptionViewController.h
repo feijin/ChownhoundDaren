@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AVOSCloud/AVOSCloud.h>
+#import "ZJFShareItem.h"
 
 @interface ZJFMoreDescriptionViewController : UIViewController
 
-@property (nonatomic,strong) AVObject *item;
+@property (nonatomic,strong) ZJFShareItem *item;
 
 @end

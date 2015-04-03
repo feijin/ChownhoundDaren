@@ -17,7 +17,7 @@
 + (ZJFImageStore *)shareStore;
 
 - (void)setImage:(UIImage *)i forKey:(NSString *)s;
-- (NSArray *)imageForKeys:(NSArray *)array;
+- (NSDictionary *)imageForKeys:(NSArray *)array;
 - (void)deleteImageForKeys:(NSArray *)array;
 
 @end

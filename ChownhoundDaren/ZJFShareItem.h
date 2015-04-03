@@ -12,10 +12,11 @@
 @interface ZJFShareItem : NSObject<NSCoding>
 {
     NSMutableArray *imageKeys;  //
-    NSMutableArray *thumbnailData;
+    NSMutableDictionary *thumbnailData;
     NSMutableArray *prasice;
 }
 
+@property (nonatomic,strong) NSString *objectId;
 @property (nonatomic,strong) NSString *userId;
 @property (nonatomic,strong) NSString *nickName;
 @property (nonatomic,strong) NSString *createDate;;
@@ -26,8 +27,10 @@
 
 - (void)addImage:(UIImage *)image withObjectId:(NSString *)string;
 - (NSArray *)imagekeys;
-- (NSArray *)thumbnailData;
+- (NSDictionary *)thumbnailData;
 - (NSArray *)prasice;
 - (void)addPrasice:(NSString *)userId;
+- (UIImage *)getThumbnail:(UIImage *)image;
+- (UIImage *)getThumbnailWithObjectId:(NSString *)objectId;
 
 @end
