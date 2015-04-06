@@ -14,10 +14,14 @@
     static ZJFImageStore *shareStore = nil;
     
     if (!shareStore) {
-        shareStore = [[super alloc] init];
+        shareStore = [[super allocWithZone:nil] init];
     }
     
     return shareStore;
+}
+
++ (id)allocWithZone:(struct _NSZone *)zone{
+    return [self allocWithZone:zone];
 }
 
 - (void)deleteImageForKeys:(NSArray *)array{
@@ -59,7 +63,15 @@
     NSString *imagePath = [self imagePathForKey:s];
     
     NSData *d = UIImageJPEGRepresentation(i, 0.5);
-    [d writeToFile:imagePath atomically:YES];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath]);
+        NSLog(@"applicationDocumentsDir exists");
+    
+    NSError *error;
+    
+    if (![d writeToFile:imagePath options:NSDataWritingAtomic error:&error]) {
+        NSLog(@"witeToFile error: %@\n", error);
+    }
 }
 
 - (NSString *)imagePathForKey:(NSString *)key{
@@ -67,7 +79,7 @@
     
     NSString *documentDirectory = [documentDirectories objectAtIndex:0];
     
-    return [documentDirectory stringByAppendingPathComponent:key];
+    return [documentDirectory stringByAppendingPathExtension:key];
 }
 
 

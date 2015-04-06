@@ -22,10 +22,14 @@ static int itemHasDownloads = 0; //用来保存此次程序运行期间，信息
     static ZJFSNearlyItemStore *shareStore = nil;
     
     if (!shareStore) {
-        shareStore = [[super alloc] init];
+        shareStore = [[super allocWithZone:nil] init];
     }
     
     return shareStore;
+}
+
++ (id)allocWithZone:(struct _NSZone *)zone{
+    return [self shareStore];
 }
 
 - (id)init{

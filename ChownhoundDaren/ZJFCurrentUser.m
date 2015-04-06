@@ -13,7 +13,7 @@
 
 @implementation ZJFCurrentUser
 
-@synthesize weiboUser,wbUid,wbExpirationDate,wbRefreshToken,wbToken,gender,userDescription,city,nickName;
+@synthesize weiboUser,gender,userDescription,city,nickName;
 
 + (ZJFCurrentUser *)shareCurrentUser{
     static ZJFCurrentUser *currentUser = nil;

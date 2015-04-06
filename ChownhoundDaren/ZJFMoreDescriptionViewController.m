@@ -26,10 +26,15 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    nickNameLabel.text = item.nickName;
-    createDateLabel.text = item.createDate;
-    descriptionTextView.text = item.itemDescription;
+    if (item.nickName != nil) {
+        nickNameLabel.text = item.nickName;
+    } else {
+        nickNameLabel.text = @"匿名";
+    }
     
+   //    createDateLabel.text = item.createDate;
+    
+    descriptionTextView.text = item.itemDescription;
 }
 
 @end

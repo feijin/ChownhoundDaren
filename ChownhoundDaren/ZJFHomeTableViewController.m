@@ -97,7 +97,6 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
         //这条信息包含图片
         
         //点击图片时可以查看大图的手势按钮
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImage:)];
         
         for (int i=0; i<[item.imagekeys count]; i++) {
             switch (i) {
@@ -107,10 +106,10 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
                     
                     cell.image1.image = image;
                     cell.image1.tag = 1;
+                    cell.button1.enabled = YES;
+                    cell.button1.hidden = NO;
                     
                    // NSLog(@"image1 size wigth: %f, heigth: %f\n",cell.image1.image.size.width,cell.image1.image.size.height);
-        
-                    [cell.image1 addGestureRecognizer:tap];
                     
                     cell.image2.image = nil;
                     cell.image3.image = nil;
@@ -120,8 +119,8 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
                     cell.image2.image = [item getThumbnailWithObjectId:[item.imagekeys objectAtIndex:1]];
                     cell.image2.tag = 2;
                     
-                    [cell.image2 addGestureRecognizer:tap];
-                    
+                    cell.button2.enabled = YES;
+                    cell.button2.hidden = NO;
                     cell.image3.image = nil;
                     break;
                 }
@@ -129,7 +128,9 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
                     cell.image3.image = [item getThumbnailWithObjectId:[item.imagekeys objectAtIndex:2]];
                     cell.image3.tag = 3;
                     
-                    [cell.image3 addGestureRecognizer:tap];
+                    cell.button3.enabled = YES;
+                    cell.button3.hidden = NO;
+                    
                     break;
                 }
                 default:
@@ -150,13 +151,15 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
     int length = itemDescription.length;
         
     NSString *breifDescription = itemDescription; //显示缩减的字符
-    cell.moreDescriptionButton.hidden = YES; // 如果字符较少，不需要显示更多按钮
+    cell.moreDescriptionButton.hidden = YES;
+    cell.moreDescriptionButton.enabled = NO;// 如果字符较少，不需要显示更多按钮
         
     if(length > numberOfMaxCharacters){
             //如果超过50个字符，截取47个字符
             breifDescription = [itemDescription substringToIndex:(numberOfMaxCharacters-3)];
             breifDescription = [breifDescription stringByAppendingString:@"..."];
             cell.moreDescriptionButton.hidden = NO;
+        cell.moreDescriptionButton.enabled = YES;
     }
         
     
@@ -167,9 +170,16 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
     cell.placeName.text = item.placeName;
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;  //设置选中时没有效果
-    cell.nickNameButton.titleLabel.text = item.nickName;
+    
+    if(item.nickName == nil)
+        cell.nickNameButton.titleLabel.text = @"匿名";
+    else
+        cell.nickNameButton.titleLabel.text = item.nickName;
+    
 //    cell.dateLabel.text = item.createDate;
+    
     cell.placeName.text = item.placeName;
+    
     cell.prasiceNumber.text = [NSString stringWithFormat:@"%d",[[item prasice] count]];
     
     int distance = [self distanceBetween:[[ZJFCurrentLocation shareStore] location].coordinate.latitude fromLongitude:[[ZJFCurrentLocation shareStore] location].coordinate.longitude  toLatitude:item.latitude toLongitude:item.longitude];
@@ -190,37 +200,45 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
 #pragma mark -处理表格中的链接
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    ZJFMoreDescriptionViewController *moreDescriptionViewController = segue.destinationViewController;
-    ZJFHomeTableViewCell *cell = (ZJFHomeTableViewCell *)[[sender superview] superview];
+    if ([segue.identifier isEqualToString:@"DetailPicture"]) {
+        ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
+        
+        ZJFHomeTableViewCell *cell = (ZJFHomeTableViewCell *)[[sender superview] superview];
+        
+        NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
+        
+        NSLog(@"row: %d\n",[indexPath row]);
+        
+        ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
+        detailPictureViewController.imageKeys = item.imagekeys;
+        
+        UIButton *button = (UIButton *)sender;
+        detailPictureViewController.imageKey = [item.imagekeys objectAtIndex:button.tag];
+        
+        return;
+        
+    } else if([segue.identifier isEqualToString:@"MoreDescription"]){
+        ZJFMoreDescriptionViewController *moreDescriptionViewController = segue.destinationViewController;
+        ZJFHomeTableViewCell *cell = (ZJFHomeTableViewCell *)[[sender superview] superview];
+        
+        NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
+        
+        ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
+        moreDescriptionViewController.item = item;
+    }
     
-    NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
     
-    ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
-    moreDescriptionViewController.item = item;
 }
 
-- (IBAction)showImage:(UITapGestureRecognizer *)tap {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZJFDetailPictureViewController *detailPictureViewController = [storyboard instantiateViewControllerWithIdentifier:@"ShowImage"];
-    
-    //取得触发操作的图片
-    UIImageView *tapView = (UIImageView *)tap.view;
-    
-    ZJFHomeTableViewCell *cell = (ZJFHomeTableViewCell *)[[tapView superview] superview];
-    
-    NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
-    ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
-    
-    detailPictureViewController.imageKeys = item.imagekeys;
-    detailPictureViewController.imageKey = [item.imagekeys objectAtIndex:tapView.tag];
-    
-    //    NSLog(@"detail.imageID = %d\n",detailPictureViewController.imageId);
-    
-    [self presentViewController:detailPictureViewController animated:YES completion:nil];
-
+- (IBAction)showImage:(id)sender {
+    [self performSegueWithIdentifier:@"DetailPicture" sender:sender];
 }
 
-
+              
+              
+              
+              
+              
 
 
 

@@ -30,8 +30,10 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenImage:)];
     [self.view addGestureRecognizer:tap];
     
+    
     imageStore = [[ZJFImageStore shareStore] imageForKeys:imageKeys];
     self.imageView.image = [imageStore objectForKey:imageKey];
+    
     
 }
 

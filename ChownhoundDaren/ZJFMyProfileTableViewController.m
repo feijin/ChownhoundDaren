@@ -32,6 +32,8 @@
 //    NSLog(@"%@\n",[[ZJFCurrentUser shareCurrentUser] getNickname]);
 }
 
+
+#pragma mark -tableview信息
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }
@@ -97,6 +99,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 10.f;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([indexPath section] == 0) {
+        [self performSegueWithIdentifier:@"ShowProfile" sender:indexPath];
+    } }
+
 
 
 

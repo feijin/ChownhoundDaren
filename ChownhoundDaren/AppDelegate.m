@@ -15,6 +15,7 @@
 #import "ZJFCurrentLocation.h"
 #import "ZJFShareItem.h"
 #import "ZJFSNearlyItemStore.h"
+#import "ZJFWeiboLoginInfo.h"
 
 
 @interface AppDelegate ()
@@ -50,35 +51,34 @@
             WBAuthorizeResponse *authorizeRespinse = (WBAuthorizeResponse *)response;
             
             //将微博授权信息保存起来
-            [ZJFCurrentUser shareCurrentUser].wbUid = authorizeRespinse.userID;
-            [ZJFCurrentUser shareCurrentUser].wbToken = authorizeRespinse.accessToken;
-            [ZJFCurrentUser shareCurrentUser].wbExpirationDate = authorizeRespinse.expirationDate;
-            [ZJFCurrentUser shareCurrentUser].wbRefreshToken = authorizeRespinse.refreshToken;
+            [self setWeiboLongiInfo:authorizeRespinse];
             
             //根据userid获取用户详细信息，如用户名，性别等
-            [WBHttpRequest requestForUserProfile:[ZJFCurrentUser shareCurrentUser].wbUid withAccessToken:[ZJFCurrentUser shareCurrentUser].wbToken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *request, id result, NSError *error){
+            [WBHttpRequest requestForUserProfile:[ZJFWeiboLoginInfo shareWeiboLoginInfo].wbUid withAccessToken:[ZJFWeiboLoginInfo shareWeiboLoginInfo].wbToken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *request, id result, NSError *error){
                 if (!error) {
                     NSLog(@"request for user profile succeeded!\n");
-                    [ZJFCurrentUser shareCurrentUser].weiboUser = result;
+                    
                     WeiboUser *userResult = (WeiboUser *)result;
+                    [ZJFCurrentUser shareCurrentUser].weiboUser = userResult;
                     
                     //向云端查询此微博用户此前是否登录注册过
                     AVQuery *query = [AVUser query];
-                    [query whereKey:@"username" equalTo:[ZJFCurrentUser shareCurrentUser].wbUid];
+                    [query whereKey:@"username" equalTo:[ZJFCurrentUser shareCurrentUser].username];
                     [query findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error){
                         if (!error) {
                             if ([array count]==0) {
                                 //如果用户此前没有注册过，则注册为新用户
                                 AVUser *user = [AVUser user];
-                                user.username = [ZJFCurrentUser shareCurrentUser].wbUid;
+                                user.username = [ZJFCurrentUser shareCurrentUser].username;
                                 user.password = @"ChownhoundDaren";
                                 [user setObject:userResult.gender forKey:@"gender"];
                                 [user setObject:userResult.name forKey:@"nickName"];
+                                [user setObject:userResult.userDescription forKey:@"userDescription"];
                                 [user setObject:[NSNumber numberWithBool:true] forKey:@"isWeiboUser"];
                                 [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
                                     if (succeeded) {
                                         [[ZJFCurrentUser shareCurrentUser] setGender:userResult.gender];
-                                        [[ZJFCurrentUser shareCurrentUser] setUserDescription:userResult.description];
+                                        [[ZJFCurrentUser shareCurrentUser] setUserDescription:userResult.userDescription];
                                         [[ZJFCurrentUser shareCurrentUser] setNickName:userResult.name];
                                         
                                         NSLog(@"signUp succeeded!\n");
@@ -88,8 +88,8 @@
                                 }];
                             } else if([array count]==1) {
                                 //如果注册过，则使用wbUid登录到系统中
-                                NSLog(@"user has signed up!\n");
-                                [AVUser logInWithUsernameInBackground:[ZJFCurrentUser shareCurrentUser].wbUid password:@"ChownhoundDaren" block:^(AVUser *user, NSError *error){
+                                NSLog(@"user has signed!\n");
+                                [AVUser logInWithUsernameInBackground:[ZJFWeiboLoginInfo shareWeiboLoginInfo].wbUid password:@"ChownhoundDaren" block:^(AVUser *user, NSError *error){
                                     if (user != nil) {
                                         NSLog(@"login succeeded!\n");
                                         NSLog(@"current user is: %@\n",[user objectForKey:@"nickName"]);
@@ -99,7 +99,7 @@
                                 }];
                             }
                         } else{
-                            NSLog(@"seach fail\n");
+                            NSLog(@"search fail\n");
                         }
                     }];
 
@@ -133,6 +133,17 @@
     } else {
         NSLog(@"Could not save any of the items\n");
     }
+}
+
+#pragma mark -保存登录等信息
+
+//保存微博接口信息
+- (void)setWeiboLongiInfo:(WBAuthorizeResponse *)response{
+    [ZJFWeiboLoginInfo shareWeiboLoginInfo].wbUid = response.userID;
+    [ZJFWeiboLoginInfo shareWeiboLoginInfo].wbToken = response.accessToken;
+    [ZJFWeiboLoginInfo shareWeiboLoginInfo].wbExpirationDate = response.expirationDate;
+    [ZJFWeiboLoginInfo shareWeiboLoginInfo].wbRefreshToken = response.refreshToken;
+    [ZJFCurrentUser shareCurrentUser].username = response.userID;
 }
 
 

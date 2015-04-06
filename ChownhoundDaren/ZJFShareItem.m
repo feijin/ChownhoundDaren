@@ -7,6 +7,7 @@
 //
 
 #import "ZJFShareItem.h"
+#import "ZJFImageStore.h"
 
 @implementation ZJFShareItem
 
@@ -49,6 +50,7 @@
     
     [thumbnailData setObject:data forKey:string];
     [imageKeys addObject:string];
+    [[ZJFImageStore shareStore] setImage:image forKey:string];
     
 }
 
