@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *signatureTextField;
 @property (weak, nonatomic) IBOutlet UITextField *cityTextField;
 @property (nonatomic,strong)NSString *gender;
+@property (weak, nonatomic) IBOutlet UIButton *genderButton;
 
 @end
 
@@ -78,16 +79,19 @@
     UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         self.gender = @"m";
         [ZJFCurrentUser shareCurrentUser].gender = @"m";
+        self.genderButton.titleLabel.text = @"男";
     }];
     
     UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         self.gender = @"f";
         [ZJFCurrentUser shareCurrentUser].gender = @"f";
+        self.genderButton.titleLabel.text = @"女";
     }];
     
     UIAlertAction *action3 = [UIAlertAction actionWithTitle:@"其他" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         self.gender = @"o";
         [ZJFCurrentUser shareCurrentUser].gender = @"o";
+        self.genderButton.titleLabel.text = @"同性";
     }];
     
     [alertController addAction:action1];

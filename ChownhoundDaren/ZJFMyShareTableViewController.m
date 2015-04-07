@@ -13,6 +13,7 @@
 #import "ZJFSNearlyItemStore.h"
 #import "ZJFMyShareItemTableViewCell.h"
 #import "ZJFDetailPictureViewController.h"
+#import "MJRefresh.h"
 
 @interface ZJFMyShareTableViewController ()
 <UIGestureRecognizerDelegate>
@@ -29,6 +30,16 @@
     [super viewDidLoad];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    [[ZJFSNearlyItemStore shareStore] downloadMyShareItemForRefresh];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [[[ZJFSNearlyItemStore shareStore] myShareItems] count];
 }
@@ -36,6 +47,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     ZJFMyShareItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyShareItem"];
+    if (cell == nil) {
+        cell = [[ZJFMyShareItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MyShareItem"];
+    }
     
     ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
     
@@ -46,8 +60,6 @@
         //这条信息包含图片
         
         //点击图片时可以查看大图的手势按钮
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImage:)];
-        
         
         for (int i=0; i<[item.imagekeys count]; i++) {
             switch (i) {
@@ -57,7 +69,10 @@
                     
                     cell.image1.image = image;
                     cell.image1.tag = 0;
-                    [cell.image1 addGestureRecognizer:tap];
+                    
+                    cell.button1.enabled = YES;
+                    cell.button2.enabled = NO;
+                    cell.button3.enabled = NO;
                     
                     // NSLog(@"image1 size wigth: %f, heigth: %f\n",cell.image1.image.size.width,cell.image1.image.size.height);
                     
@@ -69,7 +84,7 @@
                     cell.image2.image = [item getThumbnailWithObjectId:[item.imagekeys objectAtIndex:1]];
                     cell.image2.tag = 1;
                     
-                    [cell.image2 addGestureRecognizer:tap];
+                    cell.button2.enabled = YES;
                     
                     cell.image3.image = nil;
                     break;
@@ -78,7 +93,7 @@
                     cell.image3.image = [item getThumbnailWithObjectId:[item.imagekeys objectAtIndex:2]];
                     cell.image3.tag = 2;
                     
-                    [cell.image3 addGestureRecognizer:tap];
+                    cell.button3.enabled = YES;
                     
                     break;
                 }
@@ -94,28 +109,34 @@
         cell.image2.image = nil;
         cell.image3.image = nil;
         
+        cell.button1.enabled = NO;
+        cell.button2.enabled = NO;
+        cell.button3.enabled = NO;
+        
+        
     }
     
     return cell;
-}
-
-- (void)showImage:(UITapGestureRecognizer *)tap{
-    UIImageView *imageView = (UIImageView *)tap.view;
-    ZJFMyShareItemTableViewCell *cell = (ZJFMyShareItemTableViewCell *)[[imageView superview] superview];
-    
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
-    
-    imageKeys = [item imagekeys];
-    imageKey = [imageKeys objectAtIndex:tap.view.tag];
-    
-    [self performSegueWithIdentifier:@"showMySharePicture" sender:tap.view];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
     detailPictureViewController.imageKeys = imageKeys;
     detailPictureViewController.imageKey = imageKey;
+}
+
+- (IBAction)showImage:(id)sender {
+    ZJFMyShareItemTableViewCell *cell = (ZJFMyShareItemTableViewCell *)[[sender superview] superview];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
+   
+    UIButton *button = (UIButton *)sender;
+    
+    imageKeys = [item imagekeys];
+    imageKey = [imageKeys objectAtIndex:button.tag];
+    
+    [self performSegueWithIdentifier:@"ShowMySharePicture" sender:sender];
 }
 
 @end

@@ -92,6 +92,9 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
     ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
     
     ZJFHomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCell"];
+    if (cell == nil) {
+        cell = [[ZJFHomeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HomeCell"];
+    }
     
     if ([item.imagekeys count] != 0) {
         //这条信息包含图片
@@ -108,6 +111,9 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
                     cell.image1.tag = 1;
                     cell.button1.enabled = YES;
                     cell.button1.hidden = NO;
+                    
+                    cell.button2.enabled = NO;
+                    cell.button3.enabled = NO;
                     
                    // NSLog(@"image1 size wigth: %f, heigth: %f\n",cell.image1.image.size.width,cell.image1.image.size.height);
                     
@@ -144,6 +150,10 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
         cell.image1.image = nil;
         cell.image2.image = nil;
         cell.image3.image = nil;
+        
+        cell.button1.enabled = NO;
+        cell.button2.enabled = NO;
+        cell.button3.enabled = NO;
         
     }
     

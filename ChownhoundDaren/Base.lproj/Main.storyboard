@@ -120,9 +120,39 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="83O-bU-hgr">
+                                            <rect key="frame" x="36" y="146" width="63" height="58"/>
+                                            <state key="normal">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="showImage:" destination="lwl-Sa-MrJ" eventType="touchUpInside" id="XAq-Dj-QS6"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5w-fc-iQp">
+                                            <rect key="frame" x="113" y="146" width="60" height="58"/>
+                                            <state key="normal">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="showImage:" destination="lwl-Sa-MrJ" eventType="touchUpInside" id="kxq-xl-TJ9"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="teo-gS-mqm">
+                                            <rect key="frame" x="188" y="146" width="63" height="58"/>
+                                            <state key="normal">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="showImage:" destination="lwl-Sa-MrJ" eventType="touchUpInside" id="jfg-P2-rh6"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="button1" destination="83O-bU-hgr" id="xI0-DQ-hNb"/>
+                                    <outlet property="button2" destination="K5w-fc-iQp" id="T1y-sL-XVT"/>
+                                    <outlet property="button3" destination="teo-gS-mqm" id="VIH-mq-1Pk"/>
                                     <outlet property="createDateLabel" destination="0Ga-10-O1q" id="8BJ-D3-zje"/>
                                     <outlet property="image1" destination="vqv-ox-n2N" id="e5m-wy-6Te"/>
                                     <outlet property="image2" destination="tJI-cK-F4E" id="wwU-el-yUM"/>
@@ -255,6 +285,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cityTextField" destination="o5S-fu-q1y" id="yFM-7K-gpG"/>
+                        <outlet property="genderButton" destination="CAi-1i-7vR" id="eWo-F4-45u"/>
                         <outlet property="nickNameTextField" destination="RYH-z3-qxf" id="H9A-YF-ZBW"/>
                         <outlet property="signatureTextField" destination="ZLJ-KT-Ps1" id="MH7-gc-aif"/>
                     </connections>

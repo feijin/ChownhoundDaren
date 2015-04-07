@@ -180,6 +180,10 @@ static int myCollectionItemHasDownloads = 0;
     [query includeKey:@"imageStore"];
     
     query.limit = 10;
+    
+    if (nearlyItemHasDownloads == 0) {
+        nearlyItemHasDownloads += [[[ZJFSNearlyItemStore shareStore] allItems] count];
+    }
     query.skip = nearlyItemHasDownloads;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
@@ -201,11 +205,14 @@ static int myCollectionItemHasDownloads = 0;
 - (void)downloadMyShareItemForRefresh{
     //用于下拉刷新，获取最新数据
     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
     AVQuery *query = [AVQuery queryWithClassName:@"shareItem"];
     [query whereKey:@"username" equalTo:[ZJFCurrentUser shareCurrentUser].username];
     [query orderByDescending:@"creatAt"];
     query.limit = 10;
-    [query includeKey:@"imageStore"];
+    
+    //[query includeKey:@"imageStore"];
     
     NSArray *objects = [query findObjects];
     
@@ -218,18 +225,28 @@ static int myCollectionItemHasDownloads = 0;
     
     [self handleArrayOfObjects:objects withTag:0 withArray:myShareItems];
     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
     NSLog(@"我的分享刷新完成！\n");
 }
 
 - (void)downloadMyShareItemAfterRefresh{
     //用户上滑刷新，获取后面接着的数据
     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
     AVQuery *query = [AVQuery queryWithClassName:@"shareItem"];
     [query whereKey:@"username" equalTo:[ZJFCurrentUser shareCurrentUser].username];
     [query orderByDescending:@"creatAt"];
     query.limit = 10;
+    
+    if (myShareItemHasDownloads == 0) {
+        myShareItemHasDownloads += [[[ZJFSNearlyItemStore shareStore] myShareItems] count];
+    }
     query.skip = myShareItemHasDownloads;
-    [query includeKey:@"imageStore"];
+    
+    //直接下拉获取更多数据
+    //[query includeKey:@"imageStore"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
         if (!error) {
@@ -241,6 +258,8 @@ static int myCollectionItemHasDownloads = 0;
         } else{
             NSLog(@"后台获取数据失败：%@\n",error);
         }
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     }];
     
     
@@ -267,9 +286,11 @@ static int myCollectionItemHasDownloads = 0;
             item.latitude = [[object objectForKey:@"latitude"] doubleValue];
             item.longitude = [[object objectForKey:@"longitude"] doubleValue];
             
-            NSArray *imageStore = [object objectForKey:@"imageStore"];
+            [item setThumbnailData:[object objectForKey:@"thumbnailData"]];
+            
             
             //如果此条信息包含图片
+            /*
             if ([imageStore count] != 0) {
                 for (AVFile *file in imageStore) {
                     NSString *fileObjectId = [file objectId];
@@ -286,6 +307,7 @@ static int myCollectionItemHasDownloads = 0;
                     }
                 }
             }
+             */
             
             [array insertObject:item atIndex:i + itemNumber];
         }else{

@@ -41,17 +41,8 @@
     [prasice addObject:user];
 }
 
-- (void)addImage:(UIImage *)image withObjectId:(NSString *)string{
-    UIImage *thumbnailImage = [self getThumbnail:image];
-    
- //   NSLog(@"thumbnial: width %f, height %f\n",thumbnailImage.size.width,thumbnailImage.size.height);
-    
-    NSData *data = UIImageJPEGRepresentation(thumbnailImage, 0.5);
-    
-    [thumbnailData setObject:data forKey:string];
-    [imageKeys addObject:string];
-    [[ZJFImageStore shareStore] setImage:image forKey:string];
-    
+- (void)setThumbnailData:(NSDictionary *)dictionary{
+    thumbnailData = dictionary;
 }
 
 - (UIImage *)getThumbnail:(UIImage *)image{

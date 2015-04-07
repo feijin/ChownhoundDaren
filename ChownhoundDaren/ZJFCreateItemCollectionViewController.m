@@ -265,17 +265,24 @@ int const numberOFMaxPictures = 5;
     [shareItem setObject:[NSNumber numberWithDouble:cllocation.coordinate.longitude] forKey:@"longitude"];
     
     NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
+    NSMutableDictionary *thumbnailStore = [[NSMutableDictionary alloc] init];
+    
     if ([capturedImages count]) {
         for (int i=0; i<[capturedImages count]; i++) {
-            NSString *string = [@"image" stringByAppendingString:[NSString stringWithFormat:@"%d",(i+1)]];
-            //    NSLog(@"%@\n",string);
+            
+            NSString *uuidString = [[NSUUID UUID] UUIDString];
+            
             NSData *data = UIImagePNGRepresentation([capturedImages objectAtIndex:i]);
             
             //这里应当给文件添加合适的扩展名！
-            AVFile *file = [AVFile fileWithName:string data:data];
+            AVFile *file = [AVFile fileWithName:uuidString data:data];
             [file save];
             
             [mutableArray addObject:file];
+            
+            UIImage *image1 = [self getThumbnail:[capturedImages objectAtIndex:i]];
+            NSData *thumbnailData = UIImageJPEGRepresentation(image1, 0.5);
+            [thumbnailStore setObject:thumbnailData forKey:uuidString];
         }
         
     }
@@ -312,7 +319,18 @@ int const numberOFMaxPictures = 5;
 }
 
 
-
+- (UIImage *)getThumbnail:(UIImage *)image{
+    CGSize newSize = CGSizeMake(81, 81);
+    
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
 
 
 
