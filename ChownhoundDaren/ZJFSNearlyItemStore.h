@@ -12,16 +12,27 @@
 @interface ZJFSNearlyItemStore : NSObject
 {
     NSMutableArray *allItems;
+    NSMutableArray *myShareItems;
+    NSMutableArray *myCollectionItems;
 }
 
 + (ZJFSNearlyItemStore *)shareStore;
 - (NSArray *)allItems;
+- (NSArray *)myShareItems;
+- (NSArray *)myCollectionItems;
 
-- (NSString *)itemArchivePath; //获取文件全路径
+- (NSString *)itemArchivePath:(NSString *)s; //获取文件全路径
+
 - (BOOL)saveChanges;
-- (void)addItem:(ZJFShareItem *)item;
-- (void)removeItem:(ZJFShareItem *)p;
+- (void)addItem:(ZJFShareItem *)item for:(NSMutableArray *)array;
+- (void)removeItem:(ZJFShareItem *)p from:(NSMutableArray *)array;
+
 - (void)findSurroundObjectForRefresh;
-- (BOOL)isObjectInStore:(NSString *)objectId;
+- (void)findMoreObjectAfterRefresh;
+
+- (void)downloadMyShareItemForRefresh;
+- (void)downloadMyShareItemAfterRefresh;
+
+- (BOOL)isObject:(NSString *)objectId inStore:(NSArray *)array;
 
 @end

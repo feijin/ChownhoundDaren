@@ -54,6 +54,7 @@
 		C2BCED1A1AB1CD31003B352C /* ZJFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCED191AB1CD31003B352C /* ZJFLoginViewController.m */; };
 		C2BD0E751ABB0CD900700648 /* ZJFCurrentLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BD0E741ABB0CD900700648 /* ZJFCurrentLocation.m */; };
 		C2BF3C121ACEF117002055CA /* ZJFHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BF3C111ACEF117002055CA /* ZJFHomeTableViewCell.m */; };
+		C2D4CFF11AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D4CFF01AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m */; };
 		C2F339381ACEA667003B1FE7 /* ZJFTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F339371ACEA667003B1FE7 /* ZJFTestViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -156,6 +157,8 @@
 		C2BD0E741ABB0CD900700648 /* ZJFCurrentLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCurrentLocation.m; sourceTree = "<group>"; };
 		C2BF3C101ACEF117002055CA /* ZJFHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFHomeTableViewCell.h; sourceTree = "<group>"; };
 		C2BF3C111ACEF117002055CA /* ZJFHomeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFHomeTableViewCell.m; sourceTree = "<group>"; };
+		C2D4CFEF1AD3C8380024E327 /* ZJFMyShareItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFMyShareItemTableViewCell.h; sourceTree = "<group>"; };
+		C2D4CFF01AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFMyShareItemTableViewCell.m; sourceTree = "<group>"; };
 		C2F339361ACEA667003B1FE7 /* ZJFTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFTestViewController.h; sourceTree = "<group>"; };
 		C2F339371ACEA667003B1FE7 /* ZJFTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFTestViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -326,6 +329,8 @@
 				C2BF3C111ACEF117002055CA /* ZJFHomeTableViewCell.m */,
 				C2312A3C1AC18D3300863534 /* ZJFMyProfileTableViewCell.h */,
 				C2312A3D1AC18D3300863534 /* ZJFMyProfileTableViewCell.m */,
+				C2D4CFEF1AD3C8380024E327 /* ZJFMyShareItemTableViewCell.h */,
+				C2D4CFF01AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m */,
 				C2BCED121AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.xib */,
 				C2319E331AB8047500457A5B /* ZJFCreateOfPhotoCollectionViewCell.h */,
 				C2319E341AB8047500457A5B /* ZJFCreateOfPhotoCollectionViewCell.m */,
@@ -518,6 +523,7 @@
 				C2A7087F1ACD583000B60F35 /* ZJFShareItem.m in Sources */,
 				C2BF3C121ACEF117002055CA /* ZJFHomeTableViewCell.m in Sources */,
 				C2319E351AB8047500457A5B /* ZJFCreateOfPhotoCollectionViewCell.m in Sources */,
+				C2D4CFF11AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m in Sources */,
 				C2B913671AB7CFAE00DBDB2A /* ZJFCreateItemCollectionViewController.m in Sources */,
 				C2BCED171AB1C7E1003B352C /* ZJFDetailCollectionViewController.m in Sources */,
 				C22EAAD51ACD75ED001D4D94 /* ZJFImageStore.m in Sources */,

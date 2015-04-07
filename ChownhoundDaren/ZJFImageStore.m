@@ -59,18 +59,20 @@
 
 - (void)setImage:(UIImage *)i forKey:(NSString *)s{
     [imageStore setObject:i  forKey:s];
-    
+
     NSString *imagePath = [self imagePathForKey:s];
     
     NSData *d = UIImageJPEGRepresentation(i, 0.5);
     
-    if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath]);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath])
         NSLog(@"applicationDocumentsDir exists");
     
     NSError *error;
     
     if (![d writeToFile:imagePath options:NSDataWritingAtomic error:&error]) {
-        NSLog(@"witeToFile error: %@\n", error);
+        NSLog(@"1witeToFile error: %@\n", error);
+    } else{
+        NSLog(@"writeToFile succeeded!\n");
     }
 }
 
@@ -82,7 +84,19 @@
     return [documentDirectory stringByAppendingPathExtension:key];
 }
 
-
-
+- (UIImage *)imageForKey:(NSString *)key{
+    UIImage *image = [imageStore objectForKey:key];
+    if (!image) {
+        image = [UIImage imageWithContentsOfFile:[self imagePathForKey:key]];
+        
+        if (image) {
+            [imageStore setObject:image forKey:key];
+        } else {
+            return nil;
+        }
+    }
+    
+    return image;
+}
 
 @end

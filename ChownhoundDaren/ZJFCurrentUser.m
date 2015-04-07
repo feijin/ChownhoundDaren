@@ -13,7 +13,7 @@
 
 @implementation ZJFCurrentUser
 
-@synthesize weiboUser,gender,userDescription,city,nickName;
+@synthesize weiboUser,username,gender,userDescription,city,nickName;
 
 + (ZJFCurrentUser *)shareCurrentUser{
     static ZJFCurrentUser *currentUser = nil;
@@ -33,6 +33,7 @@
     
     if (self) {
         if ([AVUser currentUser] != nil) {
+            username = [AVUser currentUser].username;
             nickName = [[AVUser currentUser] objectForKey:@"nickName"];
             gender = [[AVUser currentUser] objectForKey:@"gender"];
             city = [[AVUser currentUser] objectForKey:@"city"];

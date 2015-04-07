@@ -7,8 +7,19 @@
 //
 
 #import "ZJFMyShareTableViewController.h"
+#import "ZJFShareItem.h"
+#import <AVOSCloud/AVOSCloud.h>
+#import "ZJFCurrentUser.h"
+#import "ZJFSNearlyItemStore.h"
+#import "ZJFMyShareItemTableViewCell.h"
+#import "ZJFDetailPictureViewController.h"
 
 @interface ZJFMyShareTableViewController ()
+<UIGestureRecognizerDelegate>
+{
+    NSArray *imageKeys;  //用于显示照片时传递
+    NSString *imageKey;
+}
 
 @end
 
@@ -16,71 +27,95 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [[[ZJFSNearlyItemStore shareStore] myShareItems] count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    ZJFMyShareItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyShareItem"];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    // Return the number of sections.
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return 0;
-}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
     
-    // Configure the cell...
+    cell.placeNameLabel.text = item.placeName;
+    cell.itemDescriptionTextView.text = item.itemDescription;
+    
+    if ([item.imagekeys count] != 0) {
+        //这条信息包含图片
+        
+        //点击图片时可以查看大图的手势按钮
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImage:)];
+        
+        
+        for (int i=0; i<[item.imagekeys count]; i++) {
+            switch (i) {
+                case 0:{
+                    UIImage *image = [item getThumbnailWithObjectId:[item.imagekeys objectAtIndex:0]];
+                    //  NSLog(@"image width: %f, heigth: %f\n", image.size.width,image.size.height);
+                    
+                    cell.image1.image = image;
+                    cell.image1.tag = 0;
+                    [cell.image1 addGestureRecognizer:tap];
+                    
+                    // NSLog(@"image1 size wigth: %f, heigth: %f\n",cell.image1.image.size.width,cell.image1.image.size.height);
+                    
+                    cell.image2.image = nil;
+                    cell.image3.image = nil;
+                    break;
+                }
+                case 1:{
+                    cell.image2.image = [item getThumbnailWithObjectId:[item.imagekeys objectAtIndex:1]];
+                    cell.image2.tag = 1;
+                    
+                    [cell.image2 addGestureRecognizer:tap];
+                    
+                    cell.image3.image = nil;
+                    break;
+                }
+                case 2:{
+                    cell.image3.image = [item getThumbnailWithObjectId:[item.imagekeys objectAtIndex:2]];
+                    cell.image3.tag = 2;
+                    
+                    [cell.image3 addGestureRecognizer:tap];
+                    
+                    break;
+                }
+                default:
+                    break;
+            }
+            
+        }
+    } else {
+        //此条信息不包含图片
+        
+        cell.image1.image = nil;
+        cell.image2.image = nil;
+        cell.image3.image = nil;
+        
+    }
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)showImage:(UITapGestureRecognizer *)tap{
+    UIImageView *imageView = (UIImageView *)tap.view;
+    ZJFMyShareItemTableViewCell *cell = (ZJFMyShareItemTableViewCell *)[[imageView superview] superview];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
+    
+    imageKeys = [item imagekeys];
+    imageKey = [imageKeys objectAtIndex:tap.view.tag];
+    
+    [self performSegueWithIdentifier:@"showMySharePicture" sender:tap.view];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
+    detailPictureViewController.imageKeys = imageKeys;
+    detailPictureViewController.imageKey = imageKey;
 }
-*/
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -10,6 +10,7 @@
 #import "ZJFMyProfileTableViewCell.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import "ZJFCurrentUser.h"
+#import "ZJFSNearlyItemStore.h"
 
 @interface ZJFMyProfileTableViewController()
 
@@ -20,15 +21,13 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+//    [[ZJFSNearlyItemStore shareStore] downloadMyShareItemForRefresh]; //预加载
     
 //    [[self tableView] reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
-    [[self tableView] reloadData];
-    
 //    NSLog(@"%@\n",[[ZJFCurrentUser shareCurrentUser] getNickname]);
 }
 
@@ -103,7 +102,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([indexPath section] == 0) {
         [self performSegueWithIdentifier:@"ShowProfile" sender:indexPath];
-    } }
+    }else if([indexPath section] == 1 && [indexPath row] == 0){
+        [self performSegueWithIdentifier:@"ShowMyShare" sender:self];
+    }
+}
 
 
 

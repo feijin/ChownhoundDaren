@@ -69,7 +69,7 @@
                             if ([array count]==0) {
                                 //如果用户此前没有注册过，则注册为新用户
                                 AVUser *user = [AVUser user];
-                                user.username = [ZJFCurrentUser shareCurrentUser].username;
+                                user.username = userResult.userID;
                                 user.password = @"ChownhoundDaren";
                                 [user setObject:userResult.gender forKey:@"gender"];
                                 [user setObject:userResult.name forKey:@"nickName"];
@@ -77,6 +77,7 @@
                                 [user setObject:[NSNumber numberWithBool:true] forKey:@"isWeiboUser"];
                                 [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
                                     if (succeeded) {
+                                        [[ZJFCurrentUser shareCurrentUser] setUsername:userResult.userID];
                                         [[ZJFCurrentUser shareCurrentUser] setGender:userResult.gender];
                                         [[ZJFCurrentUser shareCurrentUser] setUserDescription:userResult.userDescription];
                                         [[ZJFCurrentUser shareCurrentUser] setNickName:userResult.name];
@@ -91,6 +92,12 @@
                                 NSLog(@"user has signed!\n");
                                 [AVUser logInWithUsernameInBackground:[ZJFWeiboLoginInfo shareWeiboLoginInfo].wbUid password:@"ChownhoundDaren" block:^(AVUser *user, NSError *error){
                                     if (user != nil) {
+                                        
+                                        [[ZJFCurrentUser shareCurrentUser] setUsername:user.username];
+                                        [[ZJFCurrentUser shareCurrentUser] setGender:[user objectForKey:@"gender"]];
+                                        [[ZJFCurrentUser shareCurrentUser] setUserDescription:[user objectForKey:@"userDescription"]];
+                                        [[ZJFCurrentUser shareCurrentUser] setNickName:[user objectForKey:@"nickName"]];
+                                        
                                         NSLog(@"login succeeded!\n");
                                         NSLog(@"current user is: %@\n",[user objectForKey:@"nickName"]);
                                     } else {
