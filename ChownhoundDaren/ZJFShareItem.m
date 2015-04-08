@@ -8,6 +8,7 @@
 
 #import "ZJFShareItem.h"
 #import "ZJFImageStore.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @implementation ZJFShareItem
 
@@ -17,20 +18,12 @@
     self = [super init];
     
     if (self) {
-        imageKeys = [[NSMutableArray alloc] init];
+        imageStore = [[NSMutableDictionary alloc] init];
         thumbnailData = [[NSMutableDictionary alloc] init];
         prasice = [[NSMutableArray alloc] init];
     }
     
     return self;
-}
-
-- (NSArray *)imagekeys{
-    return imageKeys;
-}
-
-- (NSDictionary *)thumbnailData{
-    return thumbnailData;
 }
 
 - (NSArray *)prasice{
@@ -39,32 +32,25 @@
 
 - (void)addPrasice:(NSString *)user{
     [prasice addObject:user];
+    
 }
 
-- (void)setThumbnailData:(NSDictionary *)dictionary{
-    thumbnailData = dictionary;
+- (NSDictionary *)imageStore{
+    return imageStore;
 }
 
-- (UIImage *)getThumbnail:(UIImage *)image{
-    CGSize newSize = CGSizeMake(71, 71);
-    
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-    
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
+- (void)addFileId:(NSString *)fileId forFileName:(NSString *)fileName{
+    [imageStore setObject:fileName forKey:fileId];
 }
 
-- (UIImage *)getThumbnailWithObjectId:(NSString *)s{
-    NSData *data = [thumbnailData objectForKey:s];
+- (NSDictionary *)thumbnailData{
+    return thumbnailData;
+}
+
+- (void)setThumbnailData:(NSData *)data forKey:(NSString *)key{
     
-    //此处scale非常重要，如果设为1.0，则返回的图片尺寸翻倍，模糊！！
-    UIImage *image = [UIImage imageWithData:data scale:2.0];
+    [thumbnailData setObject:data forKey:key];
     
-    return image;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
@@ -77,8 +63,8 @@
     [aCoder encodeDouble:latitude forKey:@"latitude"];
     [aCoder encodeDouble:longitude forKey:@"longitude"];
     [aCoder encodeObject:prasice forKey:@"prasice"];
-    [aCoder encodeObject:imageKeys forKey:@"imageKeys"];
     [aCoder encodeObject:thumbnailData forKey:@"thumbnailData"];
+    [aCoder encodeObject:imageStore forKey:@"imageStore"];
     
 }
 
@@ -96,8 +82,8 @@
         [self setLongitude:[aDecoder decodeDoubleForKey:@"longitude"]];
         
         prasice = [aDecoder decodeObjectForKey:@"prasice"];
-        imageKeys = [aDecoder decodeObjectForKey:@"imageKeys"];
         thumbnailData = [aDecoder decodeObjectForKey:@"thumbnailData"];
+        imageStore = [aDecoder decodeObjectForKey:@"imageStore"];
     }
     
     return self;

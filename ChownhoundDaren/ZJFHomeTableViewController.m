@@ -38,6 +38,7 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
     
     [_locationManager setDelegate:self];
     [_locationManager requestWhenInUseAuthorization];
+//    [_locationManager setDesiredAccuracy:kCLLocationAccuracyBestForNavigation];
     [_locationManager startUpdatingLocation];
 
 }
@@ -50,20 +51,17 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
 
 #pragma mark -获取位置信息
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+
+    static int hasUpdate = 0; //刷新10次后，停止刷新；
+    CLLocation * location = [locations lastObject];
+    [ZJFCurrentLocation shareStore].location = location;
+    NSLog(@"1access location succeed!\n");
+    hasUpdate++;
     
-    static int hasRefresh = 0;  //表示是否刷新过，如果已刷新，则后面接收到的新位置，不再重复寻找周边信息。
-    
-    // 第一次得到的位置可能不太准确，为保持准确度，采取第2个接受的位置作为当前位置
-    if (hasRefresh == 1) {
-        CLLocation * location = [locations lastObject];
-        [ZJFCurrentLocation shareStore].location = location;
+    if (hasUpdate == 10) {
         [_locationManager stopUpdatingLocation];
-//        [[ZJFSNearlyItemStore shareStore] findSurroundObjectForRefresh];
-        [self.tableView reloadData];
-         NSLog(@"1access location succeed!\n");
     }
-    
-    hasRefresh++;
+
 
     
 }
@@ -83,7 +81,7 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
         return [[ZJFSNearlyItemStore shareStore] allItems].count;
     } else {
         return 1;
-    }
+    } 
     
 }
 
@@ -96,16 +94,19 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
         cell = [[ZJFHomeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HomeCell"];
     }
     
-    if ([item.imagekeys count] != 0) {
+    NSArray *thumbnailKeys = [[item thumbnailData] allKeys];
+    
+    if ([thumbnailKeys count] != 0) {
         //这条信息包含图片
         
         //点击图片时可以查看大图的手势按钮
         
-        for (int i=0; i<[item.imagekeys count]; i++) {
+        for (int i=0; i<[thumbnailKeys count]; i++) {
             switch (i) {
                 case 0:{
-                   UIImage *image = [item getThumbnailWithObjectId:[item.imagekeys objectAtIndex:0]];
-                  //  NSLog(@"image width: %f, heigth: %f\n", image.size.width,image.size.height);
+                    NSData *imageData = [[item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                    //NSLog(@"image width: %f, height: %f\n",image.size.width,image.size.height);
                     
                     cell.image1.image = image;
                     cell.image1.tag = 1;
@@ -122,7 +123,10 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
                     break;
                 }
                 case 1:{
-                    cell.image2.image = [item getThumbnailWithObjectId:[item.imagekeys objectAtIndex:1]];
+                    NSData *imageData = [[item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                    
+                    cell.image2.image = image;
                     cell.image2.tag = 2;
                     
                     cell.button2.enabled = YES;
@@ -131,7 +135,10 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
                     break;
                 }
                 case 2:{
-                    cell.image3.image = [item getThumbnailWithObjectId:[item.imagekeys objectAtIndex:2]];
+                    NSData *imageData = [[item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                    
+                    cell.image3.image = image;
                     cell.image3.tag = 3;
                     
                     cell.button3.enabled = YES;
@@ -174,7 +181,7 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
         
     
     [cell.itemDescriptionTextView setFont:[UIFont fontWithName:@"Helvetica" size:16]];
-    NSLog(@"font name: %@\n", cell.itemDescriptionTextView.font.fontName);
+ //   NSLog(@"font name: %@\n", cell.itemDescriptionTextView.font.fontName);
         
     cell.itemDescriptionTextView.text = breifDescription;
     cell.placeName.text = item.placeName;
@@ -211,7 +218,7 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"DetailPicture"]) {
-        ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
+       ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
         
         ZJFHomeTableViewCell *cell = (ZJFHomeTableViewCell *)[[sender superview] superview];
         
@@ -220,10 +227,13 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
         NSLog(@"row: %d\n",[indexPath row]);
         
         ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
-        detailPictureViewController.imageKeys = item.imagekeys;
         
         UIButton *button = (UIButton *)sender;
-        detailPictureViewController.imageKey = [item.imagekeys objectAtIndex:button.tag];
+        
+        NSString *key = [[[item thumbnailData] allKeys] objectAtIndex:button.tag];
+        
+        detailPictureViewController.imageKey = key;
+        detailPictureViewController.imageStore = item.imageStore;
         
         return;
         
@@ -244,8 +254,6 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
     [self performSegueWithIdentifier:@"DetailPicture" sender:sender];
 }
 
-              
-              
               
               
               

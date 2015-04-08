@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface ZJFDetailPictureViewController : UIViewController
+<UIGestureRecognizerDelegate>
 
-@property (nonatomic,strong) NSArray *imageKeys;
-@property (nonatomic,strong) NSString *imageKey;
+@property (nonatomic,strong)   NSString *imageKey;
+@property (nonatomic,strong)   NSDictionary *imageStore;
+@property (nonatomic,strong)   UIImage *image;
+
 
 @end

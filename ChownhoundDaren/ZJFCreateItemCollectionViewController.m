@@ -269,37 +269,31 @@ int const numberOFMaxPictures = 5;
     
     if ([capturedImages count]) {
         for (int i=0; i<[capturedImages count]; i++) {
-            
-            NSString *uuidString = [[NSUUID UUID] UUIDString];
-            
-            NSData *data = UIImagePNGRepresentation([capturedImages objectAtIndex:i]);
+            NSData *data = UIImageJPEGRepresentation([capturedImages objectAtIndex:i], 0.5);
             
             //这里应当给文件添加合适的扩展名！
+            NSString *uuidString = [[NSUUID UUID] UUIDString];
             AVFile *file = [AVFile fileWithName:uuidString data:data];
             [file save];
             
             [mutableArray addObject:file];
             
+            //将缩略图的名称和原始图片名称保持一致，方便由缩略图名得到原始图片
             UIImage *image1 = [self getThumbnail:[capturedImages objectAtIndex:i]];
             NSData *thumbnailData = UIImageJPEGRepresentation(image1, 0.5);
             [thumbnailStore setObject:thumbnailData forKey:uuidString];
         }
         
     }
+    [shareItem setObject:(NSDictionary *)thumbnailStore forKey:@"thumbnailData"];
     [shareItem setObject:(NSArray *)mutableArray forKey:@"imageStore"];
     
-    NSString *descriptionOfItem = [[self getHeaderView] textViewInHeader].text;     //描述信息
-//    NSLog(@"%@\n",descriptionOfItem);
-    
-    NSString *locationNameOfItem = [[self getFooterView] textFieldInFooter].text; //给位置命名
-//    NSLog(@"%@\n",locationNameOfItem);
-    
+    NSString *descriptionOfItem = [[self getHeaderView] textViewInHeader].text;
+    NSString *locationNameOfItem = [[self getFooterView] textFieldInFooter].text;
     [shareItem setObject:descriptionOfItem forKey:@"itemDescription"];
     [shareItem setObject:locationNameOfItem forKey:@"locationNameOfItem"];
     
-    
     [shareItem setObject:[AVUser currentUser].username forKey:@"username"];
-    
     
     [shareItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
         if (!error) {

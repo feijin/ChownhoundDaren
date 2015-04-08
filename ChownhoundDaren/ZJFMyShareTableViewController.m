@@ -36,8 +36,6 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
-    [[ZJFSNearlyItemStore shareStore] downloadMyShareItemForRefresh];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -56,16 +54,18 @@
     cell.placeNameLabel.text = item.placeName;
     cell.itemDescriptionTextView.text = item.itemDescription;
     
-    if ([item.imagekeys count] != 0) {
+    NSArray *thumbnailKeys = [[item thumbnailData] allKeys];
+    
+    if ([thumbnailKeys count] != 0) {
         //这条信息包含图片
         
         //点击图片时可以查看大图的手势按钮
         
-        for (int i=0; i<[item.imagekeys count]; i++) {
+        for (int i=0; i<[thumbnailKeys count]; i++) {
             switch (i) {
                 case 0:{
-                    UIImage *image = [item getThumbnailWithObjectId:[item.imagekeys objectAtIndex:0]];
-                    //  NSLog(@"image width: %f, heigth: %f\n", image.size.width,image.size.height);
+                    NSData *imageData = [[item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
                     
                     cell.image1.image = image;
                     cell.image1.tag = 0;
@@ -81,7 +81,10 @@
                     break;
                 }
                 case 1:{
-                    cell.image2.image = [item getThumbnailWithObjectId:[item.imagekeys objectAtIndex:1]];
+                    NSData *imageData = [[item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                    
+                    cell.image2.image = image;
                     cell.image2.tag = 1;
                     
                     cell.button2.enabled = YES;
@@ -90,7 +93,10 @@
                     break;
                 }
                 case 2:{
-                    cell.image3.image = [item getThumbnailWithObjectId:[item.imagekeys objectAtIndex:2]];
+                    NSData *imageData = [[item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                    
+                    cell.image3.image = image;
                     cell.image3.tag = 2;
                     
                     cell.button3.enabled = YES;
@@ -119,12 +125,6 @@
     return cell;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
-    detailPictureViewController.imageKeys = imageKeys;
-    detailPictureViewController.imageKey = imageKey;
-}
-
 - (IBAction)showImage:(id)sender {
     ZJFMyShareItemTableViewCell *cell = (ZJFMyShareItemTableViewCell *)[[sender superview] superview];
     
@@ -133,7 +133,7 @@
    
     UIButton *button = (UIButton *)sender;
     
-    imageKeys = [item imagekeys];
+    imageKeys = [item imageStore];
     imageKey = [imageKeys objectAtIndex:button.tag];
     
     [self performSegueWithIdentifier:@"ShowMySharePicture" sender:sender];

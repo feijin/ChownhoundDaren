@@ -11,8 +11,8 @@
 
 @interface ZJFShareItem : NSObject<NSCoding>
 {
-    NSMutableArray *imageKeys;  //
-    NSDictionary *thumbnailData;
+    NSMutableDictionary *imageStore;
+    NSMutableDictionary *thumbnailData;
     NSMutableArray *prasice;
 }
 
@@ -25,13 +25,12 @@
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;
 
-- (void)addImage:(UIImage *)image withObjectId:(NSString *)string;
-- (NSArray *)imagekeys;
 - (NSDictionary *)thumbnailData;
 - (NSArray *)prasice;
+- (NSDictionary *)imageStore;
+
+- (void)addFileId:(NSString *)fileId forFileName:(NSString *)fileName;
 - (void)addPrasice:(NSString *)userId;
-- (UIImage *)getThumbnail:(UIImage *)image;
-- (UIImage *)getThumbnailWithObjectId:(NSString *)objectId;
-- (void)setThumbnailData:(NSDictionary *)dictionary;
+- (void)setThumbnailData:(NSData *)data forKey:(NSString *)key;
 
 @end

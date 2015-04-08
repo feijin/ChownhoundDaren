@@ -76,13 +76,6 @@ static int myCollectionItemHasDownloads = 0;
     [array addObject:item];
 }
 
-- (void)removeItem:(ZJFShareItem *)p from:(NSMutableArray *)array{
-    NSArray *keys= [p imagekeys];
-    [[ZJFImageStore shareStore] deleteImageForKeys:keys];
-    
-    [array removeObjectIdenticalTo:p];
-
-}
 - (NSString *)itemArchivePath:(NSString *)s{
     NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
     
@@ -145,6 +138,8 @@ static int myCollectionItemHasDownloads = 0;
         [allItems removeAllObjects];
     }
     
+    NSLog(@"\n allItems object count: %d\n",[allItems count]);
+    
     nearlyItemHasDownloads += [objects count];
     
     [self handleArrayOfObjects:objects withTag:0 withArray:allItems];
@@ -204,6 +199,7 @@ static int myCollectionItemHasDownloads = 0;
 #pragma mark -下载我的分享
 - (void)downloadMyShareItemForRefresh{
     //用于下拉刷新，获取最新数据
+    myShareItemHasDownloads = 0;  //将已经下载的数据数归零
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
@@ -220,10 +216,8 @@ static int myCollectionItemHasDownloads = 0;
     if ([objects count] != 0) {
         [myShareItems removeAllObjects];
     }
-    
+    [self handleArrayOfObjects:objects withTag:myShareItemHasDownloads withArray:myShareItems];
     myShareItemHasDownloads += [objects count];
-    
-    [self handleArrayOfObjects:objects withTag:0 withArray:myShareItems];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
@@ -248,19 +242,15 @@ static int myCollectionItemHasDownloads = 0;
     //直接下拉获取更多数据
     //[query includeKey:@"imageStore"];
     
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
-        if (!error) {
-            NSLog(@"后台获取数据成功,获取到： %d条数据\n",[objects count]);
-            [self handleArrayOfObjects:objects withTag:myShareItemHasDownloads withArray:myShareItems];
-            
-            myShareItemHasDownloads += [objects count];
-            
-        } else{
-            NSLog(@"后台获取数据失败：%@\n",error);
-        }
-        
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    }];
+    NSArray *objects = [query findObjects];
+    
+    [self handleArrayOfObjects:objects withTag:myShareItemHasDownloads withArray:myShareItems];
+    
+    myShareItemHasDownloads += [objects count];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    NSLog(@"我的分享刷新完成！\n");
     
     
     
@@ -273,6 +263,7 @@ static int myCollectionItemHasDownloads = 0;
         AVObject *object = [objects objectAtIndex:i];
         
         NSString *itemObjectId = [object objectForKey:@"objectId"];
+        NSLog(@"\nobjectId: %@\n", itemObjectId);
         
         //如果array 没有包含objectId等于它的，则加入此对像
         if (![self isObject:itemObjectId inStore:array]) {
@@ -286,28 +277,27 @@ static int myCollectionItemHasDownloads = 0;
             item.latitude = [[object objectForKey:@"latitude"] doubleValue];
             item.longitude = [[object objectForKey:@"longitude"] doubleValue];
             
-            [item setThumbnailData:[object objectForKey:@"thumbnailData"]];
-            
-            
-            //如果此条信息包含图片
-            /*
-            if ([imageStore count] != 0) {
-                for (AVFile *file in imageStore) {
-                    NSString *fileObjectId = [file objectId];
-                    
-                    //检查图片是否缓存过
-                    UIImage *fileImage = [[ZJFImageStore shareStore] imageForKey:fileObjectId];
-                    if (fileImage != nil) {
-                        [item addImage:fileImage withObjectId:fileObjectId];
-                    } else {
-                        NSData *fileData = [file getData];
-                        fileImage = [UIImage imageWithData:fileData];
-                        [item addImage:fileImage withObjectId:fileObjectId];
-                        [[ZJFImageStore shareStore] setImage:fileImage forKey:fileObjectId];
-                    }
-                }
+            NSArray *arrayKey = [object objectForKey:@"imageStore"];
+            for (AVFile *file in arrayKey) {
+                [item addFileId:file.objectId forFileName:file.name];
             }
-             */
+            
+            NSDictionary *dictionary = [object objectForKey:@"thumbnailData"];
+            
+            //处理thumbnailData,因为它保存的格式为base64 string，所以需要转换为data格式
+            
+            NSArray *keys = [dictionary allKeys];
+            
+            for (NSString *s in keys) {
+                
+                NSDictionary *dic = [dictionary objectForKey:s];
+                
+                NSString *string = [dic objectForKey:@"base64"];    //得到的是nsstring格式数据
+                
+                NSData *data = [[NSData alloc] initWithBase64EncodedString:string options:NSDataBase64DecodingIgnoreUnknownCharacters];     //这才是nsdata数据格式
+                
+                [item setThumbnailData:data forKey:s];
+            }
             
             [array insertObject:item atIndex:i + itemNumber];
         }else{
@@ -320,16 +310,10 @@ static int myCollectionItemHasDownloads = 0;
 
 - (BOOL)isObject:(NSString *)objectId inStore:(NSArray *)array{
     for (ZJFShareItem *item in array) {
-        NSLog(@"objectId: %@, item id: %@\n", objectId, [item objectId]);
-        
         if ([[item objectId] isEqualToString:objectId]) {
-            NSLog(@"%@ in store!\n",objectId);
-            
             return YES;
         }
     }
-    
-    NSLog(@"not in Store\n");
     return NO;
 }
 

@@ -133,6 +133,9 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
+    [[[ZJFCurrentLocation shareStore] locationManager] stopUpdatingLocation];
+    NSLog(@"stop update location.\n");
+    
     BOOL success = [[ZJFSNearlyItemStore shareStore] saveChanges];
     
     if (success) {

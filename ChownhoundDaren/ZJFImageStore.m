@@ -70,7 +70,7 @@
     NSError *error;
     
     if (![d writeToFile:imagePath options:NSDataWritingAtomic error:&error]) {
-        NSLog(@"1witeToFile error: %@\n", error);
+        NSLog(@"witeToFile error: %@\n", error);
     } else{
         NSLog(@"writeToFile succeeded!\n");
     }

@@ -20,8 +20,6 @@
     
     ZJFShareItem *item = [[ZJFShareItem alloc] init];
     
-    self.imageView.image = [item getThumbnail:image];
-    
 //    NSLog(@"image width: %f, heigth: %f\n",self.imageView.image.size.width,self.imageView.image.size.height);
 }
 
