@@ -13,7 +13,6 @@
 #import "ZJFSNearlyItemStore.h"
 #import "ZJFMyShareItemTableViewCell.h"
 #import "ZJFDetailPictureViewController.h"
-#import "ZJFMoreDescriptionViewController.h"
 #import "MJRefresh.h"
 
 static const int numberOfMaxCharacters = 50;
@@ -181,14 +180,6 @@ static const int numberOfMaxCharacters = 50;
         
         return;
         
-    } else if([segue.identifier isEqualToString:@"ShareMoreDescription"]){
-        ZJFMoreDescriptionViewController *moreDescriptionViewController = segue.destinationViewController;
-        ZJFMyShareItemTableViewCell *cell = (ZJFMyShareItemTableViewCell *)[[sender superview] superview];
-        
-        NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
-        
-        ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
-        moreDescriptionViewController.item = item;
     }
 }
 

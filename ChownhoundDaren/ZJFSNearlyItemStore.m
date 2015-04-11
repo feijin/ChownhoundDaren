@@ -126,6 +126,7 @@ static int userShareItemHasDownloads = 0;
     profile.userDescription = [object objectForKey:@"userDescription"];
     profile.gender = [object objectForKey:@"gender"];
     profile.city = [object objectForKey:@"city"];
+    profile.headerImage = [object objectForKey:@"headerData"];
     profile.joinDate = object.createdAt;
     
     userProfile = profile;

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C2090EAD1AC9B5BF00F0767A /* ZJFMoreDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2090EAC1AC9B5BF00F0767A /* ZJFMoreDescriptionViewController.m */; };
 		C21D99781AD656FF00957B7A /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C21D99601AD656FF00957B7A /* MJRefresh.bundle */; };
 		C21D99791AD656FF00957B7A /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = C21D99631AD656FF00957B7A /* MJRefreshComponent.m */; };
 		C21D997A1AD656FF00957B7A /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C21D99651AD656FF00957B7A /* MJRefreshConst.m */; };
@@ -38,6 +37,7 @@
 		C23CD7411AD7C72B00E96B46 /* RSKTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C23CD7391AD7C72B00E96B46 /* RSKTouchView.m */; };
 		C23CD7421AD7C72B00E96B46 /* UIApplication+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = C23CD73B1AD7C72B00E96B46 /* UIApplication+RSKImageCropper.m */; };
 		C23CD7431AD7C72B00E96B46 /* UIImage+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = C23CD73D1AD7C72B00E96B46 /* UIImage+RSKImageCropper.m */; };
+		C240003C1AD9860300754075 /* ZJFShowItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C240003B1AD9860300754075 /* ZJFShowItemVC.m */; };
 		C268FE251ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C268FE241ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m */; };
 		C26A63551AA8335500E3993E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26A63531AA8335500E3993E /* Main.storyboard */; };
 		C27D4A351AAACA8A00509488 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27D4A341AAACA8A00509488 /* AVOSCloud.framework */; };
@@ -90,8 +90,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C2090EAB1AC9B5BF00F0767A /* ZJFMoreDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFMoreDescriptionViewController.h; sourceTree = "<group>"; };
-		C2090EAC1AC9B5BF00F0767A /* ZJFMoreDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFMoreDescriptionViewController.m; sourceTree = "<group>"; };
 		C21D99601AD656FF00957B7A /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		C21D99611AD656FF00957B7A /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		C21D99621AD656FF00957B7A /* MJRefreshComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshComponent.h; sourceTree = "<group>"; };
@@ -151,6 +149,8 @@
 		C23CD73B1AD7C72B00E96B46 /* UIApplication+RSKImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+RSKImageCropper.m"; sourceTree = "<group>"; };
 		C23CD73C1AD7C72B00E96B46 /* UIImage+RSKImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RSKImageCropper.h"; sourceTree = "<group>"; };
 		C23CD73D1AD7C72B00E96B46 /* UIImage+RSKImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RSKImageCropper.m"; sourceTree = "<group>"; };
+		C240003A1AD9860300754075 /* ZJFShowItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFShowItemVC.h; sourceTree = "<group>"; };
+		C240003B1AD9860300754075 /* ZJFShowItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFShowItemVC.m; sourceTree = "<group>"; };
 		C268FE231ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFDetailPictureViewController.h; sourceTree = "<group>"; };
 		C268FE241ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFDetailPictureViewController.m; sourceTree = "<group>"; };
 		C26A63541AA8335500E3993E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -474,10 +474,10 @@
 				C2BCECDD1AB126BF003B352C /* ZJFTabBarController.m */,
 				C2BCECDF1AB1281B003B352C /* ZJFHomeTableViewController.h */,
 				C2BCECE01AB1281B003B352C /* ZJFHomeTableViewController.m */,
-				C2090EAB1AC9B5BF00F0767A /* ZJFMoreDescriptionViewController.h */,
-				C2090EAC1AC9B5BF00F0767A /* ZJFMoreDescriptionViewController.m */,
 				C268FE231ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.h */,
 				C268FE241ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m */,
+				C240003A1AD9860300754075 /* ZJFShowItemVC.h */,
+				C240003B1AD9860300754075 /* ZJFShowItemVC.m */,
 				C23CD72D1AD7B39B00E96B46 /* ZJFProfileCollectionViewController.h */,
 				C23CD72E1AD7B39B00E96B46 /* ZJFProfileCollectionViewController.m */,
 				C2B913651AB7CFAE00DBDB2A /* ZJFCreateItemCollectionViewController.h */,
@@ -656,6 +656,7 @@
 				C23CD73E1AD7C72B00E96B46 /* CGGeometry+RSKImageCropper.m in Sources */,
 				C2A058411AC3AAF900749D37 /* ZJFSetMyProfileViewController.m in Sources */,
 				C2A7087F1ACD583000B60F35 /* ZJFShareItem.m in Sources */,
+				C240003C1AD9860300754075 /* ZJFShowItemVC.m in Sources */,
 				C2319E351AB8047500457A5B /* ZJFCreateOfPhotoCollectionViewCell.m in Sources */,
 				C21D99861AD6E7DD00957B7A /* ZJFUserProfileCollectionViewCell.m in Sources */,
 				C2D4CFF11AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m in Sources */,
@@ -668,7 +669,6 @@
 				C2BCED021AB1328D003B352C /* ZJFSettingTableViewController.m in Sources */,
 				C21D99831AD656FF00957B7A /* UIView+MJExtension.m in Sources */,
 				C21D99821AD656FF00957B7A /* UIScrollView+MJRefresh.m in Sources */,
-				C2090EAD1AC9B5BF00F0767A /* ZJFMoreDescriptionViewController.m in Sources */,
 				C21D99801AD656FF00957B7A /* MJRefreshLegendHeader.m in Sources */,
 				C2A762A81ABFEBDB00F059D6 /* ZJFCurrentUser.m in Sources */,
 				C23CD72F1AD7B39B00E96B46 /* ZJFProfileCollectionViewController.m in Sources */,

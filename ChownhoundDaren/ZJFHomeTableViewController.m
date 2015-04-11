@@ -11,7 +11,7 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import "ZJFHomeCell.h"
 #import "ZJFCurrentUser.h"
-#import "ZJFMoreDescriptionViewController.h"
+#import "ZJFShowItemVC.h"
 #import "ZJFDetailPictureViewController.h"
 #import "ZJFSNearlyItemStore.h"
 #import "ZJFShareItem.h"
@@ -189,17 +189,19 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
     return  cell;
 }
 
+#pragma mark -delegate 方法
+
+
 #pragma mark -处理表格中的链接
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    ZJFHomeCell *cell = (ZJFHomeCell *)[[sender superview] superview];
-    
-    NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
-    ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
-    
-    NSLog(@"row: %d\n",[indexPath row]);
-    
     if ([segue.identifier isEqualToString:@"DetailPicture"]) {
+        ZJFHomeCell *cell = (ZJFHomeCell *)[[sender superview] superview];
+        NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
+        ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
+
+        NSLog(@"row: %d\n",[indexPath row]);
+        
        ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
         
         UIButton *button = (UIButton *)sender;
@@ -209,25 +211,32 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
         detailPictureViewController.imageKey = key;
         detailPictureViewController.imageStore = item.imageStore;
         
-        return;
-        
-    } else if([segue.identifier isEqualToString:@"MoreDescription"]){
-        ZJFMoreDescriptionViewController *moreDescriptionViewController = segue.destinationViewController;
-        moreDescriptionViewController.item = item;
-        
     } else if ([segue.identifier isEqualToString:@"ShowProfile"]){
+        ZJFHomeCell *cell = (ZJFHomeCell *)[[sender superview] superview];
+        NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
+        ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
+        
+        NSLog(@"row: %d\n",[indexPath row]);
+        
         ZJFProfileCollectionViewController *profileCollectionViewController = segue.destinationViewController;
         profileCollectionViewController.username = item.username;
         
         NSLog(@"item.username: %@\n",item.username);
+    } else if ([segue.identifier isEqualToString:@"ShowShareItem"]){
+        ZJFHomeCell *cell = (ZJFHomeCell *)sender;
+        NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
+        ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
         
-
+        NSLog(@"row: %d\n",[indexPath row]);
+        
+        ZJFShowItemVC *showItemVC = segue.destinationViewController;
+        showItemVC.item = item;
     }
-    
     
 }
 
 - (IBAction)showImage:(id)sender {
+    
     [self performSegueWithIdentifier:@"DetailPicture" sender:sender];
 }
               
@@ -243,9 +252,6 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
     
     return newImage;
 }
-
-
-
 
 
 

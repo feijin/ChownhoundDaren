@@ -13,6 +13,7 @@
 #import "ZJFUserProfileHeaderView.h"
 #import "ZJFUserProfile.h"
 #import "MJRefresh.h"
+#import "ZJFDetailPictureViewController.h"
 
 static int numberOfMaxCharacters = 100;
 
@@ -57,6 +58,8 @@ static int numberOfMaxCharacters = 100;
     [ZJFSNearlyItemStore shareStore].userProfile = nil;
 }
 
+
+#pragma mark -collection view datasource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return [[[ZJFSNearlyItemStore shareStore] userShareItems] count];
 }
@@ -159,12 +162,55 @@ static int numberOfMaxCharacters = 100;
     header.nickNameLabel.text = profile.nickName;
     header.genderImageView.image = [UIImage imageNamed:profile.gender];
     header.cityLabel.text = profile.city;
-    
     header.userDescriptionTextView.text = profile.userDescription;
+    
+    UIImage *image = [UIImage imageWithData:profile.headerImage scale:2.0];
+    
+    header.headerImageView.image = image;
+    header.headerImageView.layer.cornerRadius = 41;
+    header.headerImageView.clipsToBounds = YES;
     
     return header;
     
 }
+
+#pragma mark -collection view delegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
+
+#pragma mark -执行segue
+- (IBAction)showUserSharePicture:(id)sender {
+    [self performSegueWithIdentifier:@"ShowUserSharePicture" sender:sender];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    ZJFUserProfileCollectionViewCell *cell = (ZJFUserProfileCollectionViewCell *)[[sender superview] superview];
+    
+    NSIndexPath *indexPath = [[self collectionView] indexPathForCell:cell];
+    ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] userShareItems] objectAtIndex:[indexPath row]];
+    
+    NSLog(@"row: %d\n",[indexPath row]);
+    
+    if ([segue.identifier isEqualToString:@"ShowUserSharePicture"]) {
+        ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
+        
+        UIButton *button = (UIButton *)sender;
+        
+        NSString *key = [[[item thumbnailData] allKeys] objectAtIndex:button.tag];
+        
+        detailPictureViewController.imageKey = key;
+        detailPictureViewController.imageStore = item.imageStore;
+        
+        return;
+    }
+}
+
+
+
+
 
 
 
