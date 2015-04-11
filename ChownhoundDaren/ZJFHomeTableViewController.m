@@ -9,15 +9,17 @@
 #import "ZJFHomeTableViewController.h"
 #import "ZJFCurrentLocation.h"
 #import <AVOSCloud/AVOSCloud.h>
-#import "ZJFHomeTableViewCell.h"
+#import "ZJFHomeCell.h"
 #import "ZJFCurrentUser.h"
 #import "ZJFMoreDescriptionViewController.h"
 #import "ZJFDetailPictureViewController.h"
 #import "ZJFSNearlyItemStore.h"
 #import "ZJFShareItem.h"
+#import "MJRefresh.h"
+#import "ZJFProfileCollectionViewController.h"
 
 static const double EARTH_ARC = 6367000;
-static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页面查看详情
+static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页面查看详情
 
 @interface ZJFHomeTableViewController ()
 {
@@ -40,13 +42,36 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
     [_locationManager requestWhenInUseAuthorization];
 //    [_locationManager setDesiredAccuracy:kCLLocationAccuracyBestForNavigation];
     [_locationManager startUpdatingLocation];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addLegendHeaderWithRefreshingBlock:^(){
+        [ZJFSNearlyItemStore shareStore].homeTableViewController = weakSelf;
+        [[ZJFSNearlyItemStore shareStore] findSurroundObjectForRefresh];
+    }];
+    
+    [self.tableView addLegendFooterWithRefreshingBlock:^(){
+        [ZJFSNearlyItemStore shareStore].homeTableViewController = weakSelf;
+        [[ZJFSNearlyItemStore shareStore] findMoreObjectAfterRefresh];
+    }];
 
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 100;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.tableView reloadData];
     
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+}
+
+- (IBAction)refresh:(id)sender {
+    [[ZJFSNearlyItemStore shareStore] findSurroundObjectForRefresh];
+    [self.tableView reloadData];
 }
 
 #pragma mark -获取位置信息
@@ -61,8 +86,6 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
     if (hasUpdate == 10) {
         [_locationManager stopUpdatingLocation];
     }
-
-
     
 }
     
@@ -77,22 +100,13 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
 
 #pragma mark -获取表格数据源
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if ([[ZJFSNearlyItemStore shareStore] allItems] != 0) {
-        return [[ZJFSNearlyItemStore shareStore] allItems].count;
-    } else {
-        return 1;
-    } 
-    
+    return [[[ZJFSNearlyItemStore shareStore] allItems] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    ZJFHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCell"];
     
     ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
-    
-    ZJFHomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCell"];
-    if (cell == nil) {
-        cell = [[ZJFHomeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HomeCell"];
-    }
     
     NSArray *thumbnailKeys = [[item thumbnailData] allKeys];
     
@@ -106,17 +120,15 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
                 case 0:{
                     NSData *imageData = [[item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
                     UIImage *image = [UIImage imageWithData:imageData scale:2.0];
-                    //NSLog(@"image width: %f, height: %f\n",image.size.width,image.size.height);
                     
                     cell.image1.image = image;
-                    cell.image1.tag = 1;
-                    cell.button1.enabled = YES;
-                    cell.button1.hidden = NO;
+                    cell.image1.tag = 0;
                     
+                    cell.button1.enabled = YES;
                     cell.button2.enabled = NO;
                     cell.button3.enabled = NO;
                     
-                   // NSLog(@"image1 size wigth: %f, heigth: %f\n",cell.image1.image.size.width,cell.image1.image.size.height);
+                    // NSLog(@"image1 size wigth: %f, heigth: %f\n",cell.image1.image.size.width,cell.image1.image.size.height);
                     
                     cell.image2.image = nil;
                     cell.image3.image = nil;
@@ -127,10 +139,10 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
                     UIImage *image = [UIImage imageWithData:imageData scale:2.0];
                     
                     cell.image2.image = image;
-                    cell.image2.tag = 2;
+                    cell.image2.tag = 1;
                     
                     cell.button2.enabled = YES;
-                    cell.button2.hidden = NO;
+                    
                     cell.image3.image = nil;
                     break;
                 }
@@ -139,17 +151,16 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
                     UIImage *image = [UIImage imageWithData:imageData scale:2.0];
                     
                     cell.image3.image = image;
-                    cell.image3.tag = 3;
+                    cell.image3.tag = 2;
                     
                     cell.button3.enabled = YES;
-                    cell.button3.hidden = NO;
                     
                     break;
                 }
                 default:
                     break;
             }
-
+            
         }
     } else {
         //此条信息不包含图片
@@ -162,71 +173,36 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
         cell.button2.enabled = NO;
         cell.button3.enabled = NO;
         
+        
     }
     
-    NSString *itemDescription = item.itemDescription;
-    int length = itemDescription.length;
-        
-    NSString *breifDescription = itemDescription; //显示缩减的字符
-    cell.moreDescriptionButton.hidden = YES;
-    cell.moreDescriptionButton.enabled = NO;// 如果字符较少，不需要显示更多按钮
-        
-    if(length > numberOfMaxCharacters){
-            //如果超过50个字符，截取47个字符
-            breifDescription = [itemDescription substringToIndex:(numberOfMaxCharacters-3)];
-            breifDescription = [breifDescription stringByAppendingString:@"..."];
-            cell.moreDescriptionButton.hidden = NO;
-        cell.moreDescriptionButton.enabled = YES;
-    }
-        
+    cell.nickName.text = item.nickName;
+   
+    CGRect rect = CGRectMake(cell.frame.origin.x+9, cell.frame.origin.y+9, 52, 52);
     
-    [cell.itemDescriptionTextView setFont:[UIFont fontWithName:@"Helvetica" size:16]];
- //   NSLog(@"font name: %@\n", cell.itemDescriptionTextView.font.fontName);
-        
-    cell.itemDescriptionTextView.text = breifDescription;
-    cell.placeName.text = item.placeName;
+    UIImage *image = [UIImage imageWithData:item.headerImage scale:2.0];
+    image = [self getThumbnail:image];
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;  //设置选中时没有效果
+    cell.imageView.frame = rect;
+    cell.imageView.image = image;
+    cell.imageView.layer.cornerRadius = 26;
+    cell.imageView.clipsToBounds = YES;
     
-    if(item.nickName == nil)
-        cell.nickNameButton.titleLabel.text = @"匿名";
-    else
-        cell.nickNameButton.titleLabel.text = item.nickName;
-    
-//    cell.dateLabel.text = item.createDate;
-    
-    cell.placeName.text = item.placeName;
-    
-    cell.prasiceNumber.text = [NSString stringWithFormat:@"%d",[[item prasice] count]];
-    
-    int distance = [self distanceBetween:[[ZJFCurrentLocation shareStore] location].coordinate.latitude fromLongitude:[[ZJFCurrentLocation shareStore] location].coordinate.longitude  toLatitude:item.latitude toLongitude:item.longitude];
-    
-    cell.distanceLabel.text = [NSString stringWithFormat:@"%dm",distance];
-    
-    
-    return cell;
+    return  cell;
 }
-
-- (IBAction)refresh:(id)sender {
-    [[ZJFSNearlyItemStore shareStore] findSurroundObjectForRefresh];
-    
-    [self.tableView reloadData];
-}
-
 
 #pragma mark -处理表格中的链接
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    ZJFHomeCell *cell = (ZJFHomeCell *)[[sender superview] superview];
+    
+    NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
+    ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
+    
+    NSLog(@"row: %d\n",[indexPath row]);
+    
     if ([segue.identifier isEqualToString:@"DetailPicture"]) {
        ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
-        
-        ZJFHomeTableViewCell *cell = (ZJFHomeTableViewCell *)[[sender superview] superview];
-        
-        NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
-        
-        NSLog(@"row: %d\n",[indexPath row]);
-        
-        ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
         
         UIButton *button = (UIButton *)sender;
         
@@ -239,12 +215,15 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
         
     } else if([segue.identifier isEqualToString:@"MoreDescription"]){
         ZJFMoreDescriptionViewController *moreDescriptionViewController = segue.destinationViewController;
-        ZJFHomeTableViewCell *cell = (ZJFHomeTableViewCell *)[[sender superview] superview];
-        
-        NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
-        
-        ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
         moreDescriptionViewController.item = item;
+        
+    } else if ([segue.identifier isEqualToString:@"ShowProfile"]){
+        ZJFProfileCollectionViewController *profileCollectionViewController = segue.destinationViewController;
+        profileCollectionViewController.username = item.username;
+        
+        NSLog(@"item.username: %@\n",item.username);
+        
+
     }
     
     
@@ -253,10 +232,19 @@ static int numberOfMaxCharacters = 50; //如果评论超过50个字，在新页�
 - (IBAction)showImage:(id)sender {
     [self performSegueWithIdentifier:@"DetailPicture" sender:sender];
 }
-
               
-              
-              
+- (UIImage *)getThumbnail:(UIImage *)image{
+    CGSize newSize = CGSizeMake(52, 52);
+    
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
 
 
 

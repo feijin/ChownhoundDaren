@@ -71,10 +71,6 @@
                                 AVUser *user = [AVUser user];
                                 user.username = userResult.userID;
                                 user.password = @"ChownhoundDaren";
-                                [user setObject:userResult.gender forKey:@"gender"];
-                                [user setObject:userResult.name forKey:@"nickName"];
-                                [user setObject:userResult.userDescription forKey:@"userDescription"];
-                                [user setObject:[NSNumber numberWithBool:true] forKey:@"isWeiboUser"];
                                 [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
                                     if (succeeded) {
                                         [[ZJFCurrentUser shareCurrentUser] setUsername:userResult.userID];
@@ -87,19 +83,48 @@
                                     } else {
                                     }
                                 }];
+                                
+                                //将用户信息保存到一个新的类中，而不是放在user中，
+                                AVObject *object = [AVObject objectWithClassName:@"userInformation"];
+                                [object setObject:userResult.userID forKey:@"username"]; //唯一性
+                                [object setObject:userResult.gender forKey:@"gender"];
+                                [object setObject:userResult.name forKey:@"nickName"];
+                                [object setObject:userResult.userDescription forKey:@"userDescription"];
+                                [object setObject:[NSNumber numberWithBool:true] forKey:@"isWeiboUser"];
+                                [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+                                    if (succeeded) {
+                                        NSLog(@"微博用户信息保存到userinformation类成功！\n");
+                                    } else{
+                                        NSLog(@"微博用户信息保存到userinformation error: %@\n",error);
+                                    }
+                                }];
+                                
+                                
                             } else if([array count]==1) {
                                 //如果注册过，则使用wbUid登录到系统中
                                 NSLog(@"user has signed!\n");
                                 [AVUser logInWithUsernameInBackground:[ZJFWeiboLoginInfo shareWeiboLoginInfo].wbUid password:@"ChownhoundDaren" block:^(AVUser *user, NSError *error){
+                
                                     if (user != nil) {
+                                        NSLog(@"weibo login succeeded!\n");
                                         
-                                        [[ZJFCurrentUser shareCurrentUser] setUsername:user.username];
-                                        [[ZJFCurrentUser shareCurrentUser] setGender:[user objectForKey:@"gender"]];
-                                        [[ZJFCurrentUser shareCurrentUser] setUserDescription:[user objectForKey:@"userDescription"]];
-                                        [[ZJFCurrentUser shareCurrentUser] setNickName:[user objectForKey:@"nickName"]];
-                                        
-                                        NSLog(@"login succeeded!\n");
-                                        NSLog(@"current user is: %@\n",[user objectForKey:@"nickName"]);
+                                        //微博用户登录后，根据username更新currentuser的信息
+                                        AVQuery *query = [AVQuery queryWithClassName:@"userInformation"];
+                                        [query whereKey:@"username" equalTo:user.username];
+                                        [query getFirstObjectInBackgroundWithBlock:^(AVObject *object, NSError *error){
+                                            if (!error) {
+                                                NSLog(@"查找到此微博用户的信息\n");
+                                                
+                                                [[ZJFCurrentUser shareCurrentUser] setUsername:[object objectForKey:@"username"]];
+                                                [[ZJFCurrentUser shareCurrentUser] setUserDescription:[object objectForKey:@"userDescription"]];
+                                                [[ZJFCurrentUser shareCurrentUser] setGender:[object objectForKey:@"gender"]];
+                                                [[ZJFCurrentUser shareCurrentUser] setNickName:[object objectForKey:@"nickName"]];
+                                                
+                                                NSLog(@"current user is: %@\n",[object objectForKey:@"nickName"]);
+                                            } else{
+                                                NSLog(@"查找此用户信息失败: %@\n", [error description]);
+                                            }
+                                        }];
                                     } else {
                                         NSLog(@"login fail: %@\n", [error description]);
                                     }
@@ -133,8 +158,8 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
-    [[[ZJFCurrentLocation shareStore] locationManager] stopUpdatingLocation];
-    NSLog(@"stop update location.\n");
+ //   [[[ZJFCurrentLocation shareStore] locationManager] stopUpdatingLocation];
+ //   NSLog(@"stop update location.\n");
     
     BOOL success = [[ZJFSNearlyItemStore shareStore] saveChanges];
     

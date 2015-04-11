@@ -77,7 +77,7 @@
 }
 
 - (NSString *)imagePathForKey:(NSString *)key{
-    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     
     NSString *documentDirectory = [documentDirectories objectAtIndex:0];
     

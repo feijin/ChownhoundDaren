@@ -294,6 +294,7 @@ int const numberOFMaxPictures = 5;
     [shareItem setObject:locationNameOfItem forKey:@"locationNameOfItem"];
     
     [shareItem setObject:[AVUser currentUser].username forKey:@"username"];
+     [shareItem setObject:[NSDate date] forKey:@"createDate"];
     
     [shareItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
         if (!error) {
@@ -314,7 +315,7 @@ int const numberOFMaxPictures = 5;
 
 
 - (UIImage *)getThumbnail:(UIImage *)image{
-    CGSize newSize = CGSizeMake(81, 81);
+    CGSize newSize = CGSizeMake(82, 82);
     
     UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
     

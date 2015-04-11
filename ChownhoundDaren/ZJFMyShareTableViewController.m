@@ -13,7 +13,10 @@
 #import "ZJFSNearlyItemStore.h"
 #import "ZJFMyShareItemTableViewCell.h"
 #import "ZJFDetailPictureViewController.h"
+#import "ZJFMoreDescriptionViewController.h"
 #import "MJRefresh.h"
+
+static const int numberOfMaxCharacters = 50;
 
 @interface ZJFMyShareTableViewController ()
 <UIGestureRecognizerDelegate>
@@ -28,6 +31,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addLegendHeaderWithRefreshingBlock:^(){
+        [[ZJFSNearlyItemStore shareStore] downloadMyShareItemForRefresh];
+        [ZJFSNearlyItemStore shareStore].myShareTableViewController = weakSelf;
+    }];
+    
+    [self.tableView addLegendFooterWithRefreshingBlock:^(){
+        [[ZJFSNearlyItemStore shareStore] downloadMyShareItemAfterRefresh];
+        [ZJFSNearlyItemStore shareStore].myShareTableViewController = weakSelf;
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -45,14 +59,31 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     ZJFMyShareItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyShareItem"];
-    if (cell == nil) {
-        cell = [[ZJFMyShareItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MyShareItem"];
-    }
     
     ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
     
     cell.placeNameLabel.text = item.placeName;
-    cell.itemDescriptionTextView.text = item.itemDescription;
+    
+    NSString *itemDescription = item.itemDescription;
+    int length = itemDescription.length;
+    
+    NSString *breifDescription = itemDescription; //显示缩减的字符
+    cell.moreDescriptionButton.hidden = YES;
+    cell.moreDescriptionButton.enabled = NO;// 如果字符较少，不需要显示更多按钮
+    
+    if(length > numberOfMaxCharacters){
+        //如果超过50个字符，截取47个字符
+        breifDescription = [itemDescription substringToIndex:(numberOfMaxCharacters-3)];
+        breifDescription = [breifDescription stringByAppendingString:@"..."];
+        cell.moreDescriptionButton.hidden = NO;
+        cell.moreDescriptionButton.enabled = YES;
+    }
+    
+    
+    [cell.itemDescriptionTextView setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+    //   NSLog(@"font name: %@\n", cell.itemDescriptionTextView.font.fontName);
+    
+    cell.itemDescriptionTextView.text = breifDescription;
     
     NSArray *thumbnailKeys = [[item thumbnailData] allKeys];
     
@@ -126,17 +157,39 @@
 }
 
 - (IBAction)showImage:(id)sender {
-    ZJFMyShareItemTableViewCell *cell = (ZJFMyShareItemTableViewCell *)[[sender superview] superview];
-    
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
-   
-    UIButton *button = (UIButton *)sender;
-    
-    imageKeys = [item imageStore];
-    imageKey = [imageKeys objectAtIndex:button.tag];
-    
-    [self performSegueWithIdentifier:@"ShowMySharePicture" sender:sender];
+    [self performSegueWithIdentifier:@"ShowSharePicture" sender:sender];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"ShowSharePicture"]) {
+        ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
+        
+        ZJFMyShareItemTableViewCell *cell = (ZJFMyShareItemTableViewCell *)[[sender superview] superview];
+        
+        NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
+        
+        NSLog(@"row: %d\n",[indexPath row]);
+        
+        ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
+        
+        UIButton *button = (UIButton *)sender;
+        
+        NSString *key = [[[item thumbnailData] allKeys] objectAtIndex:button.tag];
+        
+        detailPictureViewController.imageKey = key;
+        detailPictureViewController.imageStore = item.imageStore;
+        
+        return;
+        
+    } else if([segue.identifier isEqualToString:@"ShareMoreDescription"]){
+        ZJFMoreDescriptionViewController *moreDescriptionViewController = segue.destinationViewController;
+        ZJFMyShareItemTableViewCell *cell = (ZJFMyShareItemTableViewCell *)[[sender superview] superview];
+        
+        NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
+        
+        ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
+        moreDescriptionViewController.item = item;
+    }
 }
 
 @end

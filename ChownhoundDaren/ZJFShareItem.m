@@ -12,7 +12,7 @@
 
 @implementation ZJFShareItem
 
-@synthesize nickName,itemDescription,latitude,longitude,placeName,createDate,userId,objectId;
+@synthesize nickName,itemDescription,latitude,longitude,placeName,createDate,username,objectId,headerImage;
 
 - (id)init{
     self = [super init];
@@ -39,8 +39,8 @@
     return imageStore;
 }
 
-- (void)addFileId:(NSString *)fileId forFileName:(NSString *)fileName{
-    [imageStore setObject:fileName forKey:fileId];
+- (void)addFileName:(NSString *)fileName forFileId:(NSString *)fileId{
+    [imageStore setObject:fileName  forKey:fileId];
 }
 
 - (NSDictionary *)thumbnailData{
@@ -59,12 +59,13 @@
     [aCoder encodeObject:itemDescription forKey:@"itemDescription"];
     [aCoder encodeObject:placeName forKey:@"placeName"];
     [aCoder encodeObject:createDate forKey:@"createDate"];
-    [aCoder encodeObject:userId forKey:@"userId"];
+    [aCoder encodeObject:username forKey:@"username"];
     [aCoder encodeDouble:latitude forKey:@"latitude"];
     [aCoder encodeDouble:longitude forKey:@"longitude"];
     [aCoder encodeObject:prasice forKey:@"prasice"];
     [aCoder encodeObject:thumbnailData forKey:@"thumbnailData"];
     [aCoder encodeObject:imageStore forKey:@"imageStore"];
+    [aCoder encodeObject:headerImage forKey:@"headerImage"];
     
 }
 
@@ -77,13 +78,15 @@
         [self setItemDescription:[aDecoder decodeObjectForKey:@"itemDescription"]];
         [self setPlaceName:[aDecoder decodeObjectForKey:@"placeName"]];
         [self setCreateDate:[aDecoder decodeObjectForKey:@"createDate"]];
-        [self setUserId:[aDecoder decodeObjectForKey:@"userId"]];
+        [self setUsername:[aDecoder decodeObjectForKey:@"username"]];
         [self setLatitude:[aDecoder decodeDoubleForKey:@"latitude"]];
         [self setLongitude:[aDecoder decodeDoubleForKey:@"longitude"]];
+        [self setHeaderImage:[aDecoder decodeObjectForKey:@"headerImage"]];
         
         prasice = [aDecoder decodeObjectForKey:@"prasice"];
         thumbnailData = [aDecoder decodeObjectForKey:@"thumbnailData"];
         imageStore = [aDecoder decodeObjectForKey:@"imageStore"];
+        
     }
     
     return self;

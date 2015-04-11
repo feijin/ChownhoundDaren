@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WeiboUser.h"
 
-@interface ZJFCurrentUser : NSObject
+@interface ZJFCurrentUser : NSObject<NSCoding>
 {
     
 }
@@ -20,6 +20,7 @@
 @property (nonatomic,strong) NSString *gender;
 @property (nonatomic,strong) NSString *nickName;
 @property (nonatomic,strong) NSString *city;
+@property (nonatomic,strong) NSData *headerImage;
 
 + (ZJFCurrentUser *)shareCurrentUser;
 - (BOOL)isLogin;

@@ -17,19 +17,20 @@
 }
 
 @property (nonatomic,strong) NSString *objectId;
-@property (nonatomic,strong) NSString *userId;
+@property (nonatomic,strong) NSString *username;
 @property (nonatomic,strong) NSString *nickName;
-@property (nonatomic,strong) NSString *createDate;;
+@property (nonatomic,strong) NSDate *createDate;;
 @property (nonatomic,strong) NSString *placeName;
 @property (nonatomic,strong) NSString *itemDescription;
 @property (nonatomic) double latitude;
 @property (nonatomic) double longitude;
+@property (nonatomic,strong) NSData *headerImage;
 
 - (NSDictionary *)thumbnailData;
 - (NSArray *)prasice;
 - (NSDictionary *)imageStore;
 
-- (void)addFileId:(NSString *)fileId forFileName:(NSString *)fileName;
+- (void)addFileName:(NSString *)fileName forFileId:(NSString *)fileId;
 - (void)addPrasice:(NSString *)userId;
 - (void)setThumbnailData:(NSData *)data forKey:(NSString *)key;
 

@@ -55,19 +55,22 @@
     }
     
     //将更新后的信息上传至服务器
-    AVUser *user = [AVUser currentUser];
-    [user setObject:[ZJFCurrentUser shareCurrentUser].nickName forKey:@"nickName"];
-    [user setObject:[ZJFCurrentUser shareCurrentUser].userDescription forKey:@"userDescription"];
-    [user setObject:[ZJFCurrentUser shareCurrentUser].city forKey:@"city"];
-    [user setObject:[ZJFCurrentUser shareCurrentUser].gender forKey:@"gender"];
-    
-    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+    AVQuery *query = [AVQuery queryWithClassName:@"userInformation"];
+    [query whereKey:@"username" equalTo:[AVUser currentUser].username];
+    [query getFirstObjectInBackgroundWithBlock:^(AVObject *object, NSError *error){
+        [object setObject:[ZJFCurrentUser shareCurrentUser].nickName forKey:@"nickName"];
+        [object setObject:[ZJFCurrentUser shareCurrentUser].userDescription forKey:@"userDescription"];
+        [object setObject:[ZJFCurrentUser shareCurrentUser].city forKey:@"city"];
+        [object setObject:[ZJFCurrentUser shareCurrentUser].gender forKey:@"gender"];
         
-        if (succeeded) {
-            NSLog(@"更新个人信息成功！\n");
-        }else{
-            NSLog(@"更新个人信息失败：%@\n", error);
-        }
+        [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+            
+            if (succeeded) {
+                NSLog(@"更新个人信息成功！\n");
+            }else{
+                NSLog(@ "更新个人信息失败：%@\n", error);
+            }
+        }];
     }];
     
 }

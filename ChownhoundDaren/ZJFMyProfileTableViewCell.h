@@ -11,8 +11,8 @@
 @interface ZJFMyProfileTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *imageViewOfGender;
 @property (weak, nonatomic) IBOutlet UILabel *signature;
+@property (weak, nonatomic) IBOutlet UIImageView *headerView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewOfShares;
 @property (weak, nonatomic) IBOutlet UILabel *labelOfShares;
