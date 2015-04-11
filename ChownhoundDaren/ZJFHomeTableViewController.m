@@ -178,13 +178,11 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
     
     cell.nickName.text = item.nickName;
    
-    CGRect rect = CGRectMake(cell.frame.origin.x+9, cell.frame.origin.y+9, 52, 52);
-    
     UIImage *image = [UIImage imageWithData:item.headerImage scale:2.0];
-    image = [self getThumbnail:image];
     
-    cell.imageView.frame = rect;
-    cell.imageView.image = image;
+    UIImage *headerImage = [self getThumbnail:image];
+    
+    cell.imageView.image = headerImage;
     cell.imageView.layer.cornerRadius = 26;
     cell.imageView.clipsToBounds = YES;
     

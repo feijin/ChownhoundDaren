@@ -15,4 +15,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *cityLabel;
 @property (weak, nonatomic) IBOutlet UILabel *joinDate;
 @property (weak, nonatomic) IBOutlet UITextView *userDescriptionTextView;
+@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 @end

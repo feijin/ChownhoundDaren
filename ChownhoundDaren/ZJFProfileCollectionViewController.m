@@ -160,10 +160,6 @@ static int numberOfMaxCharacters = 100;
     header.genderImageView.image = [UIImage imageNamed:profile.gender];
     header.cityLabel.text = profile.city;
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yy-MM-dd";
-    header.joinDate.text = [formatter stringFromDate:profile.joinDate];
-    
     header.userDescriptionTextView.text = profile.userDescription;
     
     return header;

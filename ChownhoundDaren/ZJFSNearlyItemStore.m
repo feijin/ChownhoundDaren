@@ -111,33 +111,28 @@ static int userShareItemHasDownloads = 0;
 #pragma mark -查询用户信息
 
 - (void)getProfile:(NSString *)username{
-    AVQuery *query = [AVUser query];
+    AVQuery *query = [AVQuery queryWithClassName:@"userInformation"];
     
     [query whereKey:@"username" equalTo:username];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
-        if (!error) {
-            NSLog(@"查询用户信息成功！count: %d\n", [objects count]);
-            
-            AVUser *user = [objects objectAtIndex:0];
-            
-            ZJFUserProfile *profile = [[ZJFUserProfile alloc] init];
-            
-            profile.username = user.username;
-            profile.nickName = [user objectForKey:@"nickName"];
-            profile.userDescription = [user objectForKey:@"userDescription"];
-            profile.gender = [user objectForKey:@"gender"];
-            profile.city = [user objectForKey:@"city"];
-            profile.joinDate = user.createdAt;
-            
-            userProfile = profile;
-        }else{
-            NSLog(@"error: %@\n",[error description]);
-        }
-        
-        [self.profileCollectionViewController.collectionView reloadData];
-    }];
     
+    AVObject *object = [query getFirstObject];
     
+    NSLog(@"用户资料获取成功\n");
+    
+    ZJFUserProfile *profile = [[ZJFUserProfile alloc] init];
+    
+    profile.username = username;
+    profile.nickName = [object objectForKey:@"nickName"];
+    profile.userDescription = [object objectForKey:@"userDescription"];
+    profile.gender = [object objectForKey:@"gender"];
+    profile.city = [object objectForKey:@"city"];
+    profile.joinDate = object.createdAt;
+    
+    userProfile = profile;
+    
+    [self.profileCollectionViewController.collectionView reloadData];
+
+
 }
 
 #pragma mark -从服务器查询附近的信息
@@ -189,7 +184,7 @@ static int userShareItemHasDownloads = 0;
             
             nearlyItemHasDownloads += [objects count];
             
-            [self handleArrayOfObjects:objects withTag:0 withArray:allItems];
+            [self handleNearlyObjects:objects withTag:0 withArray:allItems];
            
             [self.homeTableViewController.tableView reloadData];
             [self.homeTableViewController.tableView.header endRefreshing];
@@ -244,7 +239,7 @@ static int userShareItemHasDownloads = 0;
         
         NSLog(@"后台获取数据成功,获取到： %d条数据\n",[objects count]);
         
-        [self handleArrayOfObjects:objects withTag:nearlyItemHasDownloads withArray:allItems];
+        [self handleNearlyObjects:objects withTag:nearlyItemHasDownloads withArray:allItems];
         
         nearlyItemHasDownloads += [objects count];
         
@@ -273,7 +268,23 @@ static int userShareItemHasDownloads = 0;
     
     //[query includeKey:@"imageStore"];
     
-    [query findObjectsInBackgroundWithTarget:self selector:@selector(handleFindNearlyItems:error:)];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+        NSLog(@"后台获取数据成功,获取到： %d条数据\n",[objects count]);
+        
+        if ([objects count] != 0) {
+            [myShareItems removeAllObjects];
+        }
+        
+        [self handleUserShareObjects:objects withTag:0 withArray:myShareItems];
+        
+        myShareItemHasDownloads += [objects count];
+        
+        [self.homeTableViewController.tableView reloadData];
+        [self.homeTableViewController.tableView.footer endRefreshing];
+        
+    }];
     
 }
 
@@ -297,9 +308,24 @@ static int userShareItemHasDownloads = 0;
     //直接下拉获取更多数据
     //[query includeKey:@"imageStore"];
    
-    [query findObjectsInBackgroundWithTarget:self selector:@selector(handleArrayOfObjects:withTag:withArray:)];
-    
-    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+        if (!error) {
+            NSLog(@"我的分享更多数据获取成功\n");
+            
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            
+            [self handleUserShareObjects:objects withTag:myShareItemHasDownloads withArray:myShareItems];
+            
+            myShareItemHasDownloads += [objects count];
+            
+            [self.homeTableViewController.tableView reloadData];
+            [self.homeTableViewController.tableView.footer endRefreshing];
+            
+            NSLog(@"获取更多数据成功！\n");
+        } else {
+            NSLog(@"我的分享更多数据获取失败：%@\n",error);
+        }
+    }];
 }
 
 - (void)downloadUserShareItemForRefreshWithUsername:(NSString *)username{
@@ -324,10 +350,12 @@ static int userShareItemHasDownloads = 0;
             [userShareItems removeAllObjects];
         }
         
-        [self handleArrayOfObjects:objects withTag:userShareItemHasDownloads withArray:userShareItems];
+        [self handleNearlyObjects:objects withTag:0 withArray:userShareItems];
+        
         userShareItemHasDownloads += [objects count];
         
         [self.profileCollectionViewController.collectionView reloadData];
+        [self.profileCollectionViewController.collectionView.header endRefreshing];
         
         NSLog(@"他的分享刷新完成！\n");
     }];
@@ -354,7 +382,7 @@ static int userShareItemHasDownloads = 0;
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         
-        [self handleArrayOfObjects:objects withTag:userShareItemHasDownloads withArray:userShareItems];
+        [self handleNearlyObjects:objects withTag:userShareItemHasDownloads withArray:userShareItems];
         userShareItemHasDownloads += [objects count];
         
         [self.profileCollectionViewController.collectionView reloadData];
@@ -365,8 +393,8 @@ static int userShareItemHasDownloads = 0;
 }
 
 #pragma mark -处理下载下来的数据
-- (void)handleArrayOfObjects:(NSArray *)objects withTag:(int)itemNumber withArray:(NSMutableArray *)array{
-    //处理从服务器返回的每一条数据
+- (void)handleNearlyObjects:(NSArray *)objects withTag:(int)itemNumber withArray:(NSMutableArray *)array{
+    //处理从服务器返回的每一条数据, 需要获取到用户头像
     for(int i=0;i<[objects count];i++){
         AVObject *object = [objects objectAtIndex:i];
         
@@ -428,11 +456,61 @@ static int userShareItemHasDownloads = 0;
 
 }
 
-- (void)handleFindNearlyItems:(NSArray *)objects error:(NSError *)error{
+- (void)handleUserShareObjects:(NSArray *)objects withTag:(int)itemNumber  withArray:(NSMutableArray *)array{
+    //处理objecs时不需要获取用户头像信息
     
+    for(int i=0;i<[objects count];i++){
+        AVObject *object = [objects objectAtIndex:i];
+        
+        NSString *itemObjectId = [object objectForKey:@"objectId"];
+        NSLog(@"\nobjectId: %@\n", itemObjectId);
+        
+        //如果array 没有包含objectId等于它的，则加入此对像
+        if (![self isObject:itemObjectId inStore:array]) {
+            ZJFShareItem *item = [[ZJFShareItem alloc] init];
+            
+            item.objectId = [object objectForKey:@"objectId"];
+            item.username = [object objectForKey:@"username"];
+            
+            NSLog(@"item.nickname: %@\n",item.nickName);
+            
+            item.placeName = [object objectForKey:@"placeName"];
+            item.createDate = object.updatedAt;
+            item.itemDescription = [object objectForKey:@"itemDescription"];
+            item.latitude = [[object objectForKey:@"latitude"] doubleValue];
+            item.longitude = [[object objectForKey:@"longitude"] doubleValue];
+            
+            NSArray *arrayKey = [object objectForKey:@"imageStore"];
+            for (AVFile *file in arrayKey) {
+                [item addFileName:file.name forFileId:file.objectId];
+            }
+            
+            NSDictionary *dictionary = [object objectForKey:@"thumbnailData"];
+            
+            //处理thumbnailData,因为它保存的格式为base64 string，所以需要转换为data格式
+            
+            NSArray *keys = [dictionary allKeys];
+            
+            for (NSString *s in keys) {
+                
+                NSDictionary *dic = [dictionary objectForKey:s];
+                
+                NSString *string = [dic objectForKey:@"base64"];    //得到的是nsstring格式数据
+                
+                NSData *data = [[NSData alloc] initWithBase64EncodedString:string options:NSDataBase64DecodingIgnoreUnknownCharacters];     //这才是nsdata数据格式
+                
+                [item setThumbnailData:data forKey:s];
+            }
+            
+            [array addObject:item];
+        }else{
+            continue;
+        }
+        
+    }
     
-}
 
+}
 
 - (BOOL)isObject:(NSString *)objectId inStore:(NSArray *)array{
     for (ZJFShareItem *item in array) {
