@@ -684,7 +684,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="详情" id="r2r-ey-S2V">
                         <barButtonItem key="backBarButtonItem" title="首页" id="YZ8-El-ZfZ"/>
-                        <barButtonItem key="rightBarButtonItem" title="收藏" id="9cJ-mR-j5q">
+                        <barButtonItem key="rightBarButtonItem" title="  " id="9cJ-mR-j5q">
                             <connections>
                                 <action selector="collect:" destination="EhC-PX-Dgz" id="AYp-Bk-KBm"/>
                             </connections>
@@ -696,6 +696,7 @@
                         <outlet property="headerImage" destination="NRt-WR-dkM" id="iRq-Bf-m4o"/>
                         <outlet property="nickName" destination="GHx-WJ-VFa" id="7ct-t9-XyC"/>
                         <outlet property="placeName" destination="0qV-Nm-Z7J" id="ZV6-B7-4XT"/>
+                        <outlet property="rightBarButton" destination="9cJ-mR-j5q" id="xlc-wU-oQb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tbb-bC-jcK" userLabel="First Responder" sceneMemberID="firstResponder"/>
