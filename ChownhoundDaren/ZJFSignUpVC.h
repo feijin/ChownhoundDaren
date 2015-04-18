@@ -1,13 +1,13 @@
 //
-//  ZJFTabBarController.h
+//  ZJFSignUpVC.h
 //  ChownhoundDaren
 //
-//  Created by 飞 on 15/3/12.
+//  Created by 飞 on 15/4/13.
 //  Copyright (c) 2015年 Fly tech. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ZJFTabBarController : UITabBarController
+@interface ZJFSignUpVC : UIViewController
 
 @end

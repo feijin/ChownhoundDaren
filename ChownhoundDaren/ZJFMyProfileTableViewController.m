@@ -11,6 +11,7 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import "ZJFCurrentUser.h"
 #import "RSKImageCropViewController.h"
+#import "ZJFLoginViewController.h"
 
 @interface ZJFMyProfileTableViewController()
 <UIImagePickerControllerDelegate,UINavigationControllerDelegate,RSKImageCropViewControllerDelegate>
@@ -21,15 +22,18 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    if ([AVUser currentUser] == nil) {
+        [self showLogin];
+    }
+    
     [self.tableView reloadData];
-
-    [[self.tabBarController tabBar] setHidden:NO];
-//    NSLog(@"%@\n",[[ZJFCurrentUser shareCurrentUser] getNickname]);
 }
 
 
@@ -108,13 +112,21 @@
     return 10.f;
 }
 
+#pragma mark -tableview delegate
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([indexPath section] == 0) {
         [self performSegueWithIdentifier:@"ShowProfile" sender:indexPath];
     }else if([indexPath section] == 1 && [indexPath row] == 0){
         [self performSegueWithIdentifier:@"ShowMyShare" sender:self];
+    }else if ([indexPath section] == 2){
+        [self performSegueWithIdentifier:@"ShowSettingPage" sender:indexPath];
     }
 }
+
+#pragma mark -设置页面跳转
+
+
 
 #pragma mark -处理个人头像
 - (IBAction)setHeaderImage:(id)sender {
@@ -168,6 +180,8 @@
     
     [self.navigationController pushViewController:imageCropVC animated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [[self.tabBarController tabBar] setHidden:NO];
     
 
 }
@@ -226,6 +240,27 @@
     return newImage;
 }
 
+
+#pragma mark -检测是否登录，如未登录则给出登录界面
+
+- (void)showLogin{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"尚未登录" message:@"点击确定登录" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirmLogin = [UIAlertAction actionWithTitle:@"登录"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^void(UIAlertAction *action){
+                                                             [self performSegueWithIdentifier:@"ShowLogin" sender:self];
+                                                             
+                                                         }];
+    UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleCancel handler:^void(UIAlertAction *action){
+        [self dismissViewControllerAnimated:YES completion:nil];
+        self.tabBarController.selectedIndex = 0;
+    }];
+    
+    [alert addAction:cancelButton];
+    [alert addAction:confirmLogin];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 
 

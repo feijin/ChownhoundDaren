@@ -11,7 +11,6 @@
 @interface ZJFHomeCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *nickName;
-@property (weak, nonatomic) IBOutlet UIView *headerImage;
 @property (weak, nonatomic) IBOutlet UIButton *distanceButton;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *image1;
@@ -20,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *button1;
 @property (weak, nonatomic) IBOutlet UIButton *button2;
 @property (weak, nonatomic) IBOutlet UIButton *button3;
+@property (weak, nonatomic) IBOutlet UIButton *headerImage;
 
 
 @end

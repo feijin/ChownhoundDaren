@@ -291,7 +291,7 @@ int const numberOFMaxPictures = 5;
     NSString *descriptionOfItem = [[self getHeaderView] textViewInHeader].text;
     NSString *locationNameOfItem = [[self getFooterView] textFieldInFooter].text;
     [shareItem setObject:descriptionOfItem forKey:@"itemDescription"];
-    [shareItem setObject:locationNameOfItem forKey:@"locationNameOfItem"];
+    [shareItem setObject:locationNameOfItem forKey:@"placeName"];
     
     [shareItem setObject:[AVUser currentUser].username forKey:@"username"];
      [shareItem setObject:[NSDate date] forKey:@"createDate"];

@@ -58,7 +58,7 @@
 }
 
 - (BOOL)isLogin{
-    if ([AVUser currentUser]) {
+    if ([AVUser currentUser] != nil) {
         return YES;
     }else{
         return NO;

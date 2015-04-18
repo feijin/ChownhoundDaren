@@ -121,6 +121,10 @@
                                                 [[ZJFCurrentUser shareCurrentUser] setNickName:[object objectForKey:@"nickName"]];
                                                 
                                                 NSLog(@"current user is: %@\n",[object objectForKey:@"nickName"]);
+                                                
+                                                if ([AVUser currentUser] == nil) {
+                                                    NSLog(@"avuser currentuser = nil\n");
+                                                }
                                             } else{
                                                 NSLog(@"查找此用户信息失败: %@\n", [error description]);
                                             }

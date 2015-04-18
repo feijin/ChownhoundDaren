@@ -17,6 +17,7 @@
 #import "ZJFShareItem.h"
 #import "MJRefresh.h"
 #import "ZJFProfileCollectionViewController.h"
+#import "UIView+UIView_GetSuperView.h"
 
 static const double EARTH_ARC = 6367000;
 static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页面查看详情
@@ -106,6 +107,10 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ZJFHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCell"];
     
+    if (!cell) {
+        cell = [[ZJFHomeCell alloc] init];
+    }
+    
     ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
     
     NSArray *thumbnailKeys = [[item thumbnailData] allKeys];
@@ -182,9 +187,21 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
     
     UIImage *headerImage = [self getThumbnail:image];
     
-    cell.imageView.image = headerImage;
-    cell.imageView.layer.cornerRadius = 26;
-    cell.imageView.clipsToBounds = YES;
+    [cell.headerImage setBackgroundImage:headerImage forState:UIControlStateNormal];
+    cell.headerImage.layer.cornerRadius = 26;
+    cell.headerImage.clipsToBounds = YES;
+    
+    //如果字符超过100个字，则截取掉
+    NSString *breifDescription = item.itemDescription;
+    int length = breifDescription.length;
+    
+    if(length > numberOfMaxCharacters){
+        breifDescription = [item.itemDescription substringToIndex:(numberOfMaxCharacters-3)];
+        breifDescription = [breifDescription stringByAppendingString:@"..."];
+        
+    }
+    
+    cell.descriptionTextView.text = breifDescription;
     
     return  cell;
 }
@@ -196,7 +213,7 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"DetailPicture"]) {
-        ZJFHomeCell *cell = (ZJFHomeCell *)[[sender superview] superview];
+        ZJFHomeCell *cell = (ZJFHomeCell *)[sender getCellFromContentviewSubview];
         NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
         ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
 
@@ -212,7 +229,7 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
         detailPictureViewController.imageStore = item.imageStore;
         
     } else if ([segue.identifier isEqualToString:@"ShowProfile"]){
-        ZJFHomeCell *cell = (ZJFHomeCell *)[[sender superview] superview];
+        ZJFHomeCell *cell = (ZJFHomeCell *)[sender getCellFromContentviewSubview];
         NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
         ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
         

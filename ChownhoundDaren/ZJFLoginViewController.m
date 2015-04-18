@@ -10,8 +10,13 @@
 #import "AppDelegate.h"
 #import "WBHttpRequest+WeiboToken.h"
 #import "WeiboSDK.h"
+#import <AVOSCloud/AVOSCloud.h>
 
-@interface ZJFLoginViewController ()
+@interface ZJFLoginViewController ()<UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UITextField *emailAddress;
+@property (weak, nonatomic) IBOutlet UITextField *passwordText;
+
 
 @end
 
@@ -20,15 +25,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    
 }
 
+
+#pragma mark -登录页面
 - (IBAction)cancelLogin:(id)sender {
     self.isCancelLogin = true;
     //取消登录，返回到首页
     [self dismissViewControllerAnimated:YES completion:nil];
-    //[self.navigationController popToViewController: [self.navigationController.viewControllers objectAtIndex: ([self.navigationController.viewControllers count] -2)] animated:YES];
-}
+    UITabBarController *tabbarVC = (UITabBarController *)[self presentingViewController];
+    
+    tabbarVC.selectedIndex = 0;
 
+}
 
 - (IBAction)loginWithWeibo:(id)sender {
     AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -40,11 +51,7 @@
         request.redirectURI = @"https://api.weibo.com/oauth2/default.html";
 //        request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
         request.scope = nil;
-        /*    request.userInfo = @{@"SSO_From": @"SendMessageToWeiboViewController",
-         @"Other_Info_1": [NSNumber numberWithInt:123],
-         @"Other_Info_2": @[@"obj1", @"obj2"],
-         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
-         */
+
         [WeiboSDK sendRequest:request];
         NSLog(@"请求成功\n");
         
@@ -55,6 +62,23 @@
    
 }
 
+- (IBAction)loginWithUsername:(id)sender {
+    [AVUser logInWithUsernameInBackground:_emailAddress.text password:_passwordText.text block:^(AVUser *user, NSError *error){
+        if (!error) {
+            NSLog(@"login succeed!\n");
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            NSLog(@"login fail:%@\n",[error description]);
+        }
+        
+    }];
+    
+}
+
+
+
+#pragma mark -有效性检测
 
 
 
