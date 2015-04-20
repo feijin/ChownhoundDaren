@@ -15,9 +15,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *nickName;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImage;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionText;
-@property (weak, nonatomic) IBOutlet UIButton *placeName;
 @property (weak, nonatomic) IBOutlet UILabel *createDate;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightBarButton;
+@property (weak, nonatomic) IBOutlet UILabel *placeName;
+@property (weak, nonatomic) IBOutlet UIImageView *image1;
+@property (weak, nonatomic) IBOutlet UIImageView *image2;
+@property (weak, nonatomic) IBOutlet UIImageView *image3;
+@property (weak, nonatomic) IBOutlet UIButton *button1;
+@property (weak, nonatomic) IBOutlet UIButton *button2;
+@property (weak, nonatomic) IBOutlet UIButton *button3;
+
+
+
 
 @end
 
@@ -26,23 +35,76 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    self.nickName.text = _item.nickName;
+ //   self.nickName.text = _item.nickName;
     self.descriptionText.text = _item.itemDescription;
-    self.placeName.titleLabel.text = _item.placeName;
+    self.placeName.text = _item.placeName;
     
     UIImage *image = [UIImage imageWithData:_item.headerImage scale:2.0];
-    image = [self getThumbnail:image];
     
     self.headerImage.image = image;
     self.headerImage.layer.cornerRadius = 26;
     self.headerImage.clipsToBounds = YES;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yy-MM-dd";
+    dateFormatter.dateFormat = @"MM-dd,hh-mm-ss";
     NSString *dateString = [dateFormatter stringFromDate:_item.createDate];
     self.createDate.text = dateString;
     
-    self.placeName.titleLabel.text = _item.placeName;
+    self.placeName.text = _item.placeName;
+    
+    //显示信息中的图片
+    
+    NSArray *thumbnailKeys = [[_item thumbnailData] allKeys];
+    for (int i=0; i<[thumbnailKeys count]; i++) {
+        //处理信息中包含的图片
+        switch (i) {
+            case 0:{
+                NSData *imageData = [[_item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                
+                self.image1.image = image;
+                self.image1.tag = 0;
+                
+                self.button1.enabled = YES;
+                self.button2.enabled = NO;
+                self.button3.enabled = NO;
+                
+                // NSLog(@"image1 size wigth: %f, heigth: %f\n",cell.image1.image.size.width,cell.image1.image.size.height);
+                
+                self.image2.image = nil;
+                self.image3.image = nil;
+                break;
+            }
+            case 1:{
+                NSData *imageData = [[_item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                
+                self.image2.image = image;
+                self.image2.tag = 1;
+                
+                self.button2.enabled = YES;
+                
+                self.image3.image = nil;
+                break;
+            }
+            case 2:{
+                NSData *imageData = [[_item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                
+                self.image3.image = image;
+                self.image3.tag = 2;
+                
+                self.button3.enabled = YES;
+                
+                break;
+            }
+            default:
+                break;
+        }
+        
+    }
+    
+    
 
 }
 

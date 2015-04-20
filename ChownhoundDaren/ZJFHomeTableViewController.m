@@ -18,6 +18,7 @@
 #import "MJRefresh.h"
 #import "ZJFProfileCollectionViewController.h"
 #import "UIView+UIView_GetSuperView.h"
+#import "ZJFHomeNoPictureCell.h"
 
 static const double EARTH_ARC = 6367000;
 static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页面查看详情
@@ -105,22 +106,20 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    ZJFHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCell"];
-    
-    if (!cell) {
-        cell = [[ZJFHomeCell alloc] init];
-    }
-    
     ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
     
     NSArray *thumbnailKeys = [[item thumbnailData] allKeys];
     
     if ([thumbnailKeys count] != 0) {
         //这条信息包含图片
+        ZJFHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCellWithPicture"];
         
-        //点击图片时可以查看大图的手势按钮
+        if (!cell) {
+            cell = [[ZJFHomeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HomeCellWithPicture"];
+        }
         
         for (int i=0; i<[thumbnailKeys count]; i++) {
+            //处理信息中包含的图片
             switch (i) {
                 case 0:{
                     NSData *imageData = [[item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
@@ -167,46 +166,69 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
             }
             
         }
-    } else {
-        //此条信息不包含图片
         
-        cell.image1.image = nil;
-        cell.image2.image = nil;
-        cell.image3.image = nil;
+        cell.nickName.text = item.nickName;
         
-        cell.button1.enabled = NO;
-        cell.button2.enabled = NO;
-        cell.button3.enabled = NO;
+        UIImage *image = [UIImage imageWithData:item.headerImage scale:2.0];
         
+        UIImage *headerImage = [self getThumbnail:image];
+        
+        [cell.headerImage setBackgroundImage:headerImage forState:UIControlStateNormal];
+        cell.headerImage.layer.cornerRadius = 26;
+        cell.headerImage.clipsToBounds = YES;
+        
+        //如果字符超过100个字，则截取掉
+        NSString *breifDescription = item.itemDescription;
+        int length = breifDescription.length;
+        
+        if(length > numberOfMaxCharacters){
+            breifDescription = [item.itemDescription substringToIndex:(numberOfMaxCharacters-3)];
+            breifDescription = [breifDescription stringByAppendingString:@"..."];
+            
+        }
+        
+        cell.descriptionTextView.text = breifDescription;
+        
+        return  cell;
+        
+    } else{
+        ZJFHomeNoPictureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCellWithNoPicture"];
+        if (!cell) {
+            cell = [[ZJFHomeNoPictureCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HomeCellWithNoPicture"];
+        }
+        
+        cell.nickNameLabel.text = item.nickName;
+        
+        UIImage *image = [UIImage imageWithData:item.headerImage scale:2.0];
+        
+        UIImage *headerImage = [self getThumbnail:image];
+        
+        [cell.headerButton setBackgroundImage:headerImage forState:UIControlStateNormal];
+        cell.headerButton.layer.cornerRadius = 26;
+        cell.headerButton.clipsToBounds = YES;
+        
+        //如果字符超过100个字，则截取掉
+        NSString *breifDescription = item.itemDescription;
+        int length = breifDescription.length;
+        
+        if(length > numberOfMaxCharacters){
+            breifDescription = [item.itemDescription substringToIndex:(numberOfMaxCharacters-3)];
+            breifDescription = [breifDescription stringByAppendingString:@"..."];
+            
+        }
+        
+        cell.descriptionTextView.text = breifDescription;
+        
+        return  cell;
+
         
     }
     
-    cell.nickName.text = item.nickName;
-   
-    UIImage *image = [UIImage imageWithData:item.headerImage scale:2.0];
-    
-    UIImage *headerImage = [self getThumbnail:image];
-    
-    [cell.headerImage setBackgroundImage:headerImage forState:UIControlStateNormal];
-    cell.headerImage.layer.cornerRadius = 26;
-    cell.headerImage.clipsToBounds = YES;
-    
-    //如果字符超过100个字，则截取掉
-    NSString *breifDescription = item.itemDescription;
-    int length = breifDescription.length;
-    
-    if(length > numberOfMaxCharacters){
-        breifDescription = [item.itemDescription substringToIndex:(numberOfMaxCharacters-3)];
-        breifDescription = [breifDescription stringByAppendingString:@"..."];
-        
-    }
-    
-    cell.descriptionTextView.text = breifDescription;
-    
-    return  cell;
+
 }
 
 #pragma mark -delegate 方法
+
 
 
 #pragma mark -处理表格中的链接
@@ -239,13 +261,10 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
         profileCollectionViewController.username = item.username;
         
         NSLog(@"item.username: %@\n",item.username);
-    } else if ([segue.identifier isEqualToString:@"ShowShareItem"]){
-        ZJFHomeCell *cell = (ZJFHomeCell *)sender;
-        NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
+    } else if ([segue.identifier isEqualToString:@"ShowItemWithPicture"]){
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
-        
-        NSLog(@"row: %d\n",[indexPath row]);
-        
+    
         ZJFShowItemVC *showItemVC = segue.destinationViewController;
         showItemVC.item = item;
     }

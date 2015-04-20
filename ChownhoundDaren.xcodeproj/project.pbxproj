@@ -39,6 +39,8 @@
 		C23CD7421AD7C72B00E96B46 /* UIApplication+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = C23CD73B1AD7C72B00E96B46 /* UIApplication+RSKImageCropper.m */; };
 		C23CD7431AD7C72B00E96B46 /* UIImage+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = C23CD73D1AD7C72B00E96B46 /* UIImage+RSKImageCropper.m */; };
 		C240003C1AD9860300754075 /* ZJFShowItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C240003B1AD9860300754075 /* ZJFShowItemVC.m */; };
+		C245EAF31AE3921200C6BDB1 /* ZJFHomeNoPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C245EAF21AE3921200C6BDB1 /* ZJFHomeNoPictureCell.m */; };
+		C245EAF61AE48E3D00C6BDB1 /* ZJFShowItemNoPictureVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C245EAF51AE48E3D00C6BDB1 /* ZJFShowItemNoPictureVC.m */; };
 		C268FE251ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C268FE241ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m */; };
 		C26A63551AA8335500E3993E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26A63531AA8335500E3993E /* Main.storyboard */; };
 		C27D4A351AAACA8A00509488 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27D4A341AAACA8A00509488 /* AVOSCloud.framework */; };
@@ -152,6 +154,10 @@
 		C23CD73D1AD7C72B00E96B46 /* UIImage+RSKImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RSKImageCropper.m"; sourceTree = "<group>"; };
 		C240003A1AD9860300754075 /* ZJFShowItemVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFShowItemVC.h; sourceTree = "<group>"; };
 		C240003B1AD9860300754075 /* ZJFShowItemVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFShowItemVC.m; sourceTree = "<group>"; };
+		C245EAF11AE3921200C6BDB1 /* ZJFHomeNoPictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFHomeNoPictureCell.h; sourceTree = "<group>"; };
+		C245EAF21AE3921200C6BDB1 /* ZJFHomeNoPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFHomeNoPictureCell.m; sourceTree = "<group>"; };
+		C245EAF41AE48E3D00C6BDB1 /* ZJFShowItemNoPictureVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFShowItemNoPictureVC.h; sourceTree = "<group>"; };
+		C245EAF51AE48E3D00C6BDB1 /* ZJFShowItemNoPictureVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFShowItemNoPictureVC.m; sourceTree = "<group>"; };
 		C268FE231ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFDetailPictureViewController.h; sourceTree = "<group>"; };
 		C268FE241ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFDetailPictureViewController.m; sourceTree = "<group>"; };
 		C26A63541AA8335500E3993E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -443,6 +449,8 @@
 			children = (
 				C2E834401AD8C13400CC5A9B /* ZJFHomeCell.h */,
 				C2E834411AD8C13400CC5A9B /* ZJFHomeCell.m */,
+				C245EAF11AE3921200C6BDB1 /* ZJFHomeNoPictureCell.h */,
+				C245EAF21AE3921200C6BDB1 /* ZJFHomeNoPictureCell.m */,
 				C2312A3C1AC18D3300863534 /* ZJFMyProfileTableViewCell.h */,
 				C2312A3D1AC18D3300863534 /* ZJFMyProfileTableViewCell.m */,
 				C2D4CFEF1AD3C8380024E327 /* ZJFMyShareItemTableViewCell.h */,
@@ -473,6 +481,8 @@
 				C268FE241ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m */,
 				C240003A1AD9860300754075 /* ZJFShowItemVC.h */,
 				C240003B1AD9860300754075 /* ZJFShowItemVC.m */,
+				C245EAF41AE48E3D00C6BDB1 /* ZJFShowItemNoPictureVC.h */,
+				C245EAF51AE48E3D00C6BDB1 /* ZJFShowItemNoPictureVC.m */,
 				C23CD72D1AD7B39B00E96B46 /* ZJFProfileCollectionViewController.h */,
 				C23CD72E1AD7B39B00E96B46 /* ZJFProfileCollectionViewController.m */,
 				C2B913651AB7CFAE00DBDB2A /* ZJFCreateItemCollectionViewController.h */,
@@ -659,6 +669,7 @@
 				C23C7CD61ADC1EF400F114B4 /* ZJFSignUpVC.m in Sources */,
 				C23CD73F1AD7C72B00E96B46 /* RSKImageCropViewController.m in Sources */,
 				C2BCED171AB1C7E1003B352C /* ZJFDetailCollectionViewController.m in Sources */,
+				C245EAF31AE3921200C6BDB1 /* ZJFHomeNoPictureCell.m in Sources */,
 				C22EAAD51ACD75ED001D4D94 /* ZJFImageStore.m in Sources */,
 				C268FE251ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m in Sources */,
 				C21D99831AD656FF00957B7A /* UIView+MJExtension.m in Sources */,
@@ -674,6 +685,7 @@
 				C2A7B4B11AC0F8DC00323336 /* ZJFMyProfileTableViewController.m in Sources */,
 				C2A225B51AA1EB0B00DA66E9 /* main.m in Sources */,
 				C21D998C1AD7606000957B7A /* ZJFUserProfileHeaderView.m in Sources */,
+				C245EAF61AE48E3D00C6BDB1 /* ZJFShowItemNoPictureVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,7 +816,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ChownhoundDaren/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -828,7 +840,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ChownhoundDaren/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
