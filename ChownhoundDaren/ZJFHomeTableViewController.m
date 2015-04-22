@@ -19,6 +19,7 @@
 #import "ZJFProfileCollectionViewController.h"
 #import "UIView+UIView_GetSuperView.h"
 #import "ZJFHomeNoPictureCell.h"
+#import "ZJFShowItemNoPictureVC.h"
 
 static const double EARTH_ARC = 6367000;
 static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页面查看详情
@@ -28,6 +29,7 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
     double latitude;
     double longitude;
     int passItem;
+    int buttonTag;  //点击照片时跳转的tag
 }
 
 @end
@@ -171,9 +173,9 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
         
         UIImage *image = [UIImage imageWithData:item.headerImage scale:2.0];
         
-        UIImage *headerImage = [self getThumbnail:image];
+  //      UIImage *headerImage = [self getThumbnail:image];
         
-        [cell.headerImage setBackgroundImage:headerImage forState:UIControlStateNormal];
+        [cell.headerImage setBackgroundImage:image forState:UIControlStateNormal];
         cell.headerImage.layer.cornerRadius = 26;
         cell.headerImage.clipsToBounds = YES;
         
@@ -241,11 +243,9 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
 
         NSLog(@"row: %d\n",[indexPath row]);
         
-       ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
+       ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;\
         
-        UIButton *button = (UIButton *)sender;
-        
-        NSString *key = [[[item thumbnailData] allKeys] objectAtIndex:button.tag];
+        NSString *key = [[[item thumbnailData] allKeys] objectAtIndex:buttonTag];
         
         detailPictureViewController.imageKey = key;
         detailPictureViewController.imageStore = item.imageStore;
@@ -267,6 +267,12 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
     
         ZJFShowItemVC *showItemVC = segue.destinationViewController;
         showItemVC.item = item;
+    } else if ([segue.identifier isEqualToString:@"ShowItemWithNoPicture"]){
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
+        
+        ZJFShowItemNoPictureVC *showItemVC = segue.destinationViewController;
+        showItemVC.item = item;
     }
     
 }
@@ -274,6 +280,9 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
 - (IBAction)showImage:(id)sender {
     
     [self performSegueWithIdentifier:@"DetailPicture" sender:sender];
+    
+    UIButton *button = (UIButton *)sender;
+    buttonTag = button.tag;
 }
               
 - (UIImage *)getThumbnail:(UIImage *)image{
@@ -290,8 +299,17 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
 }
 
 
-
-
+- (IBAction)logout:(id)sender {
+    [AVUser logOut];
+    
+    [ZJFCurrentUser shareCurrentUser].username = nil;
+    [ZJFCurrentUser shareCurrentUser].nickName = nil;
+    [ZJFCurrentUser shareCurrentUser].userDescription = nil;
+    [ZJFCurrentUser shareCurrentUser].gender = nil;
+    [ZJFCurrentUser shareCurrentUser].headerImage = nil;
+    [ZJFCurrentUser shareCurrentUser].city = nil;
+    
+}
 
 
 

@@ -80,6 +80,8 @@
                                         
                                         NSLog(@"signUp succeeded!\n");
                                         NSLog(@"nickname: %@\n", [[AVUser currentUser] objectForKey:@"nickName"]);
+                                        
+                                        [self.loginViewController dismissViewControllerAnimated:YES completion:nil];
                                     } else {
                                     }
                                 }];
@@ -119,8 +121,11 @@
                                                 [[ZJFCurrentUser shareCurrentUser] setUserDescription:[object objectForKey:@"userDescription"]];
                                                 [[ZJFCurrentUser shareCurrentUser] setGender:[object objectForKey:@"gender"]];
                                                 [[ZJFCurrentUser shareCurrentUser] setNickName:[object objectForKey:@"nickName"]];
+                                                [[ZJFCurrentUser shareCurrentUser] setHeaderImage:[object objectForKey:@"headerData"]];
                                                 
                                                 NSLog(@"current user is: %@\n",[object objectForKey:@"nickName"]);
+                                                
+                                                [self.loginViewController dismissViewControllerAnimated:YES completion:nil];
                                                 
                                                 if ([AVUser currentUser] == nil) {
                                                     NSLog(@"avuser currentuser = nil\n");
@@ -144,7 +149,6 @@
                 }
             }];
         }
-        [self.loginViewController dismissViewControllerAnimated:YES completion:nil];
         
     } else{
         NSLog(@"授权失败\n");

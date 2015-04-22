@@ -8,11 +8,24 @@
 
 #import "ZJFSettingPageTableVC.h"
 #import <AVOSCloud/AVOSCloud.h>
+#import "ZJFCurrentUser.h"
 
 @implementation ZJFSettingPageTableVC
 
+
+
+
+
+
 - (IBAction)logout:(id)sender {
     [AVUser logOut];
+    
+    [ZJFCurrentUser shareCurrentUser].username = nil;
+    [ZJFCurrentUser shareCurrentUser].nickName = nil;
+    [ZJFCurrentUser shareCurrentUser].userDescription = nil;
+    [ZJFCurrentUser shareCurrentUser].gender = nil;
+    [ZJFCurrentUser shareCurrentUser].headerImage = nil;
+    [ZJFCurrentUser shareCurrentUser].city = nil;
 }
 
 @end

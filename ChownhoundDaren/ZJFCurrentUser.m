@@ -38,17 +38,15 @@
             //查询用户信息
             AVQuery *query = [AVQuery queryWithClassName:@"userInformation"];
             [query whereKey:@"username" equalTo:username];
-            [query getFirstObjectInBackgroundWithBlock:^(AVObject *object, NSError *error){
-                if (!error) {
-                    nickName = [object objectForKey:@"nickName"];
-                    gender = [object objectForKey:@"gender"];
-                    city = [object objectForKey:@"city"];
-                    userDescription = [object objectForKey:@"userDescription"];
-                    
-                    //处理data字典
-                    headerImage = [object objectForKey:@"headerData"];
-                }
-            }];
+            AVObject *object = [query getFirstObject];
+            
+            nickName = [object objectForKey:@"nickName"];
+            gender = [object objectForKey:@"gender"];
+            city = [object objectForKey:@"city"];
+            userDescription = [object objectForKey:@"userDescription"];
+            
+            //处理data字典
+            headerImage = [object objectForKey:@"headerData"];
             
 
         }

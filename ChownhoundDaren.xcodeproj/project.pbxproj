@@ -23,7 +23,6 @@
 		C21D99891AD75A1100957B7A /* ZJFUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = C21D99881AD75A1100957B7A /* ZJFUserProfile.m */; };
 		C21D998C1AD7606000957B7A /* ZJFUserProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C21D998B1AD7606000957B7A /* ZJFUserProfileHeaderView.m */; };
 		C22EAAD51ACD75ED001D4D94 /* ZJFImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C22EAAD41ACD75ED001D4D94 /* ZJFImageStore.m */; };
-		C2312A3E1AC18D3300863534 /* ZJFMyProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2312A3D1AC18D3300863534 /* ZJFMyProfileTableViewCell.m */; };
 		C2319E351AB8047500457A5B /* ZJFCreateOfPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2319E341AB8047500457A5B /* ZJFCreateOfPhotoCollectionViewCell.m */; };
 		C2319E381AB8049500457A5B /* ZJFCreateOfHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2319E371AB8049500457A5B /* ZJFCreateOfHeaderCollectionReusableView.m */; };
 		C2319E3B1AB804A500457A5B /* ZJFCreateOfFooterCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2319E3A1AB804A500457A5B /* ZJFCreateOfFooterCollectionReusableView.m */; };
@@ -123,8 +122,6 @@
 		C21D998B1AD7606000957B7A /* ZJFUserProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFUserProfileHeaderView.m; sourceTree = "<group>"; };
 		C22EAAD31ACD75ED001D4D94 /* ZJFImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFImageStore.h; sourceTree = "<group>"; };
 		C22EAAD41ACD75ED001D4D94 /* ZJFImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFImageStore.m; sourceTree = "<group>"; };
-		C2312A3C1AC18D3300863534 /* ZJFMyProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFMyProfileTableViewCell.h; sourceTree = "<group>"; };
-		C2312A3D1AC18D3300863534 /* ZJFMyProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFMyProfileTableViewCell.m; sourceTree = "<group>"; };
 		C2319E331AB8047500457A5B /* ZJFCreateOfPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCreateOfPhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		C2319E341AB8047500457A5B /* ZJFCreateOfPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCreateOfPhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		C2319E361AB8049500457A5B /* ZJFCreateOfHeaderCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCreateOfHeaderCollectionReusableView.h; sourceTree = "<group>"; };
@@ -451,8 +448,6 @@
 				C2E834411AD8C13400CC5A9B /* ZJFHomeCell.m */,
 				C245EAF11AE3921200C6BDB1 /* ZJFHomeNoPictureCell.h */,
 				C245EAF21AE3921200C6BDB1 /* ZJFHomeNoPictureCell.m */,
-				C2312A3C1AC18D3300863534 /* ZJFMyProfileTableViewCell.h */,
-				C2312A3D1AC18D3300863534 /* ZJFMyProfileTableViewCell.m */,
 				C2D4CFEF1AD3C8380024E327 /* ZJFMyShareItemTableViewCell.h */,
 				C2D4CFF01AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m */,
 				C21D99841AD6E7DD00957B7A /* ZJFUserProfileCollectionViewCell.h */,
@@ -677,7 +672,6 @@
 				C21D99801AD656FF00957B7A /* MJRefreshLegendHeader.m in Sources */,
 				C2A762A81ABFEBDB00F059D6 /* ZJFCurrentUser.m in Sources */,
 				C23CD72F1AD7B39B00E96B46 /* ZJFProfileCollectionViewController.m in Sources */,
-				C2312A3E1AC18D3300863534 /* ZJFMyProfileTableViewCell.m in Sources */,
 				C2A708821ACD5AAA00B60F35 /* ZJFSNearlyItemStore.m in Sources */,
 				C21D997F1AD656FF00957B7A /* MJRefreshLegendFooter.m in Sources */,
 				C23CD7421AD7C72B00E96B46 /* UIApplication+RSKImageCropper.m in Sources */,

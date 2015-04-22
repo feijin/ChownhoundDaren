@@ -23,15 +23,7 @@ static int numberOfMaxCharacters = 100;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
-//    [self.collectionView registerClass:[ZJFUserProfileCollectionViewCell class] forCellWithReuseIdentifier:@"ProfileCollectionCell"];
-    
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
+ 
     [[ZJFSNearlyItemStore shareStore] getProfile:username];
     [ZJFSNearlyItemStore shareStore].profileCollectionViewController = self;
     [[ZJFSNearlyItemStore shareStore] downloadUserShareItemForRefreshWithUsername:username];
@@ -40,15 +32,21 @@ static int numberOfMaxCharacters = 100;
     __weak typeof(self) weakSelf = self;
     [self.collectionView addLegendHeaderWithRefreshingBlock:^(){
         __strong typeof(self) strongSelf = weakSelf;
-    //    [ZJFSNearlyItemStore shareStore].profileCollectionViewController = strongSelf;
+        //    [ZJFSNearlyItemStore shareStore].profileCollectionViewController = strongSelf;
         [[ZJFSNearlyItemStore shareStore] downloadUserShareItemForRefreshWithUsername:strongSelf.username];
     }];
     
     [self.collectionView addLegendFooterWithRefreshingBlock:^(){
         __strong typeof(self) strongSelf = weakSelf;
-     //   [ZJFSNearlyItemStore shareStore].profileCollectionViewController = strongSelf;
+        //   [ZJFSNearlyItemStore shareStore].profileCollectionViewController = strongSelf;
         [[ZJFSNearlyItemStore shareStore] downloadUserShareItemAfterRefreshWithUsername:strongSelf.username];
     }];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated{

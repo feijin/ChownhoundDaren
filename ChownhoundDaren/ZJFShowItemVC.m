@@ -9,11 +9,17 @@
 #import "ZJFShowItemVC.h"
 #import "ZJFShareItem.h"
 #import <AVOSCloud/AVOSCloud.h>
+#import "ZJFProfileCollectionViewController.h"
+#import "ZJFDetailPictureViewController.h"
+#import "ZJFCurrentUser.h"
 
 @interface ZJFShowItemVC ()
+{
+    int buttonTag; //页面跳转时的图片顺序
+}
 
 @property (weak, nonatomic) IBOutlet UILabel *nickName;
-@property (weak, nonatomic) IBOutlet UIImageView *headerImage;
+@property (weak, nonatomic) IBOutlet UIButton *headerButton;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionText;
 @property (weak, nonatomic) IBOutlet UILabel *createDate;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightBarButton;
@@ -24,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *button1;
 @property (weak, nonatomic) IBOutlet UIButton *button2;
 @property (weak, nonatomic) IBOutlet UIButton *button3;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 
 
@@ -35,15 +42,18 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
- //   self.nickName.text = _item.nickName;
+    self.nickName.text = _item.nickName;
     self.descriptionText.text = _item.itemDescription;
     self.placeName.text = _item.placeName;
     
     UIImage *image = [UIImage imageWithData:_item.headerImage scale:2.0];
     
-    self.headerImage.image = image;
-    self.headerImage.layer.cornerRadius = 26;
-    self.headerImage.clipsToBounds = YES;
+    [self.headerButton setBackgroundImage:image forState:UIControlStateNormal];
+    
+    self.headerButton.layer.cornerRadius = 26;
+    self.headerButton.clipsToBounds = YES;
+    
+    NSLog(@"header width: %d, height: %d\n",_headerButton.frame.origin.x, _headerButton.frame.origin.y);
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"MM-dd,hh-mm-ss";
@@ -114,46 +124,48 @@
     //使用AVRelation 来构建收藏关系(多对多）；
     
     //因为avrelation 对象的 addObject方法只能添加avobject对象，所以需要先根据objectid将此item从服务器获取下来
-    AVQuery *queryItem = [AVQuery queryWithClassName:@"shareItem"];
-    [queryItem whereKey:@"objectId" equalTo:_item.objectId];
-    
-    __weak typeof(self) weakSelf = self;
-    [queryItem getFirstObjectInBackgroundWithBlock:^(AVObject *object, NSError *error){
-        if (!error) {
-            AVObject *shareItem = object; //获取待收藏的item
-            
-            //在userinformation中关联此收藏关系，同样需要先从服务器获取此user对象
-            AVQuery *queryUser = [AVQuery queryWithClassName:@"userInformation"];
-            [queryUser selectKeys:@[@"username"]];
-            [queryUser whereKey:@"username" equalTo:[AVUser currentUser].username];
-            
-            [queryUser getFirstObjectInBackgroundWithBlock:^(AVObject *object,NSError *error){
-                if (!error) {
-                    AVObject *user = object;    //当前用户的information信息
-                    
-                    AVRelation *relation = [user relationforKey:@"collection"];  //获取当前用户收藏列表
-                    
-                    //查询当前用户是否已经收藏此信息
-                    AVQuery *query = [relation query];
-                    [query whereKey:@"objectId" equalTo:shareItem.objectId];
-                    [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
-                        if (!error) {
-                            NSLog(@"查找shareitem成功\n");
-                            
-                            if ([objects count] != 0) {
-                                //用户已经收藏了此信息
-                                weakSelf.rightBarButton.title = @"取消收藏";
-                            } else {
-                                weakSelf.rightBarButton.title = @"收藏";
+    if ([[ZJFCurrentUser shareCurrentUser] isLogin]) {
+        AVQuery *queryItem = [AVQuery queryWithClassName:@"shareItem"];
+        [queryItem whereKey:@"objectId" equalTo:_item.objectId];
+        
+        __weak typeof(self) weakSelf = self;
+        [queryItem getFirstObjectInBackgroundWithBlock:^(AVObject *object, NSError *error){
+            if (!error) {
+                AVObject *shareItem = object; //获取待收藏的item
+                
+                //在userinformation中关联此收藏关系，同样需要先从服务器获取此user对象
+                AVQuery *queryUser = [AVQuery queryWithClassName:@"userInformation"];
+                [queryUser selectKeys:@[@"username"]];
+                [queryUser whereKey:@"username" equalTo:[AVUser currentUser].username];
+                
+                [queryUser getFirstObjectInBackgroundWithBlock:^(AVObject *object,NSError *error){
+                    if (!error) {
+                        AVObject *user = object;    //当前用户的information信息
+                        
+                        AVRelation *relation = [user relationforKey:@"collection"];  //获取当前用户收藏列表
+                        
+                        //查询当前用户是否已经收藏此信息
+                        AVQuery *query = [relation query];
+                        [query whereKey:@"objectId" equalTo:shareItem.objectId];
+                        [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+                            if (!error) {
+                                NSLog(@"查找shareitem成功\n");
+                                
+                                if ([objects count] != 0) {
+                                    //用户已经收藏了此信息
+                                    weakSelf.rightBarButton.title = @"取消收藏";
+                                } else {
+                                    weakSelf.rightBarButton.title = @"收藏";
+                                }
                             }
-                        }
-                    }];
-                }
-            }];
-           
-        }
-    }];
-    
+                        }];
+                    }
+                }];
+                
+            }
+        }];
+
+    }
     
 
 }
@@ -163,7 +175,18 @@
     
 }
 
+#pragma mark -收藏
 - (IBAction)collect:(id)sender {
+    
+    //如果用户尚未登录，则提示先登录
+    if (![[ZJFCurrentUser shareCurrentUser] isLogin]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"收藏信息需要登录，请先登录再收藏此信息!" preferredStyle:UIAlertControllerStyleAlert];
+        
+        return;
+        
+        
+    }
+    
     //使用AVRelation 来构建收藏关系(多对多）；
     
     //因为avrelation 对象的 addObject方法只能添加avobject对象，所以需要先根据objectid将此item从服务器获取下来
@@ -211,6 +234,32 @@
     }
 }
 
+#pragma mark -页面跳转
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"ShowProfileFromPicture"]) {
+        ZJFProfileCollectionViewController *profileVC = segue.destinationViewController;
+        
+        profileVC.username = _item.username;
+    } else if ([segue.identifier isEqualToString:@"DetailPictureFromHomeItem"]){
+        
+        ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
+        
+        NSString *key = [[[_item thumbnailData] allKeys] objectAtIndex:buttonTag];
+        
+        detailPictureViewController.imageKey = key;
+        detailPictureViewController.imageStore = _item.imageStore;
+        
+    }
+}
+
+- (IBAction)showImage:(id)sender {
+    [self performSegueWithIdentifier:@"DetailPictureFromHomeItem" sender:sender];
+    
+    UIButton *button = (UIButton *)sender;
+    buttonTag = button.tag;
+    
+}
+
 
 - (UIImage *)getThumbnail:(UIImage *)image{
     CGSize newSize = CGSizeMake(52, 52);
@@ -224,5 +273,7 @@
     
     return newImage;
 }
+
+
 
 @end
