@@ -17,6 +17,13 @@
 
 static int numberOfMaxCharacters = 100;
 
+@interface ZJFProfileCollectionViewController (){
+    
+}
+
+@end
+
+
 @implementation ZJFProfileCollectionViewController
 
 @synthesize username;
@@ -41,6 +48,9 @@ static int numberOfMaxCharacters = 100;
         //   [ZJFSNearlyItemStore shareStore].profileCollectionViewController = strongSelf;
         [[ZJFSNearlyItemStore shareStore] downloadUserShareItemAfterRefreshWithUsername:strongSelf.username];
     }];
+    
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -132,6 +142,10 @@ static int numberOfMaxCharacters = 100;
         cell.button2.enabled = NO;
         cell.button3.enabled = NO;
         
+        NSArray *constraints = cell.descriptionTextView.constraints;
+        
+        
+        
         
     }
     
@@ -140,14 +154,21 @@ static int numberOfMaxCharacters = 100;
     
     NSString *breifDescription = itemDescription; //显示缩减的字符
     
-    if(length > numberOfMaxCharacters){
+ /*   if(length > numberOfMaxCharacters){
         //如果超过50个字符，截取47个字符
         breifDescription = [itemDescription substringToIndex:(numberOfMaxCharacters-3)];
         breifDescription = [breifDescription stringByAppendingString:@"..."];
         
     }
+  */
     
     cell.descriptionTextView.text = breifDescription;
+    NSAttributedString *string = [[NSAttributedString alloc] initWithString:breifDescription];
+    
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(226, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    
+    [cell.descriptionTextView setFrame:CGRectMake(cell.descriptionTextView.frame.origin.x, cell.descriptionTextView.frame.origin.y, cell.descriptionTextView.frame.size.width, ceil(rect.size.height))];
+    
     
     return cell;
 }
@@ -162,15 +183,25 @@ static int numberOfMaxCharacters = 100;
     header.cityLabel.text = profile.city;
     header.userDescriptionTextView.text = profile.userDescription;
     
+    if ([profile.gender isEqualToString:@"m"]) {
+        header.genderImageView.image = [UIImage imageNamed:@"xingbienan"];
+    } else if ([profile.gender isEqualToString:@"f"]){
+        header.genderImageView.image = [UIImage imageNamed:@"xingbienv"];
+    } else {
+        header.genderImageView.image = [UIImage imageNamed:@"xingbie"];
+    }
+    
     UIImage *image = [UIImage imageWithData:profile.headerImage scale:2.0];
     
     header.headerImageView.image = image;
     header.headerImageView.layer.cornerRadius = 41;
     header.headerImageView.clipsToBounds = YES;
+
     
     return header;
     
 }
+
 
 #pragma mark -collection view delegate
 
@@ -181,7 +212,7 @@ static int numberOfMaxCharacters = 100;
 
 #pragma mark -执行segue
 - (IBAction)showUserSharePicture:(id)sender {
-    [self performSegueWithIdentifier:@"ShowUserSharePicture" sender:sender];
+    [self performSegueWithIdentifier:@"ShowPictureFromUserProfile" sender:sender];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -192,7 +223,7 @@ static int numberOfMaxCharacters = 100;
     
     NSLog(@"row: %d\n",[indexPath row]);
     
-    if ([segue.identifier isEqualToString:@"ShowUserSharePicture"]) {
+    if ([segue.identifier isEqualToString:@"ShowPictureFromUserProfile"]) {
         ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
         
         UIButton *button = (UIButton *)sender;
@@ -206,6 +237,9 @@ static int numberOfMaxCharacters = 100;
     }
 }
 
+- (IBAction)showPicture:(id)sender {
+    
+}
 
 
 

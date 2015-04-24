@@ -10,6 +10,7 @@
 
 @implementation ZJFCurrentLocation
 
+
 + (ZJFCurrentLocation *)shareStore{
     static ZJFCurrentLocation *shareStore = nil;
     

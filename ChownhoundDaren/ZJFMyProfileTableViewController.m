@@ -37,7 +37,10 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    [[self.tabBarController tabBar] setHidden:NO];
+    
     if ([[ZJFCurrentUser shareCurrentUser] isLogin]) {
+        [self.tableView setAllowsSelection:YES];
         
         self.loginButton.enabled = NO;
         self.loginButton.hidden = YES;
@@ -45,13 +48,25 @@
         //载入头像
         NSData *headerData = [ZJFCurrentUser shareCurrentUser].headerImage;
         UIImage *image = [UIImage imageWithData:headerData scale:2.0];
-        [self.headerButton setBackgroundImage:image forState:UIControlStateNormal];
+        if (!image) {
+            [self.headerButton setBackgroundImage:[UIImage imageNamed:@"touxiang"] forState:UIControlStateNormal];
+        } else {
+            [self.headerButton setBackgroundImage:image forState:UIControlStateNormal];
+        }
+        
         self.headerButton.layer.cornerRadius = 41;
         self.headerButton.clipsToBounds = YES;
         
-        self.nickNameLabel.text = [ZJFCurrentUser shareCurrentUser].nickName;
+        if (![ZJFCurrentUser shareCurrentUser].nickName) {
+            self.nickNameLabel.text = @"匿名";
+        } else {
+            self.nickNameLabel.text = [ZJFCurrentUser shareCurrentUser].nickName;
+        }
+        
         self.signatureLabel.text = [ZJFCurrentUser shareCurrentUser].userDescription;
     } else {
+        [self.tableView setAllowsSelection:NO];
+        
         [self.headerButton setBackgroundImage:nil forState:UIControlStateNormal];
         self.nickNameLabel.text = nil;
         self.signatureLabel.text = nil;
@@ -67,6 +82,24 @@
     [super viewDidAppear:animated];
     
 }
+
+- (void)setCellEnable:(BOOL)enable{
+    //未登录时前三个表格行禁止选择
+    
+    NSIndexPath *path1 = [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:path1];
+    cell.userInteractionEnabled = enable;
+    
+    NSIndexPath *path2 = [NSIndexPath indexPathForRow:0 inSection:1];
+    UITableViewCell *cell2 = [self.tableView cellForRowAtIndexPath:path2];
+    cell2.userInteractionEnabled = enable;
+    
+    NSIndexPath *path3 = [NSIndexPath indexPathForRow:1 inSection:1];
+    UITableViewCell *cell3 = [self.tableView cellForRowAtIndexPath:path3];
+    cell3.userInteractionEnabled = enable;
+}
+
+#pragma mark -tableviewdelegate
 
 
 #pragma mark -处理个人头像

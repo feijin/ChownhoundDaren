@@ -30,6 +30,7 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
     double longitude;
     int passItem;
     int buttonTag;  //点击照片时跳转的tag
+    NSString *username;  //点击头像时传给下一页面的用户名
 }
 
 @end
@@ -60,11 +61,14 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
 
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 100;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    
+    [[self.tabBarController tabBar] setHidden:NO];
     
 }
 
@@ -171,9 +175,12 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
         
         cell.nickName.text = item.nickName;
         
-        UIImage *image = [UIImage imageWithData:item.headerImage scale:2.0];
+        //计算距离
+        NSString *distance = [NSString stringWithFormat:@"%dm",(int)[self distanceBetween:item.latitude fromLongitude:item.longitude toLatitude:[[ZJFCurrentLocation shareStore] location] .coordinate.latitude toLongitude:[[ZJFCurrentLocation shareStore] location].coordinate.longitude]];
+        [cell.distanceButton setTitle:distance forState:UIControlStateNormal];
         
-  //      UIImage *headerImage = [self getThumbnail:image];
+        
+        UIImage *image = [UIImage imageWithData:item.headerImage scale:2.0];
         
         [cell.headerImage setBackgroundImage:image forState:UIControlStateNormal];
         cell.headerImage.layer.cornerRadius = 26;
@@ -201,6 +208,10 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
         
         cell.nickNameLabel.text = item.nickName;
         
+        //计算距离
+        NSString *distance = [NSString stringWithFormat:@"%dm",(int)[self distanceBetween:item.latitude fromLongitude:item.longitude toLatitude:[[ZJFCurrentLocation shareStore] location] .coordinate.latitude toLongitude:[[ZJFCurrentLocation shareStore] location].coordinate.longitude]];
+        [cell.distanceButton setTitle:distance forState:UIControlStateNormal];
+        
         UIImage *image = [UIImage imageWithData:item.headerImage scale:2.0];
         
         UIImage *headerImage = [self getThumbnail:image];
@@ -218,6 +229,7 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
             breifDescription = [breifDescription stringByAppendingString:@"..."];
             
         }
+        
         
         cell.descriptionTextView.text = breifDescription;
         
@@ -251,17 +263,19 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
         detailPictureViewController.imageStore = item.imageStore;
         
     } else if ([segue.identifier isEqualToString:@"ShowProfile"]){
-        ZJFHomeCell *cell = (ZJFHomeCell *)[sender getCellFromContentviewSubview];
+        ZJFHomeNoPictureCell *cell = (ZJFHomeNoPictureCell *)[sender getCellFromContentviewSubview];
         NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
+        
         ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
         
-        NSLog(@"row: %d\n",[indexPath row]);
+        username = item.username;
         
+       
         ZJFProfileCollectionViewController *profileCollectionViewController = segue.destinationViewController;
-        profileCollectionViewController.username = item.username;
+        profileCollectionViewController.username = username;
         
-        NSLog(@"item.username: %@\n",item.username);
-    } else if ([segue.identifier isEqualToString:@"ShowItemWithPicture"]){
+        NSLog(@"item.username: %@\n",username);
+    }else if ([segue.identifier isEqualToString:@"ShowItemWithPicture"]){
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
     
@@ -273,9 +287,21 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
         
         ZJFShowItemNoPictureVC *showItemVC = segue.destinationViewController;
         showItemVC.item = item;
+    } else if ([segue.identifier isEqualToString:@"ShowProfileWithNoPicture"]){
+        ZJFHomeCell *cell = (ZJFHomeCell *)[sender getCellFromContentviewSubview];
+        NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
+        ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
+        
+        NSLog(@"row: %d\n",[indexPath row]);
+        
+        username = item.username;
+        
+        ZJFProfileCollectionViewController *profileVC = segue.destinationViewController;
+        profileVC.username = username;
     }
     
 }
+
 
 - (IBAction)showImage:(id)sender {
     
@@ -296,19 +322,6 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
     UIGraphicsEndImageContext();
     
     return newImage;
-}
-
-
-- (IBAction)logout:(id)sender {
-    [AVUser logOut];
-    
-    [ZJFCurrentUser shareCurrentUser].username = nil;
-    [ZJFCurrentUser shareCurrentUser].nickName = nil;
-    [ZJFCurrentUser shareCurrentUser].userDescription = nil;
-    [ZJFCurrentUser shareCurrentUser].gender = nil;
-    [ZJFCurrentUser shareCurrentUser].headerImage = nil;
-    [ZJFCurrentUser shareCurrentUser].city = nil;
-    
 }
 
 

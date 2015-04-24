@@ -24,6 +24,19 @@
     return [self allocWithZone:zone];
 }
 
+- (id)init{
+    self = [super init];
+    
+    if (self) {
+        NSString *path = [self itemArchivePath:@"imageItems.archive"];
+        imageItems = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    }
+    
+    NSLog(@"image count: %d\n", [imageItems count]);
+    
+    return self;
+}
+
 - (void)deleteImageForKeys:(NSArray *)array{
     if ([array count] == 0) {
         return;
@@ -59,6 +72,7 @@
 
 - (void)setImage:(UIImage *)i forKey:(NSString *)s{
     [imageStore setObject:i  forKey:s];
+    [imageItems addObject:s];
 
     NSString *imagePath = [self imagePathForKey:s];
     
@@ -84,6 +98,14 @@
     return [documentDirectory stringByAppendingPathExtension:key];
 }
 
+- (NSString *)itemArchivePath:(NSString *)s{
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+    
+    NSString *documentDirectory = [documentDirectories objectAtIndex:0];
+    
+    return [documentDirectory stringByAppendingString:s];
+}
+
 - (UIImage *)imageForKey:(NSString *)key{
     UIImage *image = [imageStore objectForKey:key];
     if (!image) {
@@ -97,6 +119,19 @@
     }
     
     return image;
+}
+
+- (BOOL)saveImageKeys{
+    NSString *path = [self itemArchivePath:@"imageItems.archive"];
+    
+    BOOL saveImageItems = [NSKeyedArchiver archiveRootObject:imageItems toFile:path];
+    
+    return saveImageItems;
+    
+}
+
+- (void)deleteAllImage{
+    [self deleteImageForKeys:imageItems];
 }
 
 @end

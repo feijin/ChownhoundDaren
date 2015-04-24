@@ -9,6 +9,7 @@
 #import "ZJFDetailPictureViewController.h"
 #import "ZJFImageStore.h"
 #import <AVOSCloud/AVOSCloud.h>
+#import "VIPhotoView.h"
 
 
 @interface ZJFDetailPictureViewController ()
@@ -24,7 +25,7 @@
 
 @implementation ZJFDetailPictureViewController
 
-@synthesize imageKey,imageStore,image;
+@synthesize imageKey,image,imageStore;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -44,7 +45,7 @@
             [AVFile getFileWithObjectId:fileId withBlock:^(AVFile *file, NSError *error){
                 if (!error) {
                     NSLog(@"get file succeeded!\n");
-
+                    
                     if ([file.name isEqualToString:imageKey]){
                         __weak __typeof__(self) weakSelf = self;
                         [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error){
@@ -57,16 +58,20 @@
                             }
                         }progressBlock:^(NSInteger percentge){
                             double percent = percentge / 100.0;
-                            weakSelf.processLabel.text = [NSString stringWithFormat:@"已下载：%.2f",percent];
-                                
+                            weakSelf.processLabel.text = [NSString stringWithFormat:@"正在下载：%.2f",percent];
+                            
+                            if (percentge == 100) {
+                                weakSelf.processLabel.text = nil;
+                            }
                         }];
-                       
+                        [weakSelf setNeedsStatusBarAppearanceUpdate];
+                        
                     }
                     
                 }else {
                     NSLog(@"get file fail: %@\n", [error description]);
                 }
-                    
+                
             }];
         }
         
@@ -82,8 +87,19 @@
     UISwipeGestureRecognizer *swipeGesture2 = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showRightImage:)];
     [swipeGesture2 setDirection:UISwipeGestureRecognizerDirectionRight];
     [self.view addGestureRecognizer:swipeGesture2];
+    
 
 }
+
+//隐藏status bar
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)prefersStatusBarHidden{
+    return YES;
+}
+
 
 - (void)showLeftImage:(UISwipeGestureRecognizer *)swipe{
     NSLog(@"swipe to right\n");

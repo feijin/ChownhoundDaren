@@ -8,7 +8,8 @@
 
 #import <CoreLocation/CoreLocation.h>
 
-@interface ZJFCurrentLocation : NSObject{
+@interface ZJFCurrentLocation : NSObject
+{
     
 }
 

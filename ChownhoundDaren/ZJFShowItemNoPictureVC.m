@@ -38,7 +38,7 @@
     self.headerButton.clipsToBounds = YES;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"MM-dd,hh-mm-ss";
+    dateFormatter.dateFormat = @"MM月dd日,hh-mm";
     NSString *dateString = [dateFormatter stringFromDate:_item.createDate];
     self.createDateLabel.text = dateString;
     
@@ -46,6 +46,12 @@
     
 
     
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [[self.tabBarController tabBar] setHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {

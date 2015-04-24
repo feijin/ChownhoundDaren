@@ -39,6 +39,8 @@
 - (BOOL)saveChanges;
 - (void)addItem:(ZJFShareItem *)item for:(NSMutableArray *)array;
 - (void)removeItem:(ZJFShareItem *)p from:(NSMutableArray *)array;
+- (void)deleteMyShareItems;
+- (void)deleteAllItem;
 
 - (void)findSurroundObjectForRefresh;
 - (void)findMoreObjectAfterRefresh;

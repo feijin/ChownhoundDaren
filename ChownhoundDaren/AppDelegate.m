@@ -16,6 +16,7 @@
 #import "ZJFShareItem.h"
 #import "ZJFSNearlyItemStore.h"
 #import "ZJFWeiboLoginInfo.h"
+#import "ZJFImageStore.h"
 
 
 @interface AppDelegate ()
@@ -169,9 +170,10 @@
  //   [[[ZJFCurrentLocation shareStore] locationManager] stopUpdatingLocation];
  //   NSLog(@"stop update location.\n");
     
-    BOOL success = [[ZJFSNearlyItemStore shareStore] saveChanges];
+    BOOL success1 = [[ZJFSNearlyItemStore shareStore] saveChanges];
+    BOOL success2 = [[ZJFImageStore shareStore] saveImageKeys];
     
-    if (success) {
+    if (success1 && success2) {
         NSLog(@"Saved all of the items\n");
     } else {
         NSLog(@"Could not save any of the items\n");

@@ -53,8 +53,18 @@ static int userShareItemHasDownloads = 0;
         NSString *path2 = [self itemArchivePath:@"myShareItem.archive"];
         myShareItems = [NSKeyedUnarchiver unarchiveObjectWithFile:path2];
         
+        NSString *path3 = [self itemArchivePath:@"latitude.archive"];
+        double latitude = [[NSKeyedUnarchiver unarchiveObjectWithFile:path3] doubleValue];
+        
+        NSString *path4 =[self itemArchivePath:@"longitude.archive"];
+        double longitude = [[NSKeyedUnarchiver unarchiveObjectWithFile:path4] doubleValue];
+        
+        [ZJFCurrentLocation shareStore].location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+        
         NSLog(@"allItems count : %d\n",[allItems count]);
         NSLog(@"myShareItems count: %d\n",[myShareItems count]);
+        NSLog(@"latitude: %f\n", latitude);
+        NSLog(@"longitude: %f\n",longitude);
         
         if (!allItems) {
             allItems = [[NSMutableArray alloc] init];
@@ -101,11 +111,16 @@ static int userShareItemHasDownloads = 0;
 - (BOOL)saveChanges{
     NSString *path1 = [self itemArchivePath:@"shareItem.archive"];
     NSString *path2 = [self itemArchivePath:@"myShareItem.archive"];
+    NSString *path3 = [self itemArchivePath:@"latitude.archive"];
+    NSString *path4 = [self itemArchivePath:@"longitude.archive"];
+    
     
     BOOL saveAllitems =  [NSKeyedArchiver archiveRootObject:allItems toFile:path1];
     BOOL saveMyShareItems = [NSKeyedArchiver archiveRootObject:myShareItems toFile:path2];
+    BOOL saveLatitude = [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:[ZJFCurrentLocation shareStore].location.coordinate.latitude] toFile:path3];
+    BOOL saveLongitude = [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:[ZJFCurrentLocation shareStore].location.coordinate.longitude] toFile:path4];
     
-    return saveAllitems && saveMyShareItems;
+    return saveAllitems && saveMyShareItems && saveLatitude && saveLongitude;
 }
 
 #pragma mark -查询用户信息
@@ -522,6 +537,19 @@ static int userShareItemHasDownloads = 0;
     return NO;
 }
 
+#pragma mark -清楚数据
+
+- (void)deleteMyShareItems{
+    [myShareItems removeAllObjects];
+}
+
+- (void)deleteAllItem{
+    [allItems removeAllObjects];
+    [myShareItems removeAllObjects];
+    [userShareItems removeAllObjects];
+    
+    
+}
 
 
 @end

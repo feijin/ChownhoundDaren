@@ -121,6 +121,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    [[self.tabBarController tabBar] setHidden:YES];
+    
     //使用AVRelation 来构建收藏关系(多对多）；
     
     //因为avrelation 对象的 addObject方法只能添加avobject对象，所以需要先根据objectid将此item从服务器获取下来
