@@ -41,6 +41,7 @@
 - (void)removeItem:(ZJFShareItem *)p from:(NSMutableArray *)array;
 - (void)deleteMyShareItems;
 - (void)deleteAllItem;
+- (void)clearUserShareItems;
 
 - (void)findSurroundObjectForRefresh;
 - (void)findMoreObjectAfterRefresh;

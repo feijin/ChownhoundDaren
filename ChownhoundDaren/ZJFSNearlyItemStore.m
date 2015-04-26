@@ -351,7 +351,7 @@ static int userShareItemHasDownloads = 0;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     AVQuery *query = [AVQuery queryWithClassName:@"shareItem"];
-    [query whereKey:@"username" equalTo:[ZJFCurrentUser shareCurrentUser].username];
+    [query whereKey:@"username" equalTo:username];
     [query orderByDescending:@"updatedAt"];
     [query includeKey:@"imageStore"];
     
@@ -551,5 +551,7 @@ static int userShareItemHasDownloads = 0;
     
 }
 
-
+- (void)clearUserShareItems{
+    [userShareItems removeAllObjects];
+}
 @end

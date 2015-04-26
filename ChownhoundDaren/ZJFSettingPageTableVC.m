@@ -45,7 +45,7 @@
 
 - (IBAction)rateUs:(id)sender {
     
-    NSString *string = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%d",547203890];
+    NSString *string = [NSString stringWithFormat:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=%d&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8",493901993];
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
     

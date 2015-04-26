@@ -10,10 +10,8 @@
 
 @interface ZJFUserProfileHeaderView : UICollectionReusableView
 
-@property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *genderImageView;
-@property (weak, nonatomic) IBOutlet UILabel *cityLabel;
-@property (weak, nonatomic) IBOutlet UILabel *joinDate;
-@property (weak, nonatomic) IBOutlet UITextView *userDescriptionTextView;
-@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *headerImage;
+@property (weak, nonatomic) IBOutlet UILabel *userSignature;
+
+
 @end

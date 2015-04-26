@@ -19,7 +19,6 @@
 		C21D99811AD656FF00957B7A /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C21D99731AD656FF00957B7A /* UIScrollView+MJExtension.m */; };
 		C21D99821AD656FF00957B7A /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = C21D99751AD656FF00957B7A /* UIScrollView+MJRefresh.m */; };
 		C21D99831AD656FF00957B7A /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C21D99771AD656FF00957B7A /* UIView+MJExtension.m */; };
-		C21D99861AD6E7DD00957B7A /* ZJFUserProfileCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C21D99851AD6E7DD00957B7A /* ZJFUserProfileCollectionViewCell.m */; };
 		C21D99891AD75A1100957B7A /* ZJFUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = C21D99881AD75A1100957B7A /* ZJFUserProfile.m */; };
 		C21D998C1AD7606000957B7A /* ZJFUserProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C21D998B1AD7606000957B7A /* ZJFUserProfileHeaderView.m */; };
 		C22EAAD51ACD75ED001D4D94 /* ZJFImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C22EAAD41ACD75ED001D4D94 /* ZJFImageStore.m */; };
@@ -27,6 +26,7 @@
 		C2319E381AB8049500457A5B /* ZJFCreateOfHeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2319E371AB8049500457A5B /* ZJFCreateOfHeaderCollectionReusableView.m */; };
 		C2319E3B1AB804A500457A5B /* ZJFCreateOfFooterCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2319E3A1AB804A500457A5B /* ZJFCreateOfFooterCollectionReusableView.m */; };
 		C2319E3E1AB846D300457A5B /* ZJFCreateOfSpecialCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2319E3D1AB846D300457A5B /* ZJFCreateOfSpecialCollectionViewCell.m */; };
+		C232278E1AEB8B450038FFF6 /* ZJFUserProfileCC.m in Sources */ = {isa = PBXBuildFile; fileRef = C232278D1AEB8B450038FFF6 /* ZJFUserProfileCC.m */; };
 		C2360E2A1AAC841800B60E1A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2360E291AAC841800B60E1A /* MapKit.framework */; };
 		C2360E2C1AAD870B00B60E1A /* Document in Resources */ = {isa = PBXBuildFile; fileRef = C2360E2B1AAD870B00B60E1A /* Document */; };
 		C23C7CD61ADC1EF400F114B4 /* ZJFSignUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C23C7CD51ADC1EF400F114B4 /* ZJFSignUpVC.m */; };
@@ -63,6 +63,7 @@
 		C2A762A81ABFEBDB00F059D6 /* ZJFCurrentUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A762A71ABFEBDB00F059D6 /* ZJFCurrentUser.m */; };
 		C2A7B4B11AC0F8DC00323336 /* ZJFMyProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A7B4B01AC0F8DC00323336 /* ZJFMyProfileTableViewController.m */; };
 		C2A931F71AD2D1F6005DE5C9 /* ZJFWeiboLoginInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A931F61AD2D1F6005DE5C9 /* ZJFWeiboLoginInfo.m */; };
+		C2A9FD3D1AEBC560004D2DB3 /* ZJFUserProfileNoPictureCC.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A9FD3C1AEBC560004D2DB3 /* ZJFUserProfileNoPictureCC.m */; };
 		C2AFEEAB1ABE5B020077F893 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AFEEA01ABE5B020077F893 /* libWeiboSDK.a */; };
 		C2AFEEAC1ABE5B020077F893 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C2AFEEA81ABE5B020077F893 /* WeiboSDK.bundle */; };
 		C2AFEEAE1ABEAD9D0077F893 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AFEEAD1ABEAD9D0077F893 /* ImageIO.framework */; };
@@ -118,8 +119,6 @@
 		C21D99751AD656FF00957B7A /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		C21D99761AD656FF00957B7A /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		C21D99771AD656FF00957B7A /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
-		C21D99841AD6E7DD00957B7A /* ZJFUserProfileCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFUserProfileCollectionViewCell.h; sourceTree = "<group>"; };
-		C21D99851AD6E7DD00957B7A /* ZJFUserProfileCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFUserProfileCollectionViewCell.m; sourceTree = "<group>"; };
 		C21D99871AD75A1100957B7A /* ZJFUserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFUserProfile.h; sourceTree = "<group>"; };
 		C21D99881AD75A1100957B7A /* ZJFUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFUserProfile.m; sourceTree = "<group>"; };
 		C21D998A1AD7606000957B7A /* ZJFUserProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFUserProfileHeaderView.h; sourceTree = "<group>"; };
@@ -134,6 +133,8 @@
 		C2319E3A1AB804A500457A5B /* ZJFCreateOfFooterCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCreateOfFooterCollectionReusableView.m; sourceTree = "<group>"; };
 		C2319E3C1AB846D300457A5B /* ZJFCreateOfSpecialCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCreateOfSpecialCollectionViewCell.h; sourceTree = "<group>"; };
 		C2319E3D1AB846D300457A5B /* ZJFCreateOfSpecialCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCreateOfSpecialCollectionViewCell.m; sourceTree = "<group>"; };
+		C232278C1AEB8B450038FFF6 /* ZJFUserProfileCC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFUserProfileCC.h; sourceTree = "<group>"; };
+		C232278D1AEB8B450038FFF6 /* ZJFUserProfileCC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFUserProfileCC.m; sourceTree = "<group>"; };
 		C2360E291AAC841800B60E1A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C2360E2B1AAD870B00B60E1A /* Document */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Document; sourceTree = "<group>"; };
 		C23C7CD41ADC1EF400F114B4 /* ZJFSignUpVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFSignUpVC.h; sourceTree = "<group>"; };
@@ -197,6 +198,8 @@
 		C2A7B4B01AC0F8DC00323336 /* ZJFMyProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFMyProfileTableViewController.m; sourceTree = "<group>"; };
 		C2A931F51AD2D1F6005DE5C9 /* ZJFWeiboLoginInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFWeiboLoginInfo.h; sourceTree = "<group>"; };
 		C2A931F61AD2D1F6005DE5C9 /* ZJFWeiboLoginInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFWeiboLoginInfo.m; sourceTree = "<group>"; };
+		C2A9FD3B1AEBC560004D2DB3 /* ZJFUserProfileNoPictureCC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFUserProfileNoPictureCC.h; sourceTree = "<group>"; };
+		C2A9FD3C1AEBC560004D2DB3 /* ZJFUserProfileNoPictureCC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFUserProfileNoPictureCC.m; sourceTree = "<group>"; };
 		C2AFEEA01ABE5B020077F893 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
 		C2AFEEA11ABE5B020077F893 /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
 		C2AFEEA21ABE5B020077F893 /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
@@ -462,8 +465,10 @@
 				C245EAF21AE3921200C6BDB1 /* ZJFHomeNoPictureCell.m */,
 				C2D4CFEF1AD3C8380024E327 /* ZJFMyShareItemTableViewCell.h */,
 				C2D4CFF01AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m */,
-				C21D99841AD6E7DD00957B7A /* ZJFUserProfileCollectionViewCell.h */,
-				C21D99851AD6E7DD00957B7A /* ZJFUserProfileCollectionViewCell.m */,
+				C232278C1AEB8B450038FFF6 /* ZJFUserProfileCC.h */,
+				C232278D1AEB8B450038FFF6 /* ZJFUserProfileCC.m */,
+				C2A9FD3B1AEBC560004D2DB3 /* ZJFUserProfileNoPictureCC.h */,
+				C2A9FD3C1AEBC560004D2DB3 /* ZJFUserProfileNoPictureCC.m */,
 				C21D998A1AD7606000957B7A /* ZJFUserProfileHeaderView.h */,
 				C21D998B1AD7606000957B7A /* ZJFUserProfileHeaderView.m */,
 				C2BCED121AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.xib */,
@@ -664,6 +669,7 @@
 				C23CD7411AD7C72B00E96B46 /* RSKTouchView.m in Sources */,
 				C28813EB1AE77FB60002A985 /* VIPhotoView.m in Sources */,
 				C2BCECE11AB1281B003B352C /* ZJFHomeTableViewController.m in Sources */,
+				C2A9FD3D1AEBC560004D2DB3 /* ZJFUserProfileNoPictureCC.m in Sources */,
 				C21D997A1AD656FF00957B7A /* MJRefreshConst.m in Sources */,
 				C23CD7401AD7C72B00E96B46 /* RSKImageScrollView.m in Sources */,
 				C21D99791AD656FF00957B7A /* MJRefreshComponent.m in Sources */,
@@ -681,7 +687,6 @@
 				C2A7087F1ACD583000B60F35 /* ZJFShareItem.m in Sources */,
 				C240003C1AD9860300754075 /* ZJFShowItemVC.m in Sources */,
 				C2319E351AB8047500457A5B /* ZJFCreateOfPhotoCollectionViewCell.m in Sources */,
-				C21D99861AD6E7DD00957B7A /* ZJFUserProfileCollectionViewCell.m in Sources */,
 				C2D4CFF11AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m in Sources */,
 				C2B913671AB7CFAE00DBDB2A /* ZJFCreateItemCollectionViewController.m in Sources */,
 				C21D997D1AD656FF00957B7A /* MJRefreshGifHeader.m in Sources */,
@@ -696,6 +701,7 @@
 				C21D99801AD656FF00957B7A /* MJRefreshLegendHeader.m in Sources */,
 				C2A762A81ABFEBDB00F059D6 /* ZJFCurrentUser.m in Sources */,
 				C23CD72F1AD7B39B00E96B46 /* ZJFProfileCollectionViewController.m in Sources */,
+				C232278E1AEB8B450038FFF6 /* ZJFUserProfileCC.m in Sources */,
 				C2A708821ACD5AAA00B60F35 /* ZJFSNearlyItemStore.m in Sources */,
 				C21D997F1AD656FF00957B7A /* MJRefreshLegendFooter.m in Sources */,
 				C23CD7421AD7C72B00E96B46 /* UIApplication+RSKImageCropper.m in Sources */,

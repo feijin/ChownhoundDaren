@@ -7,17 +7,23 @@
 //
 
 #import "ZJFProfileCollectionViewController.h"
-#import "ZJFUserProfileCollectionViewCell.h"
+#import "ZJFUserProfileCC.h"
 #import "ZJFSNearlyItemStore.h"
 #import "ZJFShareItem.h"
 #import "ZJFUserProfileHeaderView.h"
 #import "ZJFUserProfile.h"
 #import "MJRefresh.h"
 #import "ZJFDetailPictureViewController.h"
+#import "ZJFShowItemNoPictureVC.h"
+#import "ZJFShowItemVC.h"
+#import "ZJFUserProfileNoPictureCC.h"
 
-static int numberOfMaxCharacters = 100;
+static int numberOfMaxCharacters = 150;
 
 @interface ZJFProfileCollectionViewController (){
+
+    ZJFShareItem *segueItem;
+    ZJFUserProfileHeaderView *headerView; //保存header
     
 }
 
@@ -30,12 +36,13 @@ static int numberOfMaxCharacters = 100;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
- 
+    
     [[ZJFSNearlyItemStore shareStore] getProfile:username];
     [ZJFSNearlyItemStore shareStore].profileCollectionViewController = self;
     [[ZJFSNearlyItemStore shareStore] downloadUserShareItemForRefreshWithUsername:username];
     [ZJFSNearlyItemStore shareStore].profileCollectionViewController = self;
     
+
     __weak typeof(self) weakSelf = self;
     [self.collectionView addLegendHeaderWithRefreshingBlock:^(){
         __strong typeof(self) strongSelf = weakSelf;
@@ -48,41 +55,63 @@ static int numberOfMaxCharacters = 100;
         //   [ZJFSNearlyItemStore shareStore].profileCollectionViewController = strongSelf;
         [[ZJFSNearlyItemStore shareStore] downloadUserShareItemAfterRefreshWithUsername:strongSelf.username];
     }];
-    
-    
+
     
 }
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
-    //清除他人信息
-    [ZJFSNearlyItemStore shareStore].userProfile = nil;
+    [[ZJFSNearlyItemStore shareStore] clearUserShareItems];
 }
 
+#pragma mark -collectionview datasource
 
-#pragma mark -collection view datasource
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [[[ZJFSNearlyItemStore shareStore] userShareItems] count];
+    return [[ZJFSNearlyItemStore shareStore] userShareItems].count;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    ZJFUserProfileHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileHeader" forIndexPath:indexPath];
+    
+    ZJFUserProfile *userProfile = [ZJFSNearlyItemStore shareStore].userProfile;
+    
+    header.headerImage.image = [UIImage imageWithData:userProfile.headerImage scale:2.0];
+    header.headerImage.layer.cornerRadius = 31;
+    header.headerImage.clipsToBounds = YES;
+    
+    header.userSignature.text = userProfile.userDescription;
+    
+    headerView = header;
+    
+    return header;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    ZJFUserProfileCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ProfileCollectionCell" forIndexPath:indexPath];
-    
     ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] userShareItems] objectAtIndex:[indexPath row]];
-    
     NSArray *thumbnailKeys = [[item thumbnailData] allKeys];
     
     if ([thumbnailKeys count] != 0) {
-        //这条信息包含图片
+        ZJFUserProfileCC *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UserProfileCell" forIndexPath:indexPath];
         
-        //点击图片时可以查看大图的手势按钮
+        NSString *briefDescription = item.itemDescription;
+        if (briefDescription.length > numberOfMaxCharacters) {
+            briefDescription = [briefDescription substringToIndex:numberOfMaxCharacters];
+            briefDescription = [briefDescription stringByAppendingString:@"..."];
+        }
+        
+        cell.itemDescription.text = briefDescription;
         
         for (int i=0; i<[thumbnailKeys count]; i++) {
             switch (i) {
@@ -93,9 +122,9 @@ static int numberOfMaxCharacters = 100;
                     cell.image1.image = image;
                     cell.image1.tag = 0;
                     
-                    cell.button1.enabled = YES;
-                    cell.button2.enabled = NO;
-                    cell.button3.enabled = NO;
+                    //                  cell.button1.enabled = YES;
+                    //                cell.button2.enabled = NO;
+                    //              cell.button3.enabled = NO;
                     
                     // NSLog(@"image1 size wigth: %f, heigth: %f\n",cell.image1.image.size.width,cell.image1.image.size.height);
                     
@@ -110,7 +139,7 @@ static int numberOfMaxCharacters = 100;
                     cell.image2.image = image;
                     cell.image2.tag = 1;
                     
-                    cell.button2.enabled = YES;
+                    //                   cell.button2.enabled = YES;
                     
                     cell.image3.image = nil;
                     break;
@@ -122,7 +151,7 @@ static int numberOfMaxCharacters = 100;
                     cell.image3.image = image;
                     cell.image3.tag = 2;
                     
-                    cell.button3.enabled = YES;
+                    //                    cell.button3.enabled = YES;
                     
                     break;
                 }
@@ -131,115 +160,113 @@ static int numberOfMaxCharacters = 100;
             }
             
         }
+        
+        NSLayoutConstraint *imageToButton = [NSLayoutConstraint constraintWithItem:cell
+                                                                         attribute:NSLayoutAttributeBottomMargin
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:cell.image1
+                                                                         attribute:NSLayoutAttributeBottom
+                                                                        multiplier:1
+                                                                          constant:10];
+        
+        [cell addConstraint:imageToButton];
+        
+        return cell;
     } else {
-        //此条信息不包含图片
+        ZJFUserProfileNoPictureCC *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ProfileCellNoPicture" forIndexPath:indexPath];
         
-        cell.image1.image = nil;
-        cell.image2.image = nil;
-        cell.image3.image = nil;
+        cell.itemDescription.text = item.itemDescription;
         
-        cell.button1.enabled = NO;
-        cell.button2.enabled = NO;
-        cell.button3.enabled = NO;
+        NSLayoutConstraint *labelToButtom = [NSLayoutConstraint constraintWithItem:cell
+                                                                         attribute:NSLayoutAttributeBottomMargin
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:cell.itemDescription
+                                                                         attribute:NSLayoutAttributeBottom
+                                                                        multiplier:1
+                                                                          constant:10];
+        [cell addConstraint:labelToButtom];
         
-        NSArray *constraints = cell.descriptionTextView.constraints;
-        
-        
-        
-        
-    }
-    
-    NSString *itemDescription = item.itemDescription;
-    int length = itemDescription.length;
-    
-    NSString *breifDescription = itemDescription; //显示缩减的字符
-    
- /*   if(length > numberOfMaxCharacters){
-        //如果超过50个字符，截取47个字符
-        breifDescription = [itemDescription substringToIndex:(numberOfMaxCharacters-3)];
-        breifDescription = [breifDescription stringByAppendingString:@"..."];
+        return cell;
         
     }
-  */
-    
-    cell.descriptionTextView.text = breifDescription;
-    NSAttributedString *string = [[NSAttributedString alloc] initWithString:breifDescription];
-    
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(226, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-    
-    [cell.descriptionTextView setFrame:CGRectMake(cell.descriptionTextView.frame.origin.x, cell.descriptionTextView.frame.origin.y, cell.descriptionTextView.frame.size.width, ceil(rect.size.height))];
-    
-    
-    return cell;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    ZJFUserProfileHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ProfileHeader" forIndexPath:indexPath];
-    
-    ZJFUserProfile *profile = [ZJFSNearlyItemStore shareStore].userProfile;
-    
-    header.nickNameLabel.text = profile.nickName;
-    header.genderImageView.image = [UIImage imageNamed:profile.gender];
-    header.cityLabel.text = profile.city;
-    header.userDescriptionTextView.text = profile.userDescription;
-    
-    if ([profile.gender isEqualToString:@"m"]) {
-        header.genderImageView.image = [UIImage imageNamed:@"xingbienan"];
-    } else if ([profile.gender isEqualToString:@"f"]){
-        header.genderImageView.image = [UIImage imageNamed:@"xingbienv"];
-    } else {
-        header.genderImageView.image = [UIImage imageNamed:@"xingbie"];
-    }
-    
-    UIImage *image = [UIImage imageWithData:profile.headerImage scale:2.0];
-    
-    header.headerImageView.image = image;
-    header.headerImageView.layer.cornerRadius = 41;
-    header.headerImageView.clipsToBounds = YES;
-
-    
-    return header;
-    
-}
+#pragma mark -collection flowlayout
 
 
-#pragma mark -collection view delegate
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-}
-
-
-#pragma mark -执行segue
-- (IBAction)showUserSharePicture:(id)sender {
-    [self performSegueWithIdentifier:@"ShowPictureFromUserProfile" sender:sender];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    ZJFUserProfileCollectionViewCell *cell = (ZJFUserProfileCollectionViewCell *)[[sender superview] superview];
-    
-    NSIndexPath *indexPath = [[self collectionView] indexPathForCell:cell];
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] userShareItems] objectAtIndex:[indexPath row]];
     
-    NSLog(@"row: %d\n",[indexPath row]);
+    CGFloat labelHeight = [self labelHeight:item.itemDescription labelWidth:250];
     
-    if ([segue.identifier isEqualToString:@"ShowPictureFromUserProfile"]) {
-        ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
-        
-        UIButton *button = (UIButton *)sender;
-        
-        NSString *key = [[[item thumbnailData] allKeys] objectAtIndex:button.tag];
-        
-        detailPictureViewController.imageKey = key;
-        detailPictureViewController.imageStore = item.imageStore;
-        
-        return;
+    CGFloat imageHeight;
+    NSArray *thumbnails = [[item thumbnailData] allKeys];
+    if (thumbnails.count == 0) {
+        imageHeight = 40;
+    } else {
+        imageHeight = 80;
     }
+    
+    return CGSizeMake(278, labelHeight + imageHeight);
 }
 
-- (IBAction)showPicture:(id)sender {
+
+/*
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    ZJFUserProfile *userProfile = [ZJFSNearlyItemStore shareStore].userProfile;
+    
+    NSString *userSignature = userProfile.userDescription;
+    
+    CGFloat labelHeight = [self labelHeight:userSignature labelWidth:204];
+    
+    NSLayoutConstraint *labelHeightConstraint = [NSLayoutConstraint constraintWithItem:headerView.userSignature
+                                                                   attribute:NSLayoutAttributeHeight
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:nil attribute:NSLayoutAttributeNotAnAttribute
+                                                                  multiplier:1
+                                                                    constant:labelHeight];
+    [headerView.userSignature addConstraint:labelHeightConstraint];
+    
+    return CGSizeMake(320.0, labelHeight + 100);
     
 }
+
+ */
+
+
+#pragma mark -计算uilabel高度
+
+- (CGFloat)labelHeight:(NSString *)string labelWidth:(float)width{
+    if (string.length > numberOfMaxCharacters) {
+        string = [string substringToIndex:numberOfMaxCharacters];
+    }
+    string = [string stringByAppendingString:@"..."];
+    
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:string];
+    
+    NSRange allRange = [string rangeOfString:string];
+    [attrStr addAttribute:NSFontAttributeName
+                    value:[UIFont systemFontOfSize:15.0]
+                    range:allRange];
+    [attrStr addAttribute:NSForegroundColorAttributeName
+                    value:[UIColor blackColor]
+                    range:allRange];
+    
+    CGFloat titleHeight;
+    
+    NSStringDrawingOptions options =  NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
+    CGRect rect = [attrStr boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:options context:nil];
+    
+    titleHeight = ceil(rect.size.height);
+    
+    return titleHeight + 2;  // 加两个像素,防止emoji被切掉.
+}
+
+
+
+
+
+
 
 
 
