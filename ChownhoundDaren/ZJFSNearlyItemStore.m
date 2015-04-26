@@ -143,11 +143,9 @@ static int userShareItemHasDownloads = 0;
     profile.city = [object objectForKey:@"city"];
     profile.headerImage = [object objectForKey:@"headerData"];
     profile.joinDate = object.createdAt;
+    profile.objectId = object.objectId;
     
     userProfile = profile;
-    
-    [self.profileCollectionViewController.collectionView reloadData];
-
 
 }
 
@@ -544,10 +542,8 @@ static int userShareItemHasDownloads = 0;
 }
 
 - (void)deleteAllItem{
-    [allItems removeAllObjects];
     [myShareItems removeAllObjects];
     [userShareItems removeAllObjects];
-    
     
 }
 

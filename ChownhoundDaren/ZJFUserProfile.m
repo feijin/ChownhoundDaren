@@ -10,7 +10,7 @@
 
 @implementation ZJFUserProfile
 
-@synthesize username,userDescription,city,gender,headerImage,nickName,joinDate;
+@synthesize username,userDescription,city,gender,headerImage,nickName,joinDate,objectId;
 
 - (id)init{
     self = [super init];

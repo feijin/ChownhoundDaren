@@ -19,7 +19,6 @@
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *nickName;
-@property (weak, nonatomic) IBOutlet UIButton *headerButton;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionText;
 @property (weak, nonatomic) IBOutlet UILabel *createDate;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *rightBarButton;
@@ -42,77 +41,165 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    self.nickName.text = _item.nickName;
-    self.descriptionText.text = _item.itemDescription;
-    self.placeName.text = _item.placeName;
-    
-    UIImage *image = [UIImage imageWithData:_item.headerImage scale:2.0];
-    
-    [self.headerButton setBackgroundImage:image forState:UIControlStateNormal];
-    
-    self.headerButton.layer.cornerRadius = 26;
-    self.headerButton.clipsToBounds = YES;
-    
-    NSLog(@"header width: %d, height: %d\n",_headerButton.frame.origin.x, _headerButton.frame.origin.y);
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"MM-dd,hh-mm-ss";
-    NSString *dateString = [dateFormatter stringFromDate:_item.createDate];
-    self.createDate.text = dateString;
-    
-    self.placeName.text = _item.placeName;
-    
-    //显示信息中的图片
-    
-    NSArray *thumbnailKeys = [[_item thumbnailData] allKeys];
-    for (int i=0; i<[thumbnailKeys count]; i++) {
-        //处理信息中包含的图片
-        switch (i) {
-            case 0:{
-                NSData *imageData = [[_item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
-                UIImage *image = [UIImage imageWithData:imageData scale:2.0];
-                
-                self.image1.image = image;
-                self.image1.tag = 0;
-                
-                self.button1.enabled = YES;
-                self.button2.enabled = NO;
-                self.button3.enabled = NO;
-                
-                // NSLog(@"image1 size wigth: %f, heigth: %f\n",cell.image1.image.size.width,cell.image1.image.size.height);
-                
-                self.image2.image = nil;
-                self.image3.image = nil;
-                break;
-            }
-            case 1:{
-                NSData *imageData = [[_item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
-                UIImage *image = [UIImage imageWithData:imageData scale:2.0];
-                
-                self.image2.image = image;
-                self.image2.tag = 1;
-                
-                self.button2.enabled = YES;
-                
-                self.image3.image = nil;
-                break;
-            }
-            case 2:{
-                NSData *imageData = [[_item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
-                UIImage *image = [UIImage imageWithData:imageData scale:2.0];
-                
-                self.image3.image = image;
-                self.image3.tag = 2;
-                
-                self.button3.enabled = YES;
-                
-                break;
-            }
-            default:
-                break;
-        }
+    if ([_sourceVC isEqualToString:@"MyShareVC"]) {
+        self.nickName.text = _item.nickName;
+        self.descriptionText.text = _item.itemDescription;
+        self.placeName.text = _item.placeName;
         
+        UIImage *image = [UIImage imageWithData:_item.headerImage scale:2.0];
+        
+        [self.headerButton setBackgroundImage:image forState:UIControlStateNormal];
+        
+        self.headerButton.layer.cornerRadius = 26;
+        self.headerButton.clipsToBounds = YES;
+        
+        NSLog(@"header width: %d, height: %d\n",_headerButton.frame.origin.x, _headerButton.frame.origin.y);
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"MM-dd,hh-mm-ss";
+        NSString *dateString = [dateFormatter stringFromDate:_item.createDate];
+        self.createDate.text = dateString;
+        
+        self.placeName.text = _item.placeName;
+        if(!self.placeName.text)
+            self.placeName.text = @"无店铺信息";
+        
+        //显示信息中的图片
+        
+        NSArray *thumbnailKeys = [[_item thumbnailData] allKeys];
+        for (int i=0; i<[thumbnailKeys count]; i++) {
+            //处理信息中包含的图片
+            switch (i) {
+                case 0:{
+                    NSData *imageData = [[_item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                    
+                    self.image1.image = image;
+                    self.image1.tag = 0;
+                    
+                    self.button1.enabled = YES;
+                    self.button2.enabled = NO;
+                    self.button3.enabled = NO;
+                    
+                    // NSLog(@"image1 size wigth: %f, heigth: %f\n",cell.image1.image.size.width,cell.image1.image.size.height);
+                    
+                    self.image2.image = nil;
+                    self.image3.image = nil;
+                    break;
+                }
+                case 1:{
+                    NSData *imageData = [[_item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                    
+                    self.image2.image = image;
+                    self.image2.tag = 1;
+                    
+                    self.button2.enabled = YES;
+                    
+                    self.image3.image = nil;
+                    break;
+                }
+                case 2:{
+                    NSData *imageData = [[_item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                    
+                    self.image3.image = image;
+                    self.image3.tag = 2;
+                    
+                    self.button3.enabled = YES;
+                    
+                    break;
+                }
+                default:
+                    break;
+            }
+            
+        }
+
+        //针对从我的分享跳转过来，进行页面修改
+        self.rightBarButton.enabled = NO;
+        self.rightBarButton.title = @" ";
+        self.headerButton.enabled = NO;
+        UIImage *selfHeader = [UIImage imageWithData:[ZJFCurrentUser shareCurrentUser].headerImage scale:2.0];
+        
+        [self.headerButton setBackgroundImage:selfHeader forState:UIControlStateNormal];
+        self.nickName.text = @"我";
+        
+    } else{
+        self.nickName.text = _item.nickName;
+        self.descriptionText.text = _item.itemDescription;
+        self.placeName.text = _item.placeName;
+        
+        UIImage *image = [UIImage imageWithData:_item.headerImage scale:2.0];
+        
+        [self.headerButton setBackgroundImage:image forState:UIControlStateNormal];
+        
+        self.headerButton.layer.cornerRadius = 26;
+        self.headerButton.clipsToBounds = YES;
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"MM-dd,hh-mm-ss";
+        NSString *dateString = [dateFormatter stringFromDate:_item.createDate];
+        self.createDate.text = dateString;
+        
+        self.placeName.text = _item.placeName;
+        if(!self.placeName.text)
+            self.placeName.text = @"无店铺信息";
+        
+        //显示信息中的图片
+        
+        NSArray *thumbnailKeys = [[_item thumbnailData] allKeys];
+        for (int i=0; i<[thumbnailKeys count]; i++) {
+            //处理信息中包含的图片
+            switch (i) {
+                case 0:{
+                    NSData *imageData = [[_item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                    
+                    self.image1.image = image;
+                    self.image1.tag = 0;
+                    
+                    self.button1.enabled = YES;
+                    self.button2.enabled = NO;
+                    self.button3.enabled = NO;
+                    
+                    // NSLog(@"image1 size wigth: %f, heigth: %f\n",cell.image1.image.size.width,cell.image1.image.size.height);
+                    
+                    self.image2.image = nil;
+                    self.image3.image = nil;
+                    break;
+                }
+                case 1:{
+                    NSData *imageData = [[_item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                    
+                    self.image2.image = image;
+                    self.image2.tag = 1;
+                    
+                    self.button2.enabled = YES;
+                    
+                    self.image3.image = nil;
+                    break;
+                }
+                case 2:{
+                    NSData *imageData = [[_item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
+                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
+                    
+                    self.image3.image = image;
+                    self.image3.tag = 2;
+                    
+                    self.button3.enabled = YES;
+                    
+                    break;
+                }
+                default:
+                    break;
+            }
+            
+        }
+
     }
+    
     
     
 
@@ -122,6 +209,9 @@
     [super viewWillAppear:animated];
     
     [[self.tabBarController tabBar] setHidden:YES];
+    if ([_sourceVC isEqualToString:@"MyShareVC"]) {
+        return;
+    }
     
     //使用AVRelation 来构建收藏关系(多对多）；
     
@@ -183,6 +273,10 @@
     //如果用户尚未登录，则提示先登录
     if (![[ZJFCurrentUser shareCurrentUser] isLogin]) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"收藏信息需要登录，请先登录再收藏此信息!" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil];
+        
+        [alert addAction:action];
+        [self presentViewController:alert animated:YES completion:nil];
         
         return;
         

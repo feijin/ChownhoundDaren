@@ -111,6 +111,11 @@
     
 }
 
+- (IBAction)clearTips:(id)sender {
+    self.loginTip.text = nil;
+}
+
+
 - (IBAction)resignResponder:(id)sender {
     [_emailAddress resignFirstResponder];
     [_passwordText resignFirstResponder];

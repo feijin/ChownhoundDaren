@@ -10,6 +10,7 @@
 
 @interface ZJFUserProfile : NSObject
 
+@property (nonatomic,strong) NSString *objectId;
 @property (nonatomic,strong) NSString *username;
 @property (nonatomic,strong) NSString *nickName;
 @property (nonatomic,strong) NSString *gender;

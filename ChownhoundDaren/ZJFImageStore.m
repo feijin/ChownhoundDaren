@@ -37,19 +37,6 @@
     return self;
 }
 
-- (void)deleteImageForKeys:(NSArray *)array{
-    if ([array count] == 0) {
-        return;
-    }
-    
-    for (NSString *s in array) {
-        [imageStore removeObjectForKey:s];
-        
-        NSString *path = [self imagePathForKey:s];
-        [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
-    }
-}
-
 - (NSDictionary *)imageForKeys:(NSArray *)array{
     NSMutableDictionary *store = [[NSMutableDictionary alloc] init];
     for (NSString *s in array) {
@@ -132,6 +119,19 @@
 
 - (void)deleteAllImage{
     [self deleteImageForKeys:imageItems];
+}
+
+- (void)deleteImageForKeys:(NSArray *)array{
+    if ([array count] == 0) {
+        return;
+    }
+    
+    for (NSString *s in array) {
+        [imageStore removeObjectForKey:s];
+        
+        NSString *path = [self imagePathForKey:s];
+        [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
+    }
 }
 
 @end

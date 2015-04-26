@@ -66,7 +66,6 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.tableView reloadData];
     
     [[self.tabBarController tabBar] setHidden:NO];
     
@@ -75,6 +74,15 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
+    [self.tableView reloadData];
+    
+    //每次从userprofile页面返回时，清除userprofile信息
+    [[ZJFSNearlyItemStore shareStore] clearUserShareItems];
+    /*原先上面这句代码放在ZJFProfileCollecitonVC.m的viewdiddisapper方法中，但是在显示信息中图片时也就调用了该方法，导致从图片返回至该页面后，zjfsneralyitemstore 中userShareItems数组已经被清空，那么在下拉刷新信息时，便会抛出异常
+     */
+    [ZJFSNearlyItemStore shareStore].userProfile = nil;
+    
+    [ZJFSNearlyItemStore shareStore].profileCollectionViewController = nil;
 }
 
 - (IBAction)refresh:(id)sender {
@@ -230,15 +238,10 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
             
         }
         
-        
         cell.descriptionTextView.text = breifDescription;
         
         return  cell;
-
-        
     }
-    
-
 }
 
 #pragma mark -delegate 方法
@@ -267,14 +270,11 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
         NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
         
         ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
-        
-        username = item.username;
-        
-       
+
         ZJFProfileCollectionViewController *profileCollectionViewController = segue.destinationViewController;
-        profileCollectionViewController.username = username;
-        
-        NSLog(@"item.username: %@\n",username);
+        profileCollectionViewController.username = item.username;
+        profileCollectionViewController.nickName = item.nickName;
+    
     }else if ([segue.identifier isEqualToString:@"ShowItemWithPicture"]){
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] allItems] objectAtIndex:[indexPath row]];
@@ -294,10 +294,9 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
         
         NSLog(@"row: %d\n",[indexPath row]);
         
-        username = item.username;
-        
         ZJFProfileCollectionViewController *profileVC = segue.destinationViewController;
-        profileVC.username = username;
+        profileVC.username = item.username;
+        profileVC.nickName = item.nickName;
     }
     
 }
@@ -324,6 +323,13 @@ static int numberOfMaxCharacters = 100; //如果评论超过50个字，在新页
     return newImage;
 }
 
+- (IBAction)setEnable:(id)sender {
+    UIButton *button = (UIButton *)sender;
+    
+    button.userInteractionEnabled = NO;
+    
+    [button performSelector:@selector(setUserInteractionEnabled:)  withObject:[NSNumber  numberWithBool:YES]  afterDelay:1];
+}
 
 
 

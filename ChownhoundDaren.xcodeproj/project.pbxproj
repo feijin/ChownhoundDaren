@@ -40,6 +40,7 @@
 		C240003C1AD9860300754075 /* ZJFShowItemVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C240003B1AD9860300754075 /* ZJFShowItemVC.m */; };
 		C245EAF31AE3921200C6BDB1 /* ZJFHomeNoPictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C245EAF21AE3921200C6BDB1 /* ZJFHomeNoPictureCell.m */; };
 		C245EAF61AE48E3D00C6BDB1 /* ZJFShowItemNoPictureVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C245EAF51AE48E3D00C6BDB1 /* ZJFShowItemNoPictureVC.m */; };
+		C261F5F91AED311D0099722F /* ZJFMyShareTC.m in Sources */ = {isa = PBXBuildFile; fileRef = C261F5F81AED311D0099722F /* ZJFMyShareTC.m */; };
 		C268FE251ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C268FE241ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m */; };
 		C26A63551AA8335500E3993E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26A63531AA8335500E3993E /* Main.storyboard */; };
 		C27D4A351AAACA8A00509488 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27D4A341AAACA8A00509488 /* AVOSCloud.framework */; };
@@ -76,11 +77,9 @@
 		C2BCECE11AB1281B003B352C /* ZJFHomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECE01AB1281B003B352C /* ZJFHomeTableViewController.m */; };
 		C2BCECE41AB1296E003B352C /* ZJFDetailItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECE31AB1296E003B352C /* ZJFDetailItemViewController.m */; };
 		C2BCECED1AB12D27003B352C /* ZJFMyShareTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCECEC1AB12D27003B352C /* ZJFMyShareTableViewController.m */; };
-		C2BCED141AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2BCED121AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.xib */; };
 		C2BCED171AB1C7E1003B352C /* ZJFDetailCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCED161AB1C7E1003B352C /* ZJFDetailCollectionViewController.m */; };
 		C2BCED1A1AB1CD31003B352C /* ZJFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BCED191AB1CD31003B352C /* ZJFLoginViewController.m */; };
 		C2BD0E751ABB0CD900700648 /* ZJFCurrentLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BD0E741ABB0CD900700648 /* ZJFCurrentLocation.m */; };
-		C2D4CFF11AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D4CFF01AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m */; };
 		C2E834421AD8C13400CC5A9B /* ZJFHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E834411AD8C13400CC5A9B /* ZJFHomeCell.m */; };
 /* End PBXBuildFile section */
 
@@ -160,6 +159,8 @@
 		C245EAF21AE3921200C6BDB1 /* ZJFHomeNoPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFHomeNoPictureCell.m; sourceTree = "<group>"; };
 		C245EAF41AE48E3D00C6BDB1 /* ZJFShowItemNoPictureVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFShowItemNoPictureVC.h; sourceTree = "<group>"; };
 		C245EAF51AE48E3D00C6BDB1 /* ZJFShowItemNoPictureVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFShowItemNoPictureVC.m; sourceTree = "<group>"; };
+		C261F5F71AED311D0099722F /* ZJFMyShareTC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFMyShareTC.h; sourceTree = "<group>"; };
+		C261F5F81AED311D0099722F /* ZJFMyShareTC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFMyShareTC.m; sourceTree = "<group>"; };
 		C268FE231ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFDetailPictureViewController.h; sourceTree = "<group>"; };
 		C268FE241ACA7DA100EAC8B5 /* ZJFDetailPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFDetailPictureViewController.m; sourceTree = "<group>"; };
 		C26A63541AA8335500E3993E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -229,15 +230,12 @@
 		C2BCECE31AB1296E003B352C /* ZJFDetailItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFDetailItemViewController.m; sourceTree = "<group>"; };
 		C2BCECEB1AB12D27003B352C /* ZJFMyShareTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFMyShareTableViewController.h; sourceTree = "<group>"; };
 		C2BCECEC1AB12D27003B352C /* ZJFMyShareTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFMyShareTableViewController.m; sourceTree = "<group>"; };
-		C2BCED121AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZJFMyFavoriteTableViewCell.xib; sourceTree = "<group>"; };
 		C2BCED151AB1C7E1003B352C /* ZJFDetailCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFDetailCollectionViewController.h; sourceTree = "<group>"; };
 		C2BCED161AB1C7E1003B352C /* ZJFDetailCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFDetailCollectionViewController.m; sourceTree = "<group>"; };
 		C2BCED181AB1CD31003B352C /* ZJFLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFLoginViewController.h; sourceTree = "<group>"; };
 		C2BCED191AB1CD31003B352C /* ZJFLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFLoginViewController.m; sourceTree = "<group>"; };
 		C2BD0E731ABB0CD900700648 /* ZJFCurrentLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFCurrentLocation.h; sourceTree = "<group>"; };
 		C2BD0E741ABB0CD900700648 /* ZJFCurrentLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFCurrentLocation.m; sourceTree = "<group>"; };
-		C2D4CFEF1AD3C8380024E327 /* ZJFMyShareItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFMyShareItemTableViewCell.h; sourceTree = "<group>"; };
-		C2D4CFF01AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFMyShareItemTableViewCell.m; sourceTree = "<group>"; };
 		C2E834401AD8C13400CC5A9B /* ZJFHomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJFHomeCell.h; sourceTree = "<group>"; };
 		C2E834411AD8C13400CC5A9B /* ZJFHomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJFHomeCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -463,15 +461,14 @@
 				C2E834411AD8C13400CC5A9B /* ZJFHomeCell.m */,
 				C245EAF11AE3921200C6BDB1 /* ZJFHomeNoPictureCell.h */,
 				C245EAF21AE3921200C6BDB1 /* ZJFHomeNoPictureCell.m */,
-				C2D4CFEF1AD3C8380024E327 /* ZJFMyShareItemTableViewCell.h */,
-				C2D4CFF01AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m */,
 				C232278C1AEB8B450038FFF6 /* ZJFUserProfileCC.h */,
 				C232278D1AEB8B450038FFF6 /* ZJFUserProfileCC.m */,
 				C2A9FD3B1AEBC560004D2DB3 /* ZJFUserProfileNoPictureCC.h */,
 				C2A9FD3C1AEBC560004D2DB3 /* ZJFUserProfileNoPictureCC.m */,
 				C21D998A1AD7606000957B7A /* ZJFUserProfileHeaderView.h */,
 				C21D998B1AD7606000957B7A /* ZJFUserProfileHeaderView.m */,
-				C2BCED121AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.xib */,
+				C261F5F71AED311D0099722F /* ZJFMyShareTC.h */,
+				C261F5F81AED311D0099722F /* ZJFMyShareTC.m */,
 				C2319E331AB8047500457A5B /* ZJFCreateOfPhotoCollectionViewCell.h */,
 				C2319E341AB8047500457A5B /* ZJFCreateOfPhotoCollectionViewCell.m */,
 				C2319E3C1AB846D300457A5B /* ZJFCreateOfSpecialCollectionViewCell.h */,
@@ -631,7 +628,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C26A63551AA8335500E3993E /* Main.storyboard in Resources */,
-				C2BCED141AB1C1BB003B352C /* ZJFMyFavoriteTableViewCell.xib in Resources */,
 				C21D99781AD656FF00957B7A /* MJRefresh.bundle in Resources */,
 				C2A225C31AA1EB0B00DA66E9 /* LaunchScreen.xib in Resources */,
 				C2A225C01AA1EB0B00DA66E9 /* Images.xcassets in Resources */,
@@ -687,9 +683,9 @@
 				C2A7087F1ACD583000B60F35 /* ZJFShareItem.m in Sources */,
 				C240003C1AD9860300754075 /* ZJFShowItemVC.m in Sources */,
 				C2319E351AB8047500457A5B /* ZJFCreateOfPhotoCollectionViewCell.m in Sources */,
-				C2D4CFF11AD3C8380024E327 /* ZJFMyShareItemTableViewCell.m in Sources */,
 				C2B913671AB7CFAE00DBDB2A /* ZJFCreateItemCollectionViewController.m in Sources */,
 				C21D997D1AD656FF00957B7A /* MJRefreshGifHeader.m in Sources */,
+				C261F5F91AED311D0099722F /* ZJFMyShareTC.m in Sources */,
 				C23C7CD61ADC1EF400F114B4 /* ZJFSignUpVC.m in Sources */,
 				C23CD73F1AD7C72B00E96B46 /* RSKImageCropViewController.m in Sources */,
 				C2BCED171AB1C7E1003B352C /* ZJFDetailCollectionViewController.m in Sources */,

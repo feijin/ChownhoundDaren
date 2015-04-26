@@ -12,5 +12,7 @@
 @interface ZJFShowItemNoPictureVC : UIViewController
 
 @property (nonatomic,strong) ZJFShareItem *item;
+@property (weak, nonatomic) IBOutlet UIButton *headerButton;
+@property (nonatomic,strong) NSString *sourceVC;
 
 @end

@@ -24,4 +24,16 @@
         return nil;
 }
 
+- (UICollectionViewCell *)getCollectionCellFromSubview{
+    if ([[[self superview] superview] isKindOfClass:[UICollectionViewCell class]]) {
+        return (UICollectionViewCell *)[[self superview] superview];
+    } else if ([[[[self superview] superview] superview] isKindOfClass:[UICollectionViewCell class]]){
+        return (UICollectionViewCell *)[[[self superview] superview] superview];
+    } else{
+        NSLog(@"Something Panic Happens from getCollectionCell\n");
+    }
+    
+    return nil;
+}
+
 @end

@@ -12,5 +12,6 @@
 <UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 
 @property (nonatomic,strong) NSString *username;
+@property (nonatomic,strong) NSString *nickName;
 
 @end

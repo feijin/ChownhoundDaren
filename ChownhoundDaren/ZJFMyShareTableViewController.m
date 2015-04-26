@@ -11,17 +11,19 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import "ZJFCurrentUser.h"
 #import "ZJFSNearlyItemStore.h"
-#import "ZJFMyShareItemTableViewCell.h"
+#import "ZJFMyShareTC.h"
 #import "ZJFDetailPictureViewController.h"
 #import "MJRefresh.h"
-
-static const int numberOfMaxCharacters = 50;
+#import "ZJFShowItemNoPictureVC.h"
+#import "ZJFShowItemVC.h"
 
 @interface ZJFMyShareTableViewController ()
 <UIGestureRecognizerDelegate>
 {
     NSArray *imageKeys;  //用于显示照片时传递
     NSString *imageKey;
+    
+    ZJFShareItem *showItem; //用于segue传递
 }
 
 @end
@@ -35,152 +37,123 @@ static const int numberOfMaxCharacters = 50;
     [self.tableView addLegendHeaderWithRefreshingBlock:^(){
         [[ZJFSNearlyItemStore shareStore] downloadMyShareItemForRefresh];
         [ZJFSNearlyItemStore shareStore].myShareTableViewController = weakSelf;
+
     }];
     
     [self.tableView addLegendFooterWithRefreshingBlock:^(){
         [[ZJFSNearlyItemStore shareStore] downloadMyShareItemAfterRefresh];
         [ZJFSNearlyItemStore shareStore].myShareTableViewController = weakSelf;
     }];
+    
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 150;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    self.tabBarController.tabBar.hidden = YES;
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-}
-
+#pragma mark -tableview datasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [[[ZJFSNearlyItemStore shareStore] myShareItems] count];
+    return [[ZJFSNearlyItemStore shareStore] myShareItems].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    ZJFMyShareItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyShareItem"];
-    
+    ZJFMyShareTC *cell = [tableView dequeueReusableCellWithIdentifier:@"MyShareCell"];
     ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
     
-    cell.placeNameLabel.text = item.placeName;
+    cell.itemDescription.text = item.itemDescription;
+    cell.placeName.text = item.placeName;
     
-    NSString *itemDescription = item.itemDescription;
-    int length = itemDescription.length;
-    
-    NSString *breifDescription = itemDescription; //显示缩减的字符
-    cell.moreDescriptionButton.hidden = YES;
-    cell.moreDescriptionButton.enabled = NO;// 如果字符较少，不需要显示更多按钮
-    
-    if(length > numberOfMaxCharacters){
-        //如果超过50个字符，截取47个字符
-        breifDescription = [itemDescription substringToIndex:(numberOfMaxCharacters-3)];
-        breifDescription = [breifDescription stringByAppendingString:@"..."];
-        cell.moreDescriptionButton.hidden = NO;
-        cell.moreDescriptionButton.enabled = YES;
-    }
-    
-    
-    [cell.itemDescriptionTextView setFont:[UIFont fontWithName:@"Helvetica" size:16]];
-    //   NSLog(@"font name: %@\n", cell.itemDescriptionTextView.font.fontName);
-    
-    cell.itemDescriptionTextView.text = breifDescription;
-    
-    NSArray *thumbnailKeys = [[item thumbnailData] allKeys];
-    
-    if ([thumbnailKeys count] != 0) {
-        //这条信息包含图片
-        
-        //点击图片时可以查看大图的手势按钮
-        
-        for (int i=0; i<[thumbnailKeys count]; i++) {
-            switch (i) {
-                case 0:{
-                    NSData *imageData = [[item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
-                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
-                    
-                    cell.image1.image = image;
-                    cell.image1.tag = 0;
-                    
-                    cell.button1.enabled = YES;
-                    cell.button2.enabled = NO;
-                    cell.button3.enabled = NO;
-                    
-                    // NSLog(@"image1 size wigth: %f, heigth: %f\n",cell.image1.image.size.width,cell.image1.image.size.height);
-                    
-                    cell.image2.image = nil;
-                    cell.image3.image = nil;
-                    break;
-                }
-                case 1:{
-                    NSData *imageData = [[item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
-                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
-                    
-                    cell.image2.image = image;
-                    cell.image2.tag = 1;
-                    
-                    cell.button2.enabled = YES;
-                    
-                    cell.image3.image = nil;
-                    break;
-                }
-                case 2:{
-                    NSData *imageData = [[item thumbnailData] objectForKey:[thumbnailKeys objectAtIndex:i]];
-                    UIImage *image = [UIImage imageWithData:imageData scale:2.0];
-                    
-                    cell.image3.image = image;
-                    cell.image3.tag = 2;
-                    
-                    cell.button3.enabled = YES;
-                    
-                    break;
-                }
-                default:
-                    break;
-            }
-            
-        }
-    } else {
-        //此条信息不包含图片
-        
-        cell.image1.image = nil;
-        cell.image2.image = nil;
-        cell.image3.image = nil;
-        
-        cell.button1.enabled = NO;
-        cell.button2.enabled = NO;
-        cell.button3.enabled = NO;
-        
-        
-    }
+    NSLayoutConstraint *LabelToBottom = [NSLayoutConstraint constraintWithItem:cell
+                                                                     attribute:NSLayoutAttributeBottomMargin
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:cell.itemDescription
+                                                                     attribute:NSLayoutAttributeBottom
+                                                                    multiplier:1
+                                                                      constant:30];
+    [cell addConstraint:LabelToBottom];
     
     return cell;
 }
 
-- (IBAction)showImage:(id)sender {
-    [self performSegueWithIdentifier:@"ShowSharePicture" sender:sender];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
+    
+    CGFloat labelHeight = [self labelHeight:item.itemDescription labelWidth:250];
+    
+    return labelHeight + 50;
+    
 }
 
+#pragma mark -tableview delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
+    showItem = item;
+    
+    NSArray *thumbnails = [[item thumbnailData] allKeys];
+    if (thumbnails.count == 0) {
+        [self performSegueWithIdentifier:@"ShowItemWithNoPictureFromMyShare"  sender:nil];
+    } else {
+        [self performSegueWithIdentifier:@"ShowItemWithPictureFromMyShare" sender:nil];
+    }
+    
+    
+}
+
+#pragma mark -处理页面跳转
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"ShowSharePicture"]) {
-        ZJFDetailPictureViewController *detailPictureViewController = segue.destinationViewController;
-        
-        ZJFMyShareItemTableViewCell *cell = (ZJFMyShareItemTableViewCell *)[[sender superview] superview];
-        
-        NSIndexPath *indexPath = [[self tableView] indexPathForCell:cell];
-        
-        NSLog(@"row: %d\n",[indexPath row]);
-        
-        ZJFShareItem *item = [[[ZJFSNearlyItemStore shareStore] myShareItems] objectAtIndex:[indexPath row]];
-        
-        UIButton *button = (UIButton *)sender;
-        
-        NSString *key = [[[item thumbnailData] allKeys] objectAtIndex:button.tag];
-        
-        detailPictureViewController.imageKey = key;
-        detailPictureViewController.imageStore = item.imageStore;
-        
-        return;
-        
+    if ([segue.identifier isEqualToString:@"ShowItemWithNoPictureFromMyShare"]) {
+        ZJFShowItemNoPictureVC *showItemVC = segue.destinationViewController;
+        showItemVC.item = showItem;
+        showItemVC.sourceVC = @"MyShareVC";
+    } else if ([segue.identifier isEqualToString:@"ShowItemWithPictureFromMyShare"]){
+        ZJFShowItemVC *showItemVC = segue.destinationViewController;
+        showItemVC.item = showItem;
+        showItemVC.sourceVC = @"MyShareVC";
     }
 }
+
+#pragma mark -计算uilabel高度
+
+- (CGFloat)labelHeight:(NSString *)string labelWidth:(float)width{
+
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:string];
+    
+    NSRange allRange = [string rangeOfString:string];
+    [attrStr addAttribute:NSFontAttributeName
+                    value:[UIFont systemFontOfSize:15.0]
+                    range:allRange];
+    [attrStr addAttribute:NSForegroundColorAttributeName
+                    value:[UIColor blackColor]
+                    range:allRange];
+    
+    CGFloat titleHeight;
+    
+    NSStringDrawingOptions options =  NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
+    CGRect rect = [attrStr boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:options context:nil];
+    
+    titleHeight = ceil(rect.size.height);
+    
+    return titleHeight + 2;  // 加两个像素,防止emoji被切掉.
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end

@@ -38,13 +38,6 @@ int const numberOFMaxPictures = 5;
     dictionary = [[NSMutableDictionary alloc] init];
     capturedImages = [[NSMutableArray alloc] init];
     
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    [self.collectionView reloadData];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
-    
     if (self.loginViewController) {  //检测之前是否登录过
         //检测到登录取消了，返回到首页
         if (self.loginViewController.isCancelLogin) {
@@ -54,6 +47,14 @@ int const numberOFMaxPictures = 5;
     } else{
         [self testLogin];
     }
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self.collectionView reloadData];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+    
 }
 
 - (void)testLogin{

@@ -11,5 +11,6 @@
 @interface UIView (UIView_GetSuperView)
 
 - (UITableViewCell *)getCellFromContentviewSubview;
+- (UICollectionViewCell *)getCollectionCellFromSubview;
 
 @end

@@ -12,6 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *headerImage;
 @property (weak, nonatomic) IBOutlet UILabel *userSignature;
+@property (weak, nonatomic) IBOutlet UILabel *nickName;
+@property (weak, nonatomic) IBOutlet UILabel *city;
 
 
 @end
