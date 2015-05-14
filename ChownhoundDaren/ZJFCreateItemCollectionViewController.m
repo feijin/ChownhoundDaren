@@ -295,23 +295,214 @@ int const numberOFMaxPictures = 5;
     [shareItem setObject:locationNameOfItem forKey:@"placeName"];
     
     [shareItem setObject:[AVUser currentUser].username forKey:@"username"];
-     [shareItem setObject:[NSDate date] forKey:@"createDate"];
+    [shareItem setObject:[NSDate date] forKey:@"createDate"];
     
-    [shareItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+    //如果item的description长度小于5，则它不进行相似度查询，因为文本太短，无法确定
+    if (descriptionOfItem.length < 5) {
+        [shareItem setObject:[NSNumber numberWithBool:NO] forKey:@"canFoundSimiliarity"];
+    } else {
+        [shareItem setObject:[NSNumber numberWithBool:YES] forKey:@"canFoundSimiliarity"];
+    }
+    
+    //处理信息中包含的文本，服务器分词、本地计算tf-idf值，然后将结果作为数组保存至shareItem，keyWord 数组中
+    NSDictionary *parameter = @{@"string" : descriptionOfItem};
+    [AVCloud callFunctionInBackground:@"hello" withParameters:parameter block:^(id object, NSError *error){
         if (!error) {
-            NSLog(@"保存完成\n");
+            NSArray *array = (NSArray *)object;  //得到从服务器返回的分词数组
             
-            //保存完成后，刷新数据,将新数据读取到本地
-            [[ZJFSNearlyItemStore shareStore] findSurroundObjectForRefresh];
+            NSDictionary *d = [self compressArray:array];  //对分词数组进行压缩
+            NSLog(@"%@\n",d);
             
-            [capturedImages removeAllObjects];
-            [[self getHeaderView] textViewInHeader].text = nil;
-            [[self getFooterView] textFieldInFooter].text = nil;
+            [self incrementForDictionary:d];  //修改语义词中相应词出现的次数
+            
+            NSArray *wordsTf = [self calculateTf_Idf:d numberOfAll:array.count];  //得到各个分词的tf-idf值
+            for (NSDictionary *dic in wordsTf) {
+                NSLog(@"\nkey: %@\ntf-idf: %@\n",[dic objectForKey:@"key"],[dic objectForKey:@"tf-idf"]);
+            }
+            
+            NSLog(@"---------------\n");
+            
+            NSArray *sortedWordsTf = [self sortArrayByTf_idf:wordsTf];
+            for (NSDictionary *dic in sortedWordsTf) {
+                NSLog(@"\nkey: %@\ntf-idf: %@\n",[dic objectForKey:@"key"],[dic objectForKey:@"tf-idf"]);
+            }
+            
+            NSLog(@"-------------\n");
+            
+            NSArray *keyWordsTf = [self getFirstTenElement:sortedWordsTf];
+            for (NSDictionary *dic in keyWordsTf) {
+                NSLog(@"\nkey: %@\ntf-idf: %@\n",[dic objectForKey:@"key"],[dic objectForKey:@"tf-idf"]);
+            }
+            
+            NSArray *keyWords = [self getKeyWords:keyWordsTf];
+            
+            [shareItem setObject:keyWords forKey:@"keyWords"];  //item中关键词组成的数组，主要用于相似度时查询使用
+            
+            [shareItem setObject:keyWordsTf forKey:@"keyWordWithTF_IDF"];
+            
+            [shareItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+                if (!error) {
+                    NSLog(@"保存完成\n");
+                    
+                    //用户每发布一条信息，将数据库中item的总值加1，即countItem类的count属性加1
+                    AVQuery *queryCount = [AVQuery queryWithClassName:@"countItem"];
+                    [queryCount getFirstObjectInBackgroundWithBlock:^(AVObject *object,NSError *error){
+                        if (!error) {
+                            [object incrementKey:@"count"];
+                        }
+                        
+                        [object saveInBackground];
+                    }];
+                    
+                    //保存完成后，刷新数据,将新数据读取到本地
+                    //            [[ZJFSNearlyItemStore shareStore] findSurroundObjectForRefresh];
+                    
+                    [capturedImages removeAllObjects];
+                    [[self getHeaderView] textViewInHeader].text = nil;
+                    [[self getFooterView] textFieldInFooter].text = nil;
+                    
+                    
+                } else {
+                    NSLog(@"%@\n",[error description]);
+                }
+            }];
             
         } else {
-            NSLog(@"%@\n",[error description]);
+            NSLog(@"call function error: %@\n",[error description]);
         }
     }];
+}
+
+#pragma mark -处理从服务器返回的分词
+
+- (NSArray *)getKeyWords:(NSArray *)array{
+    //得到array中包含的关键词数组
+
+    NSMutableArray *keyWords = [NSMutableArray array];
+    
+    for (NSDictionary *dic in array) {
+        [keyWords addObject:[dic objectForKey:@"key"]];
+    }
+    
+    return keyWords;
+}
+
+- (NSArray *)getFirstTenElement:(NSArray *)array{
+    //如果该数组长度长于10，取前10个元素
+    
+    NSMutableArray *firstTenArray = [NSMutableArray array];
+    if(array.count > 10){
+        for (int i=0; i<10; i++) {
+            [firstTenArray addObject:[array objectAtIndex:i]];
+        }
+        
+        return firstTenArray;
+    } else{
+        return array;
+    }
+}
+
+- (NSArray *)sortArrayByTf_idf:(NSArray *)array{
+    //根据每项字典中的tf值对数组进行排序
+    NSArray *sortedArray = [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2){
+        NSComparisonResult result = [[obj2 objectForKey:@"tf-idf"] compare:[obj1 objectForKey:@"tf-idf"]];
+        return result;
+    }];
+    
+    return sortedArray;
+}
+
+
+- (NSArray *)calculateTf_Idf:(NSDictionary *)dic numberOfAll:(int)keyCounts{
+    //返回一个数组，该数组包含所有的词和对应的tf-idf值
+    AVQuery *queryCount = [AVQuery queryWithClassName:@"countItem"];
+    AVObject *object = [queryCount getFirstObject];
+    double allItemCount = [[object objectForKey:@"count"] doubleValue];
+    
+    NSMutableArray *keyWords = [NSMutableArray array];
+    
+    NSArray *keys = [dic allKeys];
+    
+    for (NSString *key in keys) {
+        //得到该词在word_library类中的值，即在语义库中出现的次数
+        AVQuery *queryWord = [AVQuery queryWithClassName:@"word_library"];
+        [queryWord whereKey:@"word" equalTo:key];
+        AVObject *wordObject = [queryWord getFirstObject];
+        double wordCount = [[wordObject objectForKey:@"count"] doubleValue];
+
+        
+        //词频(tf) = 某个词在文章中出现的次数/该文章总词数
+        double tf = [[dic objectForKey:key] doubleValue] / keyCounts;
+        //idf = 语料库中文档总数 / 包含该词的文档书 + 1，然后求他的自然对数
+        double idf = log((allItemCount+1)/ (wordCount+1));  //防止分母分子为零
+        
+        double tf_idf = tf * idf;
+        
+        //数组每项为一个字典，该字典有两个键，key 和 tf-idf，分别对应着word以及该word的tf-idf值
+        [keyWords addObject:@{@"key": key ,@"tf-idf": [NSNumber numberWithDouble:tf_idf]}];
+    }
+    
+    
+    return keyWords;
+}
+
+
+- (NSDictionary *)compressArray:(NSArray *)array {
+    //数组中含有重复词组，合并
+    NSMutableDictionary *KeyWords = [[NSMutableDictionary alloc] init];
+    NSMutableArray *keyArray = [[NSMutableArray alloc] init];
+    
+    for (NSString *word in array) {
+        if ([self isContainInArray:keyArray withString:word]) {
+            //字典中已经有该词为键的项
+            
+            double i = [[KeyWords objectForKey:word] doubleValue];
+            [KeyWords removeObjectForKey:word];
+            [KeyWords setObject:[NSNumber numberWithDouble:i+1] forKey:word];
+        } else {
+            //字典中没有包含该项，则以该词新建一个键
+            
+            [KeyWords setObject:[NSNumber numberWithDouble:1.0] forKey:word];
+            [keyArray addObject:word];
+        }
+    }
+    
+    return KeyWords;  //返回的字典中，包含所有的分词，以及他们的出现频率
+}
+
+//根据字典中对应的词语，修改word_library类中该词的count属性值，即加1
+- (void)incrementForDictionary:(NSDictionary *)dic{
+    NSArray *keys = [dic allKeys];
+    for (NSString *key in keys) {
+        //查找是否已经包含此词语
+        
+        AVQuery *query = [AVQuery queryWithClassName:@"word_library"];
+        [query whereKey:@"word" equalTo:key];
+        [query getFirstObjectInBackgroundWithBlock:^(AVObject *object, NSError *error){
+            if (object == nil) {
+                //类库中尚未包含该词，将该词作为新的项加入
+                
+                AVObject *object = [AVObject objectWithClassName:@"word_library"];
+                [object setObject:key forKey:@"word"];
+                [object setObject:[NSNumber numberWithInt:1] forKey:@"count"];
+                [object saveInBackground];
+            } else {
+                [object incrementKey:@"count"];
+                [object saveInBackground];
+            }
+        }];
+    }
+}
+
+- (BOOL)isContainInArray:(NSArray *)array  withString:(NSString *)string{
+    //检测string是否包含在array中
+    for (NSString *key in array) {
+        if ([key isEqualToString:string]) {
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 
